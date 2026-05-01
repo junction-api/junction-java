@@ -1,0 +1,18 @@
+{
+  "cliVersion": "5.5.1",
+  "generatorName": "fernapi/fern-java-sdk",
+  "generatorVersion": "4.6.1",
+  "generatorConfig": {
+    "package-prefix": "com.junction.api",
+    "publish-to": "central",
+    "base-api-exception-class-name": "ApiError",
+    "client-class-name": "Junction",
+    "enable-forward-compatible-enums": true
+  },
+  "originGitCommit": "05d79dd6ce370cbd029417f59eb71c056d94aa61",
+  "originGitCommitIsDirty": true,
+  "invokedBy": "ci",
+  "requestedVersion": "AUTO",
+  "ciProvider": "unknown",
+  "sdkVersion": "0.0.1"
+}
