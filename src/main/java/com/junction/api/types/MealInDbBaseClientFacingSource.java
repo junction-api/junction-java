@@ -37,6 +37,8 @@ public final class MealInDbBaseClientFacingSource {
 
     private final OffsetDateTime timestamp;
 
+    private final String calendarDate;
+
     private final String name;
 
     private final Optional<Energy> energy;
@@ -66,6 +68,7 @@ public final class MealInDbBaseClientFacingSource {
             int sourceId,
             String providerId,
             OffsetDateTime timestamp,
+            String calendarDate,
             String name,
             Optional<Energy> energy,
             Optional<Macros> macros,
@@ -83,6 +86,7 @@ public final class MealInDbBaseClientFacingSource {
         this.sourceId = sourceId;
         this.providerId = providerId;
         this.timestamp = timestamp;
+        this.calendarDate = calendarDate;
         this.name = name;
         this.energy = energy;
         this.macros = macros;
@@ -133,6 +137,14 @@ public final class MealInDbBaseClientFacingSource {
     @JsonProperty("timestamp")
     public OffsetDateTime getTimestamp() {
         return timestamp;
+    }
+
+    /**
+     * @return Date of the meal in the YYYY-mm-dd format. For providers that only expose a date, this is the calendar date as recorded by the user.
+     */
+    @JsonProperty("calendar_date")
+    public String getCalendarDate() {
+        return calendarDate;
     }
 
     @JsonProperty("name")
@@ -248,6 +260,7 @@ public final class MealInDbBaseClientFacingSource {
                 && sourceId == other.sourceId
                 && providerId.equals(other.providerId)
                 && timestamp.equals(other.timestamp)
+                && calendarDate.equals(other.calendarDate)
                 && name.equals(other.name)
                 && energy.equals(other.energy)
                 && macros.equals(other.macros)
@@ -269,6 +282,7 @@ public final class MealInDbBaseClientFacingSource {
                 this.sourceId,
                 this.providerId,
                 this.timestamp,
+                this.calendarDate,
                 this.name,
                 this.energy,
                 this.macros,
@@ -322,7 +336,14 @@ public final class MealInDbBaseClientFacingSource {
     }
 
     public interface TimestampStage {
-        NameStage timestamp(@NotNull OffsetDateTime timestamp);
+        CalendarDateStage timestamp(@NotNull OffsetDateTime timestamp);
+    }
+
+    public interface CalendarDateStage {
+        /**
+         * <p>Date of the meal in the YYYY-mm-dd format. For providers that only expose a date, this is the calendar date as recorded by the user.</p>
+         */
+        NameStage calendarDate(@NotNull String calendarDate);
     }
 
     public interface NameStage {
@@ -391,6 +412,7 @@ public final class MealInDbBaseClientFacingSource {
                     SourceIdStage,
                     ProviderIdStage,
                     TimestampStage,
+                    CalendarDateStage,
                     NameStage,
                     SourceStage,
                     CreatedAtStage,
@@ -407,6 +429,8 @@ public final class MealInDbBaseClientFacingSource {
         private String providerId;
 
         private OffsetDateTime timestamp;
+
+        private String calendarDate;
 
         private String name;
 
@@ -441,6 +465,7 @@ public final class MealInDbBaseClientFacingSource {
             sourceId(other.getSourceId());
             providerId(other.getProviderId());
             timestamp(other.getTimestamp());
+            calendarDate(other.getCalendarDate());
             name(other.getName());
             energy(other.getEnergy());
             macros(other.getMacros());
@@ -506,8 +531,20 @@ public final class MealInDbBaseClientFacingSource {
 
         @java.lang.Override
         @JsonSetter("timestamp")
-        public NameStage timestamp(@NotNull OffsetDateTime timestamp) {
+        public CalendarDateStage timestamp(@NotNull OffsetDateTime timestamp) {
             this.timestamp = Objects.requireNonNull(timestamp, "timestamp must not be null");
+            return this;
+        }
+
+        /**
+         * <p>Date of the meal in the YYYY-mm-dd format. For providers that only expose a date, this is the calendar date as recorded by the user.</p>
+         * <p>Date of the meal in the YYYY-mm-dd format. For providers that only expose a date, this is the calendar date as recorded by the user.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        @JsonSetter("calendar_date")
+        public NameStage calendarDate(@NotNull String calendarDate) {
+            this.calendarDate = Objects.requireNonNull(calendarDate, "calendarDate must not be null");
             return this;
         }
 
@@ -686,6 +723,7 @@ public final class MealInDbBaseClientFacingSource {
                     sourceId,
                     providerId,
                     timestamp,
+                    calendarDate,
                     name,
                     energy,
                     macros,
