@@ -29,6 +29,10 @@ public final class LabReportResult {
 
     private final String value;
 
+    private final Optional<LabReportResultSampleType> sampleType;
+
+    private final Optional<LabReportResultMeasurementKind> measurementKind;
+
     private final Optional<LabReportResultType> type;
 
     private final Optional<String> units;
@@ -52,6 +56,8 @@ public final class LabReportResult {
     private LabReportResult(
             String testName,
             String value,
+            Optional<LabReportResultSampleType> sampleType,
+            Optional<LabReportResultMeasurementKind> measurementKind,
             Optional<LabReportResultType> type,
             Optional<String> units,
             Optional<Double> maxReferenceRange,
@@ -64,6 +70,8 @@ public final class LabReportResult {
             Map<String, Object> additionalProperties) {
         this.testName = testName;
         this.value = value;
+        this.sampleType = sampleType;
+        this.measurementKind = measurementKind;
         this.type = type;
         this.units = units;
         this.maxReferenceRange = maxReferenceRange;
@@ -84,6 +92,22 @@ public final class LabReportResult {
     @JsonProperty("value")
     public String getValue() {
         return value;
+    }
+
+    /**
+     * @return ℹ️ This enum is non-exhaustive.
+     */
+    @JsonProperty("sample_type")
+    public Optional<LabReportResultSampleType> getSampleType() {
+        return sampleType;
+    }
+
+    /**
+     * @return ℹ️ This enum is non-exhaustive.
+     */
+    @JsonProperty("measurement_kind")
+    public Optional<LabReportResultMeasurementKind> getMeasurementKind() {
+        return measurementKind;
     }
 
     /**
@@ -232,6 +256,8 @@ public final class LabReportResult {
     private boolean equalTo(LabReportResult other) {
         return testName.equals(other.testName)
                 && value.equals(other.value)
+                && sampleType.equals(other.sampleType)
+                && measurementKind.equals(other.measurementKind)
                 && type.equals(other.type)
                 && units.equals(other.units)
                 && maxReferenceRange.equals(other.maxReferenceRange)
@@ -248,6 +274,8 @@ public final class LabReportResult {
         return Objects.hash(
                 this.testName,
                 this.value,
+                this.sampleType,
+                this.measurementKind,
                 this.type,
                 this.units,
                 this.maxReferenceRange,
@@ -284,6 +312,20 @@ public final class LabReportResult {
         _FinalStage additionalProperty(String key, Object value);
 
         _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
+        /**
+         * <p>ℹ️ This enum is non-exhaustive.</p>
+         */
+        _FinalStage sampleType(Optional<LabReportResultSampleType> sampleType);
+
+        _FinalStage sampleType(LabReportResultSampleType sampleType);
+
+        /**
+         * <p>ℹ️ This enum is non-exhaustive.</p>
+         */
+        _FinalStage measurementKind(Optional<LabReportResultMeasurementKind> measurementKind);
+
+        _FinalStage measurementKind(LabReportResultMeasurementKind measurementKind);
 
         /**
          * <p>ℹ️ This enum is non-exhaustive.</p>
@@ -370,6 +412,10 @@ public final class LabReportResult {
 
         private Optional<LabReportResultType> type = Optional.empty();
 
+        private Optional<LabReportResultMeasurementKind> measurementKind = Optional.empty();
+
+        private Optional<LabReportResultSampleType> sampleType = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -379,6 +425,8 @@ public final class LabReportResult {
         public Builder from(LabReportResult other) {
             testName(other.getTestName());
             value(other.getValue());
+            sampleType(other.getSampleType());
+            measurementKind(other.getMeasurementKind());
             type(other.getType());
             units(other.getUnits());
             maxReferenceRange(other.getMaxReferenceRange());
@@ -652,11 +700,53 @@ public final class LabReportResult {
             return this;
         }
 
+        /**
+         * <p>ℹ️ This enum is non-exhaustive.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage measurementKind(LabReportResultMeasurementKind measurementKind) {
+            this.measurementKind = Optional.ofNullable(measurementKind);
+            return this;
+        }
+
+        /**
+         * <p>ℹ️ This enum is non-exhaustive.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "measurement_kind", nulls = Nulls.SKIP)
+        public _FinalStage measurementKind(Optional<LabReportResultMeasurementKind> measurementKind) {
+            this.measurementKind = measurementKind;
+            return this;
+        }
+
+        /**
+         * <p>ℹ️ This enum is non-exhaustive.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage sampleType(LabReportResultSampleType sampleType) {
+            this.sampleType = Optional.ofNullable(sampleType);
+            return this;
+        }
+
+        /**
+         * <p>ℹ️ This enum is non-exhaustive.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "sample_type", nulls = Nulls.SKIP)
+        public _FinalStage sampleType(Optional<LabReportResultSampleType> sampleType) {
+            this.sampleType = sampleType;
+            return this;
+        }
+
         @java.lang.Override
         public LabReportResult build() {
             return new LabReportResult(
                     testName,
                     value,
+                    sampleType,
+                    measurementKind,
                     type,
                     units,
                     maxReferenceRange,

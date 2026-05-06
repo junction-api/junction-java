@@ -4,13 +4,13 @@
 package com.junction.api.core;
 
 public final class Environment {
-    public static final Environment PRODUCTION = new Environment("https://api.tryvital.io");
+    public static final Environment PRODUCTION = new Environment("https://api.us.junction.com");
 
-    public static final Environment PRODUCTION_EU = new Environment("https://api.eu.tryvital.io");
+    public static final Environment PRODUCTION_EU = new Environment("https://api.eu.junction.com");
 
-    public static final Environment SANDBOX = new Environment("https://api.sandbox.tryvital.io");
+    public static final Environment SANDBOX = new Environment("https://api.sandbox.us.junction.com");
 
-    public static final Environment SANDBOX_EU = new Environment("https://api.sandbox.eu.tryvital.io");
+    public static final Environment SANDBOX_EU = new Environment("https://api.sandbox.eu.junction.com");
 
     private final String url;
 
