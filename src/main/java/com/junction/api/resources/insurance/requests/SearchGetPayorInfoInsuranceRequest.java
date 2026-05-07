@@ -8,10 +8,12 @@ import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.junction.api.core.Nullable;
+import com.junction.api.core.NullableNonemptyFilter;
 import com.junction.api.core.ObjectMappers;
 import com.junction.api.types.PayorCodeExternalProvider;
 import java.util.HashMap;
@@ -62,6 +64,24 @@ public final class SearchGetPayorInfoInsuranceRequest {
         if (providerPayorId == null) {
             return Optional.empty();
         }
+        return providerPayorId;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("insurance_name")
+    private Optional<String> _getInsuranceName() {
+        return insuranceName;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("provider")
+    private Optional<PayorCodeExternalProvider> _getProvider() {
+        return provider;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("provider_payor_id")
+    private Optional<String> _getProviderPayorId() {
         return providerPayorId;
     }
 

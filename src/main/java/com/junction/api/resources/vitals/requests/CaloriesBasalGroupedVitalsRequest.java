@@ -8,10 +8,12 @@ import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.junction.api.core.Nullable;
+import com.junction.api.core.NullableNonemptyFilter;
 import com.junction.api.core.ObjectMappers;
 import java.util.HashMap;
 import java.util.Map;
@@ -85,7 +87,7 @@ public final class CaloriesBasalGroupedVitalsRequest {
     /**
      * @return Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
      */
-    @JsonIgnore
+    @JsonProperty("start_date")
     public String getStartDate() {
         return startDate;
     }
@@ -98,6 +100,30 @@ public final class CaloriesBasalGroupedVitalsRequest {
         if (endDate == null) {
             return Optional.empty();
         }
+        return endDate;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("cursor")
+    private Optional<String> _getCursor() {
+        return cursor;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("next_cursor")
+    private Optional<String> _getNextCursor() {
+        return nextCursor;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("provider")
+    private Optional<String> _getProvider() {
+        return provider;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("end_date")
+    private Optional<String> _getEndDate() {
         return endDate;
     }
 

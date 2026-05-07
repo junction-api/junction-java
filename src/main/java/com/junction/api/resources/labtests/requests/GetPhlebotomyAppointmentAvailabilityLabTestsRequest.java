@@ -13,6 +13,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.junction.api.core.Nullable;
+import com.junction.api.core.NullableNonemptyFilter;
 import com.junction.api.core.ObjectMappers;
 import com.junction.api.types.UsAddress;
 import java.util.HashMap;
@@ -54,6 +55,12 @@ public final class GetPhlebotomyAppointmentAvailabilityLabTestsRequest {
     @JsonProperty("body")
     public UsAddress getBody() {
         return body;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("start_date")
+    private Optional<String> _getStartDate() {
+        return startDate;
     }
 
     @java.lang.Override

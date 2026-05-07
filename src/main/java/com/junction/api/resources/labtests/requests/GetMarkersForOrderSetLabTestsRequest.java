@@ -13,6 +13,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.junction.api.core.Nullable;
+import com.junction.api.core.NullableNonemptyFilter;
 import com.junction.api.core.ObjectMappers;
 import com.junction.api.types.OrderSetRequest;
 import java.util.HashMap;
@@ -62,6 +63,18 @@ public final class GetMarkersForOrderSetLabTestsRequest {
     @JsonProperty("body")
     public OrderSetRequest getBody() {
         return body;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("page")
+    private Optional<Integer> _getPage() {
+        return page;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("size")
+    private Optional<Integer> _getSize() {
+        return size;
     }
 
     @java.lang.Override

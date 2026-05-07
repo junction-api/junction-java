@@ -8,10 +8,12 @@ import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.junction.api.core.Nullable;
+import com.junction.api.core.NullableNonemptyFilter;
 import com.junction.api.core.ObjectMappers;
 import com.junction.api.resources.labtests.types.GetOrdersLabTestsRequestOrderDirection;
 import com.junction.api.resources.labtests.types.GetOrdersLabTestsRequestOrderKey;
@@ -313,6 +315,120 @@ public final class GetOrdersLabTestsRequest {
         if (size == null) {
             return Optional.empty();
         }
+        return size;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("status")
+    private Optional<List<OrderLowLevelStatus>> _getStatus() {
+        return status;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("order_type")
+    private Optional<List<LabTestCollectionMethod>> _getOrderType() {
+        return orderType;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("order_activation_types")
+    private Optional<List<OrderActivationType>> _getOrderActivationTypes() {
+        return orderActivationTypes;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("order_ids")
+    private Optional<List<String>> _getOrderIds() {
+        return orderIds;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("search_input")
+    private Optional<String> _getSearchInput() {
+        return searchInput;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("start_date")
+    private Optional<OffsetDateTime> _getStartDate() {
+        return startDate;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("end_date")
+    private Optional<OffsetDateTime> _getEndDate() {
+        return endDate;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("updated_start_date")
+    private Optional<OffsetDateTime> _getUpdatedStartDate() {
+        return updatedStartDate;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("updated_end_date")
+    private Optional<OffsetDateTime> _getUpdatedEndDate() {
+        return updatedEndDate;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("order_key")
+    private Optional<GetOrdersLabTestsRequestOrderKey> _getOrderKey() {
+        return orderKey;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("order_direction")
+    private Optional<GetOrdersLabTestsRequestOrderDirection> _getOrderDirection() {
+        return orderDirection;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("is_critical")
+    private Optional<Boolean> _getIsCritical() {
+        return isCritical;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("interpretation")
+    private Optional<Interpretation> _getInterpretation() {
+        return interpretation;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("user_id")
+    private Optional<String> _getUserId() {
+        return userId;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("patient_name")
+    private Optional<String> _getPatientName() {
+        return patientName;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("shipping_recipient_name")
+    private Optional<String> _getShippingRecipientName() {
+        return shippingRecipientName;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("order_transaction_id")
+    private Optional<String> _getOrderTransactionId() {
+        return orderTransactionId;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("page")
+    private Optional<Integer> _getPage() {
+        return page;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("size")
+    private Optional<Integer> _getSize() {
         return size;
     }
 
