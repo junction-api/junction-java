@@ -69,6 +69,18 @@ public final class SimulateOrderProcessLabTestsRequest {
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("final_status")
+    private Optional<OrderStatus> _getFinalStatus() {
+        return finalStatus;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("delay")
+    private Optional<Integer> _getDelay() {
+        return delay;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("body")
     private Optional<SimulationFlags> _getBody() {
         return body;

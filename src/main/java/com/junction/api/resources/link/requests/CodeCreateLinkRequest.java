@@ -8,10 +8,12 @@ import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.junction.api.core.Nullable;
+import com.junction.api.core.NullableNonemptyFilter;
 import com.junction.api.core.ObjectMappers;
 import java.time.OffsetDateTime;
 import java.util.HashMap;
@@ -36,7 +38,7 @@ public final class CodeCreateLinkRequest {
         this.additionalProperties = additionalProperties;
     }
 
-    @JsonIgnore
+    @JsonProperty("user_id")
     public String getUserId() {
         return userId;
     }
@@ -49,6 +51,12 @@ public final class CodeCreateLinkRequest {
         if (expiresAt == null) {
             return Optional.empty();
         }
+        return expiresAt;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("expires_at")
+    private Optional<OffsetDateTime> _getExpiresAt() {
         return expiresAt;
     }
 

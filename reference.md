@@ -10656,10 +10656,10 @@ client.labTests().get(
     GetLabTestsRequest
         .builder()
         .markerIds(
-            Arrays.asList(Optional.of(1))
+            Arrays.asList(1)
         )
         .providerIds(
-            Arrays.asList(Optional.of("provider_ids"))
+            Arrays.asList("provider_ids")
         )
         .generationMethod(LabTestGenerationMethodFilter.AUTO)
         .labSlug("lab_slug")
@@ -11023,7 +11023,7 @@ client.labTests().getMarkers(
     GetMarkersLabTestsRequest
         .builder()
         .labId(
-            Arrays.asList(Optional.of(1))
+            Arrays.asList(1)
         )
         .labSlug("lab_slug")
         .name("name")
@@ -11407,10 +11407,10 @@ client.labTests().getPaginated(
     GetPaginatedLabTestsRequest
         .builder()
         .markerIds(
-            Arrays.asList(Optional.of(1))
+            Arrays.asList(1)
         )
         .providerIds(
-            Arrays.asList(Optional.of("provider_ids"))
+            Arrays.asList("provider_ids")
         )
         .labTestLimit(1)
         .nextCursor("next_cursor")
@@ -11605,16 +11605,16 @@ client.labTests().getOrders(
     GetOrdersLabTestsRequest
         .builder()
         .status(
-            Arrays.asList(Optional.of(OrderLowLevelStatus.ORDERED))
+            Arrays.asList(OrderLowLevelStatus.ORDERED)
         )
         .orderType(
-            Arrays.asList(Optional.of(LabTestCollectionMethod.TESTKIT))
+            Arrays.asList(LabTestCollectionMethod.TESTKIT)
         )
         .orderActivationTypes(
-            Arrays.asList(Optional.of(OrderActivationType.CURRENT))
+            Arrays.asList(OrderActivationType.CURRENT)
         )
         .orderIds(
-            Arrays.asList(Optional.of("order_ids"))
+            Arrays.asList("order_ids")
         )
         .searchInput("search_input")
         .startDate(OffsetDateTime.parse("2024-01-15T09:30:00Z"))
@@ -12329,7 +12329,7 @@ client.labTests().getAreaInfo(
         .builder()
         .zipCode("zip_code")
         .labs(
-            Arrays.asList(Optional.of(ClientFacingLabs.QUEST))
+            Arrays.asList(ClientFacingLabs.QUEST)
         )
         .radius(AllowedRadius.TEN)
         .lab(ClientFacingLabs.QUEST)
@@ -12413,7 +12413,7 @@ client.labTests().getPscInfo(
         .zipCode("zip_code")
         .labId(1)
         .capabilities(
-            Arrays.asList(Optional.of(LabLocationCapability.STAT))
+            Arrays.asList(LabLocationCapability.STAT)
         )
         .radius(AllowedRadius.TEN)
         .labAccountId("lab_account_id")
@@ -12495,7 +12495,7 @@ client.labTests().getOrderPscInfo(
     GetOrderPscInfoLabTestsRequest
         .builder()
         .capabilities(
-            Arrays.asList(Optional.of(LabLocationCapability.STAT))
+            Arrays.asList(LabLocationCapability.STAT)
         )
         .radius(AllowedRadius.TEN)
         .build()
@@ -12814,7 +12814,7 @@ client.labTests().getPscAppointmentAvailability(
         .builder()
         .lab(AppointmentPscLabs.QUEST)
         .siteCodes(
-            Arrays.asList(Optional.of("site_codes"))
+            Arrays.asList("site_codes")
         )
         .startDate("start_date")
         .zipCode("zip_code")
@@ -14941,6 +14941,7 @@ and starts the ParseLabReport. Returns a generated job_id.
 
 ```java
 client.labReport().parserCreateJob(
+    null,
     CreateLabReportParserJobBody
         .builder()
         .userId("user_id")

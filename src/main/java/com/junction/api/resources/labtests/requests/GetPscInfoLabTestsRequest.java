@@ -8,10 +8,12 @@ import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.junction.api.core.Nullable;
+import com.junction.api.core.NullableNonemptyFilter;
 import com.junction.api.core.ObjectMappers;
 import com.junction.api.types.AllowedRadius;
 import com.junction.api.types.LabLocationCapability;
@@ -67,7 +69,7 @@ public final class GetPscInfoLabTestsRequest {
     /**
      * @return Zip code of the area to check
      */
-    @JsonIgnore
+    @JsonProperty("zip_code")
     public String getZipCode() {
         return zipCode;
     }
@@ -75,7 +77,7 @@ public final class GetPscInfoLabTestsRequest {
     /**
      * @return Lab ID to check for PSCs
      */
-    @JsonIgnore
+    @JsonProperty("lab_id")
     public int getLabId() {
         return labId;
     }
@@ -99,6 +101,24 @@ public final class GetPscInfoLabTestsRequest {
         if (labAccountId == null) {
             return Optional.empty();
         }
+        return labAccountId;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("capabilities")
+    private Optional<List<LabLocationCapability>> _getCapabilities() {
+        return capabilities;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("radius")
+    private Optional<AllowedRadius> _getRadius() {
+        return radius;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("lab_account_id")
+    private Optional<String> _getLabAccountId() {
         return labAccountId;
     }
 

@@ -8,10 +8,12 @@ import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.junction.api.core.Nullable;
+import com.junction.api.core.NullableNonemptyFilter;
 import com.junction.api.core.ObjectMappers;
 import com.junction.api.types.AllowedRadius;
 import com.junction.api.types.AppointmentPscLabs;
@@ -71,7 +73,7 @@ public final class GetPscAppointmentAvailabilityLabTestsRequest {
     /**
      * @return Lab to check for availability
      */
-    @JsonIgnore
+    @JsonProperty("lab")
     public AppointmentPscLabs getLab() {
         return lab;
     }
@@ -117,6 +119,36 @@ public final class GetPscAppointmentAvailabilityLabTestsRequest {
         if (allowStale == null) {
             return Optional.empty();
         }
+        return allowStale;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("site_codes")
+    private Optional<List<String>> _getSiteCodes() {
+        return siteCodes;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("start_date")
+    private Optional<String> _getStartDate() {
+        return startDate;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("zip_code")
+    private Optional<String> _getZipCode() {
+        return zipCode;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("radius")
+    private Optional<AllowedRadius> _getRadius() {
+        return radius;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("allow_stale")
+    private Optional<Boolean> _getAllowStale() {
         return allowStale;
     }
 

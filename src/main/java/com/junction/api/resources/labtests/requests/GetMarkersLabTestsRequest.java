@@ -8,10 +8,12 @@ import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.junction.api.core.Nullable;
+import com.junction.api.core.NullableNonemptyFilter;
 import com.junction.api.core.ObjectMappers;
 import java.util.Collections;
 import java.util.HashMap;
@@ -123,6 +125,48 @@ public final class GetMarkersLabTestsRequest {
         if (size == null) {
             return Optional.empty();
         }
+        return size;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("lab_id")
+    private Optional<List<Integer>> _getLabId() {
+        return labId;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("lab_slug")
+    private Optional<String> _getLabSlug() {
+        return labSlug;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("name")
+    private Optional<String> _getName() {
+        return name;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("a_la_carte_enabled")
+    private Optional<Boolean> _getALaCarteEnabled() {
+        return aLaCarteEnabled;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("lab_account_id")
+    private Optional<String> _getLabAccountId() {
+        return labAccountId;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("page")
+    private Optional<Integer> _getPage() {
+        return page;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("size")
+    private Optional<Integer> _getSize() {
         return size;
     }
 

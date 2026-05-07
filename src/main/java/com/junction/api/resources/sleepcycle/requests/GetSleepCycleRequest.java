@@ -8,10 +8,12 @@ import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.junction.api.core.Nullable;
+import com.junction.api.core.NullableNonemptyFilter;
 import com.junction.api.core.ObjectMappers;
 import java.util.HashMap;
 import java.util.Map;
@@ -41,7 +43,7 @@ public final class GetSleepCycleRequest {
         this.additionalProperties = additionalProperties;
     }
 
-    @JsonIgnore
+    @JsonProperty("start_date")
     public String getStartDate() {
         return startDate;
     }
@@ -62,6 +64,18 @@ public final class GetSleepCycleRequest {
         if (provider == null) {
             return Optional.empty();
         }
+        return provider;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("end_date")
+    private Optional<String> _getEndDate() {
+        return endDate;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("provider")
+    private Optional<String> _getProvider() {
         return provider;
     }
 

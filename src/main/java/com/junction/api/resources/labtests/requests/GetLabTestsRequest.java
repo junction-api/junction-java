@@ -8,10 +8,12 @@ import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.junction.api.core.Nullable;
+import com.junction.api.core.NullableNonemptyFilter;
 import com.junction.api.core.ObjectMappers;
 import com.junction.api.resources.labtests.types.GetLabTestsRequestOrderDirection;
 import com.junction.api.resources.labtests.types.GetLabTestsRequestOrderKey;
@@ -161,6 +163,60 @@ public final class GetLabTestsRequest {
         if (orderDirection == null) {
             return Optional.empty();
         }
+        return orderDirection;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("marker_ids")
+    private Optional<List<Integer>> _getMarkerIds() {
+        return markerIds;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("provider_ids")
+    private Optional<List<String>> _getProviderIds() {
+        return providerIds;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("generation_method")
+    private Optional<LabTestGenerationMethodFilter> _getGenerationMethod() {
+        return generationMethod;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("lab_slug")
+    private Optional<String> _getLabSlug() {
+        return labSlug;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("collection_method")
+    private Optional<LabTestCollectionMethod> _getCollectionMethod() {
+        return collectionMethod;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("status")
+    private Optional<LabTestStatus> _getStatus() {
+        return status;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("name")
+    private Optional<String> _getName() {
+        return name;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("order_key")
+    private Optional<GetLabTestsRequestOrderKey> _getOrderKey() {
+        return orderKey;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("order_direction")
+    private Optional<GetLabTestsRequestOrderDirection> _getOrderDirection() {
         return orderDirection;
     }
 
