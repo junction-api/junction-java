@@ -1,3 +1,8 @@
+## 1.1.0 - 2026-05-15
+### Added
+* **`LabReportResultLoincMatchStatus`** — new enum type with values `AUTO_MATCH`, `NEEDS_REVIEW`, `NO_MATCH`, and `UNKNOWN` representing the LOINC matching status of a lab result.
+* **`LabReportResult.getLoincMatchStatus()`** — new optional field and builder methods on `LabReportResult` exposing the LOINC match status, with full `Optional`, raw value, and `Nullable` builder overloads.
+
 ## 1.0.1 - 2026-05-07
 * fix: fix request field serialization across all request types
 * Previously, required fields like `start_date`, `zip_code`, `lab_id`,
