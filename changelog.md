@@ -1,3 +1,7 @@
+## 1.0.2 - 2026-05-18
+* SDK regeneration
+* Unable to analyze changes with AI, incrementing PATCH version.
+
 ## 1.0.1 - 2026-05-07
 * fix: fix request field serialization across all request types
 * Previously, required fields like `start_date`, `zip_code`, `lab_id`,
