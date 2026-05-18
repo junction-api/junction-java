@@ -1,3 +1,10 @@
+## 1.1.0 - 2026-05-18
+### Added
+* **`updateOrder`** — new method on `LabTestsClient` and `AsyncLabTestsClient` (and their raw variants) to update a modifiable order's scheduled activation date via `PATCH v3/order/{orderId}`.
+* **`UpdateOrderBody`** — new request class with an optional `activateBy` field and a fluent builder, used to reschedule or clear an order's dispatch date.
+* **`LabReportResult.getLoincMatchStatus()`** — new optional `loincMatchStatus` field (type `LabReportResultLoincMatchStatus`) on `LabReportResult`, with corresponding builder methods.
+* **`LabReportResultLoincMatchStatus`** — new enum representing the LOINC match status of a lab report result, with values `NEEDS_REVIEW`, `AUTO_MATCH`, `NO_MATCH`, and an `UNKNOWN` fallback for forward compatibility.
+
 ## 1.0.1 - 2026-05-07
 * fix: fix request field serialization across all request types
 * Previously, required fields like `start_date`, `zip_code`, `lab_id`,
