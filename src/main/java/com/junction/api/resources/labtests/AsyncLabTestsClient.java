@@ -42,6 +42,7 @@ import com.junction.api.resources.labtests.requests.ReschedulePscAppointmentLabT
 import com.junction.api.resources.labtests.requests.SimulateOrderProcessLabTestsRequest;
 import com.junction.api.resources.labtests.requests.UpdateLabTestRequest;
 import com.junction.api.resources.labtests.requests.UpdateOnSiteCollectionOrderDrawCompletedLabTestsRequest;
+import com.junction.api.resources.labtests.requests.UpdateOrderBody;
 import com.junction.api.resources.labtests.requests.ValidateIcdCodesBody;
 import com.junction.api.resources.labtests.requests.VitalCoreClientsLabTestGetlabsSchemaAppointmentCancelRequest;
 import com.junction.api.types.AppointmentAvailabilitySlots;
@@ -932,6 +933,75 @@ public class AsyncLabTestsClient {
     public CompletableFuture<ClientFacingOrder> getOrder(
             String orderId, GetOrderLabTestsRequest request, RequestOptions requestOptions) {
         return this.rawClient.getOrder(orderId, request, requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Update a modifiable order's scheduled activation date.
+     * <p>The order must be in <code>ordered</code> or <code>awaiting_registration</code> status. Setting
+     * <code>activate_by</code> to a future date reschedules dispatch; setting it to <code>null</code>
+     * clears the schedule and enqueues immediate dispatch for <code>ordered</code> orders.</p>
+     * <p>Returns 400 when:</p>
+     * <ul>
+     * <li>the order is not in a modifiable status,</li>
+     * <li>the order was created for immediate processing (cannot be scheduled
+     * after the fact),</li>
+     * <li><code>activate_by</code> is in the past.</li>
+     * </ul>
+     */
+    public CompletableFuture<PostOrderResponse> updateOrder(String orderId) {
+        return this.rawClient.updateOrder(orderId).thenApply(response -> response.body());
+    }
+
+    /**
+     * Update a modifiable order's scheduled activation date.
+     * <p>The order must be in <code>ordered</code> or <code>awaiting_registration</code> status. Setting
+     * <code>activate_by</code> to a future date reschedules dispatch; setting it to <code>null</code>
+     * clears the schedule and enqueues immediate dispatch for <code>ordered</code> orders.</p>
+     * <p>Returns 400 when:</p>
+     * <ul>
+     * <li>the order is not in a modifiable status,</li>
+     * <li>the order was created for immediate processing (cannot be scheduled
+     * after the fact),</li>
+     * <li><code>activate_by</code> is in the past.</li>
+     * </ul>
+     */
+    public CompletableFuture<PostOrderResponse> updateOrder(String orderId, RequestOptions requestOptions) {
+        return this.rawClient.updateOrder(orderId, requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Update a modifiable order's scheduled activation date.
+     * <p>The order must be in <code>ordered</code> or <code>awaiting_registration</code> status. Setting
+     * <code>activate_by</code> to a future date reschedules dispatch; setting it to <code>null</code>
+     * clears the schedule and enqueues immediate dispatch for <code>ordered</code> orders.</p>
+     * <p>Returns 400 when:</p>
+     * <ul>
+     * <li>the order is not in a modifiable status,</li>
+     * <li>the order was created for immediate processing (cannot be scheduled
+     * after the fact),</li>
+     * <li><code>activate_by</code> is in the past.</li>
+     * </ul>
+     */
+    public CompletableFuture<PostOrderResponse> updateOrder(String orderId, UpdateOrderBody request) {
+        return this.rawClient.updateOrder(orderId, request).thenApply(response -> response.body());
+    }
+
+    /**
+     * Update a modifiable order's scheduled activation date.
+     * <p>The order must be in <code>ordered</code> or <code>awaiting_registration</code> status. Setting
+     * <code>activate_by</code> to a future date reschedules dispatch; setting it to <code>null</code>
+     * clears the schedule and enqueues immediate dispatch for <code>ordered</code> orders.</p>
+     * <p>Returns 400 when:</p>
+     * <ul>
+     * <li>the order is not in a modifiable status,</li>
+     * <li>the order was created for immediate processing (cannot be scheduled
+     * after the fact),</li>
+     * <li><code>activate_by</code> is in the past.</li>
+     * </ul>
+     */
+    public CompletableFuture<PostOrderResponse> updateOrder(
+            String orderId, UpdateOrderBody request, RequestOptions requestOptions) {
+        return this.rawClient.updateOrder(orderId, request, requestOptions).thenApply(response -> response.body());
     }
 
     public CompletableFuture<PostOrderResponse> createOrder(CreateOrderRequestCompatible request) {
