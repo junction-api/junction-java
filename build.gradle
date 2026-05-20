@@ -47,7 +47,7 @@ java {
 
 group = 'com.junction'
 
-version = '0.0.0-fern-placeholder'
+version = '1.0.2'
 
 jar {
     dependsOn(":generatePomFileForMavenPublication")
@@ -78,7 +78,7 @@ publishing {
         maven(MavenPublication) {
             groupId = 'com.junction'
             artifactId = 'junction-java'
-            version = '0.0.0-fern-placeholder'
+            version = '1.0.2'
             from components.java
             pom {
                 name = 'vital'

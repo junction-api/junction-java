@@ -38,10 +38,10 @@ public final class ClientOptions {
         this.headers.putAll(headers);
         this.headers.putAll(new HashMap<String, String>() {
             {
-                put("User-Agent", "com.junction:junction-java/0.0.0-fern-placeholder");
+                put("User-Agent", "com.junction:junction-java/1.0.2");
                 put("X-Fern-Language", "JAVA");
                 put("X-Fern-SDK-Name", "com.vital.fern:api-sdk");
-                put("X-Fern-SDK-Version", "0.0.0-fern-placeholder");
+                put("X-Fern-SDK-Version", "1.0.2");
             }
         });
         this.headerSuppliers = headerSuppliers;
