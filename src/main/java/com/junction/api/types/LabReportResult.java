@@ -45,6 +45,8 @@ public final class LabReportResult {
 
     private final Optional<List<LoincMatch>> loincMatches;
 
+    private final Optional<LabReportResultLoincMatchStatus> loincMatchStatus;
+
     private final Optional<Interpretation> interpretation;
 
     private final Optional<Boolean> isAboveMaxRange;
@@ -64,6 +66,7 @@ public final class LabReportResult {
             Optional<Double> minReferenceRange,
             Optional<String> sourcePanelName,
             Optional<List<LoincMatch>> loincMatches,
+            Optional<LabReportResultLoincMatchStatus> loincMatchStatus,
             Optional<Interpretation> interpretation,
             Optional<Boolean> isAboveMaxRange,
             Optional<Boolean> isBelowMinRange,
@@ -78,6 +81,7 @@ public final class LabReportResult {
         this.minReferenceRange = minReferenceRange;
         this.sourcePanelName = sourcePanelName;
         this.loincMatches = loincMatches;
+        this.loincMatchStatus = loincMatchStatus;
         this.interpretation = interpretation;
         this.isAboveMaxRange = isAboveMaxRange;
         this.isBelowMinRange = isBelowMinRange;
@@ -165,6 +169,17 @@ public final class LabReportResult {
      * @return ℹ️ This enum is non-exhaustive.
      */
     @JsonIgnore
+    public Optional<LabReportResultLoincMatchStatus> getLoincMatchStatus() {
+        if (loincMatchStatus == null) {
+            return Optional.empty();
+        }
+        return loincMatchStatus;
+    }
+
+    /**
+     * @return ℹ️ This enum is non-exhaustive.
+     */
+    @JsonIgnore
     public Optional<Interpretation> getInterpretation() {
         if (interpretation == null) {
             return Optional.empty();
@@ -225,6 +240,12 @@ public final class LabReportResult {
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("loinc_match_status")
+    private Optional<LabReportResultLoincMatchStatus> _getLoincMatchStatus() {
+        return loincMatchStatus;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("interpretation")
     private Optional<Interpretation> _getInterpretation() {
         return interpretation;
@@ -264,6 +285,7 @@ public final class LabReportResult {
                 && minReferenceRange.equals(other.minReferenceRange)
                 && sourcePanelName.equals(other.sourcePanelName)
                 && loincMatches.equals(other.loincMatches)
+                && loincMatchStatus.equals(other.loincMatchStatus)
                 && interpretation.equals(other.interpretation)
                 && isAboveMaxRange.equals(other.isAboveMaxRange)
                 && isBelowMinRange.equals(other.isBelowMinRange);
@@ -282,6 +304,7 @@ public final class LabReportResult {
                 this.minReferenceRange,
                 this.sourcePanelName,
                 this.loincMatches,
+                this.loincMatchStatus,
                 this.interpretation,
                 this.isAboveMaxRange,
                 this.isBelowMinRange);
@@ -369,6 +392,15 @@ public final class LabReportResult {
         /**
          * <p>ℹ️ This enum is non-exhaustive.</p>
          */
+        _FinalStage loincMatchStatus(Optional<LabReportResultLoincMatchStatus> loincMatchStatus);
+
+        _FinalStage loincMatchStatus(LabReportResultLoincMatchStatus loincMatchStatus);
+
+        _FinalStage loincMatchStatus(Nullable<LabReportResultLoincMatchStatus> loincMatchStatus);
+
+        /**
+         * <p>ℹ️ This enum is non-exhaustive.</p>
+         */
         _FinalStage interpretation(Optional<Interpretation> interpretation);
 
         _FinalStage interpretation(Interpretation interpretation);
@@ -399,6 +431,8 @@ public final class LabReportResult {
         private Optional<Boolean> isAboveMaxRange = Optional.empty();
 
         private Optional<Interpretation> interpretation = Optional.empty();
+
+        private Optional<LabReportResultLoincMatchStatus> loincMatchStatus = Optional.empty();
 
         private Optional<List<LoincMatch>> loincMatches = Optional.empty();
 
@@ -433,6 +467,7 @@ public final class LabReportResult {
             minReferenceRange(other.getMinReferenceRange());
             sourcePanelName(other.getSourcePanelName());
             loincMatches(other.getLoincMatches());
+            loincMatchStatus(other.getLoincMatchStatus());
             interpretation(other.getInterpretation());
             isAboveMaxRange(other.getIsAboveMaxRange());
             isBelowMinRange(other.getIsBelowMinRange());
@@ -536,6 +571,42 @@ public final class LabReportResult {
         @JsonSetter(value = "interpretation", nulls = Nulls.SKIP)
         public _FinalStage interpretation(Optional<Interpretation> interpretation) {
             this.interpretation = interpretation;
+            return this;
+        }
+
+        /**
+         * <p>ℹ️ This enum is non-exhaustive.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage loincMatchStatus(Nullable<LabReportResultLoincMatchStatus> loincMatchStatus) {
+            if (loincMatchStatus.isNull()) {
+                this.loincMatchStatus = null;
+            } else if (loincMatchStatus.isEmpty()) {
+                this.loincMatchStatus = Optional.empty();
+            } else {
+                this.loincMatchStatus = Optional.of(loincMatchStatus.get());
+            }
+            return this;
+        }
+
+        /**
+         * <p>ℹ️ This enum is non-exhaustive.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage loincMatchStatus(LabReportResultLoincMatchStatus loincMatchStatus) {
+            this.loincMatchStatus = Optional.ofNullable(loincMatchStatus);
+            return this;
+        }
+
+        /**
+         * <p>ℹ️ This enum is non-exhaustive.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "loinc_match_status", nulls = Nulls.SKIP)
+        public _FinalStage loincMatchStatus(Optional<LabReportResultLoincMatchStatus> loincMatchStatus) {
+            this.loincMatchStatus = loincMatchStatus;
             return this;
         }
 
@@ -753,6 +824,7 @@ public final class LabReportResult {
                     minReferenceRange,
                     sourcePanelName,
                     loincMatches,
+                    loincMatchStatus,
                     interpretation,
                     isAboveMaxRange,
                     isBelowMinRange,

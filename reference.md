@@ -13404,6 +13404,83 @@ client.labTests().getOrder(
 </dl>
 </details>
 
+<details><summary><code>client.labTests.updateOrder(orderId, request) -> PostOrderResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update a modifiable order's scheduled activation date.
+
+The order must be in `ordered` or `awaiting_registration` status. Setting
+`activate_by` to a future date reschedules dispatch; setting it to `null`
+clears the schedule and enqueues immediate dispatch for `ordered` orders.
+
+Returns 400 when:
+- the order is not in a modifiable status,
+- the order was created for immediate processing (cannot be scheduled
+  after the fact),
+- `activate_by` is in the past.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.labTests().updateOrder(
+    "order_id",
+    UpdateOrderBody
+        .builder()
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**orderId:** `String` — Your Order ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**activateBy:** `Optional<String>` — The date on which the order should be activated (dispatched to the lab). Must be today or a future date. Set to `null` to clear an existing scheduled date and dispatch the order immediately. Note: an order originally created for immediate processing (no `activate_by` at creation time) cannot be rescheduled — only orders that were created with an `activate_by` can have it changed or cleared.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.labTests.createOrder(request) -> PostOrderResponse</code></summary>
 <dl>
 <dd>
