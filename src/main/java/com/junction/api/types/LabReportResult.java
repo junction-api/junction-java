@@ -43,7 +43,11 @@ public final class LabReportResult {
 
     private final Optional<String> sourcePanelName;
 
+    private final Optional<LabReportResultIsSensitive> isSensitive;
+
     private final Optional<List<LoincMatch>> loincMatches;
+
+    private final Optional<LabReportResultLoincMatchStatus> loincMatchStatus;
 
     private final Optional<Interpretation> interpretation;
 
@@ -63,7 +67,9 @@ public final class LabReportResult {
             Optional<Double> maxReferenceRange,
             Optional<Double> minReferenceRange,
             Optional<String> sourcePanelName,
+            Optional<LabReportResultIsSensitive> isSensitive,
             Optional<List<LoincMatch>> loincMatches,
+            Optional<LabReportResultLoincMatchStatus> loincMatchStatus,
             Optional<Interpretation> interpretation,
             Optional<Boolean> isAboveMaxRange,
             Optional<Boolean> isBelowMinRange,
@@ -77,7 +83,9 @@ public final class LabReportResult {
         this.maxReferenceRange = maxReferenceRange;
         this.minReferenceRange = minReferenceRange;
         this.sourcePanelName = sourcePanelName;
+        this.isSensitive = isSensitive;
         this.loincMatches = loincMatches;
+        this.loincMatchStatus = loincMatchStatus;
         this.interpretation = interpretation;
         this.isAboveMaxRange = isAboveMaxRange;
         this.isBelowMinRange = isBelowMinRange;
@@ -153,12 +161,31 @@ public final class LabReportResult {
         return sourcePanelName;
     }
 
+    /**
+     * @return ℹ️ This enum is non-exhaustive.
+     */
+    @JsonProperty("is_sensitive")
+    public Optional<LabReportResultIsSensitive> getIsSensitive() {
+        return isSensitive;
+    }
+
     @JsonIgnore
     public Optional<List<LoincMatch>> getLoincMatches() {
         if (loincMatches == null) {
             return Optional.empty();
         }
         return loincMatches;
+    }
+
+    /**
+     * @return ℹ️ This enum is non-exhaustive.
+     */
+    @JsonIgnore
+    public Optional<LabReportResultLoincMatchStatus> getLoincMatchStatus() {
+        if (loincMatchStatus == null) {
+            return Optional.empty();
+        }
+        return loincMatchStatus;
     }
 
     /**
@@ -225,6 +252,12 @@ public final class LabReportResult {
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("loinc_match_status")
+    private Optional<LabReportResultLoincMatchStatus> _getLoincMatchStatus() {
+        return loincMatchStatus;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("interpretation")
     private Optional<Interpretation> _getInterpretation() {
         return interpretation;
@@ -263,7 +296,9 @@ public final class LabReportResult {
                 && maxReferenceRange.equals(other.maxReferenceRange)
                 && minReferenceRange.equals(other.minReferenceRange)
                 && sourcePanelName.equals(other.sourcePanelName)
+                && isSensitive.equals(other.isSensitive)
                 && loincMatches.equals(other.loincMatches)
+                && loincMatchStatus.equals(other.loincMatchStatus)
                 && interpretation.equals(other.interpretation)
                 && isAboveMaxRange.equals(other.isAboveMaxRange)
                 && isBelowMinRange.equals(other.isBelowMinRange);
@@ -281,7 +316,9 @@ public final class LabReportResult {
                 this.maxReferenceRange,
                 this.minReferenceRange,
                 this.sourcePanelName,
+                this.isSensitive,
                 this.loincMatches,
+                this.loincMatchStatus,
                 this.interpretation,
                 this.isAboveMaxRange,
                 this.isBelowMinRange);
@@ -360,11 +397,27 @@ public final class LabReportResult {
 
         _FinalStage sourcePanelName(Nullable<String> sourcePanelName);
 
+        /**
+         * <p>ℹ️ This enum is non-exhaustive.</p>
+         */
+        _FinalStage isSensitive(Optional<LabReportResultIsSensitive> isSensitive);
+
+        _FinalStage isSensitive(LabReportResultIsSensitive isSensitive);
+
         _FinalStage loincMatches(Optional<List<LoincMatch>> loincMatches);
 
         _FinalStage loincMatches(List<LoincMatch> loincMatches);
 
         _FinalStage loincMatches(Nullable<List<LoincMatch>> loincMatches);
+
+        /**
+         * <p>ℹ️ This enum is non-exhaustive.</p>
+         */
+        _FinalStage loincMatchStatus(Optional<LabReportResultLoincMatchStatus> loincMatchStatus);
+
+        _FinalStage loincMatchStatus(LabReportResultLoincMatchStatus loincMatchStatus);
+
+        _FinalStage loincMatchStatus(Nullable<LabReportResultLoincMatchStatus> loincMatchStatus);
 
         /**
          * <p>ℹ️ This enum is non-exhaustive.</p>
@@ -400,7 +453,11 @@ public final class LabReportResult {
 
         private Optional<Interpretation> interpretation = Optional.empty();
 
+        private Optional<LabReportResultLoincMatchStatus> loincMatchStatus = Optional.empty();
+
         private Optional<List<LoincMatch>> loincMatches = Optional.empty();
+
+        private Optional<LabReportResultIsSensitive> isSensitive = Optional.empty();
 
         private Optional<String> sourcePanelName = Optional.empty();
 
@@ -432,7 +489,9 @@ public final class LabReportResult {
             maxReferenceRange(other.getMaxReferenceRange());
             minReferenceRange(other.getMinReferenceRange());
             sourcePanelName(other.getSourcePanelName());
+            isSensitive(other.getIsSensitive());
             loincMatches(other.getLoincMatches());
+            loincMatchStatus(other.getLoincMatchStatus());
             interpretation(other.getInterpretation());
             isAboveMaxRange(other.getIsAboveMaxRange());
             isBelowMinRange(other.getIsBelowMinRange());
@@ -539,6 +598,42 @@ public final class LabReportResult {
             return this;
         }
 
+        /**
+         * <p>ℹ️ This enum is non-exhaustive.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage loincMatchStatus(Nullable<LabReportResultLoincMatchStatus> loincMatchStatus) {
+            if (loincMatchStatus.isNull()) {
+                this.loincMatchStatus = null;
+            } else if (loincMatchStatus.isEmpty()) {
+                this.loincMatchStatus = Optional.empty();
+            } else {
+                this.loincMatchStatus = Optional.of(loincMatchStatus.get());
+            }
+            return this;
+        }
+
+        /**
+         * <p>ℹ️ This enum is non-exhaustive.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage loincMatchStatus(LabReportResultLoincMatchStatus loincMatchStatus) {
+            this.loincMatchStatus = Optional.ofNullable(loincMatchStatus);
+            return this;
+        }
+
+        /**
+         * <p>ℹ️ This enum is non-exhaustive.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "loinc_match_status", nulls = Nulls.SKIP)
+        public _FinalStage loincMatchStatus(Optional<LabReportResultLoincMatchStatus> loincMatchStatus) {
+            this.loincMatchStatus = loincMatchStatus;
+            return this;
+        }
+
         @java.lang.Override
         public _FinalStage loincMatches(Nullable<List<LoincMatch>> loincMatches) {
             if (loincMatches.isNull()) {
@@ -561,6 +656,26 @@ public final class LabReportResult {
         @JsonSetter(value = "loinc_matches", nulls = Nulls.SKIP)
         public _FinalStage loincMatches(Optional<List<LoincMatch>> loincMatches) {
             this.loincMatches = loincMatches;
+            return this;
+        }
+
+        /**
+         * <p>ℹ️ This enum is non-exhaustive.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage isSensitive(LabReportResultIsSensitive isSensitive) {
+            this.isSensitive = Optional.ofNullable(isSensitive);
+            return this;
+        }
+
+        /**
+         * <p>ℹ️ This enum is non-exhaustive.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "is_sensitive", nulls = Nulls.SKIP)
+        public _FinalStage isSensitive(Optional<LabReportResultIsSensitive> isSensitive) {
+            this.isSensitive = isSensitive;
             return this;
         }
 
@@ -752,7 +867,9 @@ public final class LabReportResult {
                     maxReferenceRange,
                     minReferenceRange,
                     sourcePanelName,
+                    isSensitive,
                     loincMatches,
+                    loincMatchStatus,
                     interpretation,
                     isAboveMaxRange,
                     isBelowMinRange,
