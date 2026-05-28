@@ -1,3 +1,12 @@
+## 1.1.0 - 2026-05-27
+* ## [1.1.0] - 2025
+### Added
+* **`updateOrder()`** — new method on `LabTestsClient` and `AsyncLabTestsClient` to update a modifiable order's scheduled activation date via a PATCH request to `v3/order/{orderId}`.
+* **`UpdateOrderBody`** — new request class with an optional `activate_by` field, supporting `Optional<String>` and `Nullable<String>` builder overloads for clearing or setting the scheduled dispatch date.
+* **`PatchOrderCommunicationSettingsBody`** and **`PatchOrderCommunicationSettingsResponse`** — new types for managing order SMS communication settings.
+* **`GetOrderCommunicationSettingsResponse`** — new response type exposing `orderId` and `smsEnabled` fields for order communication settings.
+* **`LabReportResult.isSensitive`** and **`LabReportResult.loincMatchStatus`** — new optional fields with corresponding enums `LabReportResultIsSensitive` and `LabReportResultLoincMatchStatus` for richer lab result metadata.
+
 ## 1.0.1 - 2026-05-07
 * fix: fix request field serialization across all request types
 * Previously, required fields like `start_date`, `zip_code`, `lab_id`,

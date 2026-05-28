@@ -53,6 +53,7 @@ import com.junction.api.resources.labtests.requests.ReschedulePscAppointmentLabT
 import com.junction.api.resources.labtests.requests.SimulateOrderProcessLabTestsRequest;
 import com.junction.api.resources.labtests.requests.UpdateLabTestRequest;
 import com.junction.api.resources.labtests.requests.UpdateOnSiteCollectionOrderDrawCompletedLabTestsRequest;
+import com.junction.api.resources.labtests.requests.UpdateOrderBody;
 import com.junction.api.resources.labtests.requests.ValidateIcdCodesBody;
 import com.junction.api.resources.labtests.requests.VitalCoreClientsLabTestGetlabsSchemaAppointmentCancelRequest;
 import com.junction.api.types.AppointmentAvailabilitySlots;
@@ -3300,6 +3301,140 @@ public class AsyncRawLabTestsClient {
                     if (response.isSuccessful()) {
                         future.complete(new JunctionHttpResponse<>(
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, ClientFacingOrder.class),
+                                response));
+                        return;
+                    }
+                    try {
+                        if (response.code() == 422) {
+                            future.completeExceptionally(new UnprocessableEntityError(
+                                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, HttpValidationError.class),
+                                    response));
+                            return;
+                        }
+                    } catch (JsonProcessingException ignored) {
+                        // unable to map error response, throwing generic error
+                    }
+                    Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
+                    future.completeExceptionally(new ApiError(
+                            "Error with status code " + response.code(), response.code(), errorBody, response));
+                    return;
+                } catch (IOException e) {
+                    future.completeExceptionally(new JunctionException("Network error executing HTTP request", e));
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                future.completeExceptionally(new JunctionException("Network error executing HTTP request", e));
+            }
+        });
+        return future;
+    }
+
+    /**
+     * Update a modifiable order's scheduled activation date.
+     * <p>The order must be in <code>ordered</code> or <code>awaiting_registration</code> status. Setting
+     * <code>activate_by</code> to a future date reschedules dispatch; setting it to <code>null</code>
+     * clears the schedule and enqueues immediate dispatch for <code>ordered</code> orders.</p>
+     * <p>Returns 400 when:</p>
+     * <ul>
+     * <li>the order is not in a modifiable status,</li>
+     * <li>the order was created for immediate processing (cannot be scheduled
+     * after the fact),</li>
+     * <li><code>activate_by</code> is in the past.</li>
+     * </ul>
+     */
+    public CompletableFuture<JunctionHttpResponse<PostOrderResponse>> updateOrder(String orderId) {
+        return updateOrder(orderId, UpdateOrderBody.builder().build());
+    }
+
+    /**
+     * Update a modifiable order's scheduled activation date.
+     * <p>The order must be in <code>ordered</code> or <code>awaiting_registration</code> status. Setting
+     * <code>activate_by</code> to a future date reschedules dispatch; setting it to <code>null</code>
+     * clears the schedule and enqueues immediate dispatch for <code>ordered</code> orders.</p>
+     * <p>Returns 400 when:</p>
+     * <ul>
+     * <li>the order is not in a modifiable status,</li>
+     * <li>the order was created for immediate processing (cannot be scheduled
+     * after the fact),</li>
+     * <li><code>activate_by</code> is in the past.</li>
+     * </ul>
+     */
+    public CompletableFuture<JunctionHttpResponse<PostOrderResponse>> updateOrder(
+            String orderId, RequestOptions requestOptions) {
+        return updateOrder(orderId, UpdateOrderBody.builder().build(), requestOptions);
+    }
+
+    /**
+     * Update a modifiable order's scheduled activation date.
+     * <p>The order must be in <code>ordered</code> or <code>awaiting_registration</code> status. Setting
+     * <code>activate_by</code> to a future date reschedules dispatch; setting it to <code>null</code>
+     * clears the schedule and enqueues immediate dispatch for <code>ordered</code> orders.</p>
+     * <p>Returns 400 when:</p>
+     * <ul>
+     * <li>the order is not in a modifiable status,</li>
+     * <li>the order was created for immediate processing (cannot be scheduled
+     * after the fact),</li>
+     * <li><code>activate_by</code> is in the past.</li>
+     * </ul>
+     */
+    public CompletableFuture<JunctionHttpResponse<PostOrderResponse>> updateOrder(
+            String orderId, UpdateOrderBody request) {
+        return updateOrder(orderId, request, null);
+    }
+
+    /**
+     * Update a modifiable order's scheduled activation date.
+     * <p>The order must be in <code>ordered</code> or <code>awaiting_registration</code> status. Setting
+     * <code>activate_by</code> to a future date reschedules dispatch; setting it to <code>null</code>
+     * clears the schedule and enqueues immediate dispatch for <code>ordered</code> orders.</p>
+     * <p>Returns 400 when:</p>
+     * <ul>
+     * <li>the order is not in a modifiable status,</li>
+     * <li>the order was created for immediate processing (cannot be scheduled
+     * after the fact),</li>
+     * <li><code>activate_by</code> is in the past.</li>
+     * </ul>
+     */
+    public CompletableFuture<JunctionHttpResponse<PostOrderResponse>> updateOrder(
+            String orderId, UpdateOrderBody request, RequestOptions requestOptions) {
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+                .newBuilder()
+                .addPathSegments("v3/order")
+                .addPathSegment(orderId);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
+        RequestBody body;
+        try {
+            body = RequestBody.create(
+                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
+        } catch (JsonProcessingException e) {
+            throw new JunctionException("Failed to serialize request", e);
+        }
+        Request okhttpRequest = new Request.Builder()
+                .url(httpUrl.build())
+                .method("PATCH", body)
+                .headers(Headers.of(clientOptions.headers(requestOptions)))
+                .addHeader("Content-Type", "application/json")
+                .addHeader("Accept", "application/json")
+                .build();
+        OkHttpClient client = clientOptions.httpClient();
+        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
+            client = clientOptions.httpClientWithTimeout(requestOptions);
+        }
+        CompletableFuture<JunctionHttpResponse<PostOrderResponse>> future = new CompletableFuture<>();
+        client.newCall(okhttpRequest).enqueue(new Callback() {
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                try (ResponseBody responseBody = response.body()) {
+                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
+                    if (response.isSuccessful()) {
+                        future.complete(new JunctionHttpResponse<>(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, PostOrderResponse.class),
                                 response));
                         return;
                     }
