@@ -34,7 +34,7 @@ Add the dependency in your `build.gradle` file:
 
 ```groovy
 dependencies {
-  implementation 'com.junction:junction-java:1.1.0'
+  implementation 'com.junction:junction-java:0.0.0-fern-placeholder'
 }
 ```
 
@@ -46,7 +46,7 @@ Add the dependency in your `pom.xml` file:
 <dependency>
   <groupId>com.junction</groupId>
   <artifactId>junction-java</artifactId>
-  <version>1.1.0</version>
+  <version>0.0.0-fern-placeholder</version>
 </dependency>
 ```
 

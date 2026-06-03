@@ -31,16 +31,20 @@ public final class Query {
 
     private final Optional<String> where;
 
+    private final Optional<AlignExpr> align;
+
     private final Map<String, Object> additionalProperties;
 
     private Query(
             List<QuerySelectItem> select,
             Optional<List<QueryGroupByItem>> groupBy,
             Optional<String> where,
+            Optional<AlignExpr> align,
             Map<String, Object> additionalProperties) {
         this.select = select;
         this.groupBy = groupBy;
         this.where = where;
+        this.align = align;
         this.additionalProperties = additionalProperties;
     }
 
@@ -70,10 +74,29 @@ public final class Query {
         return where;
     }
 
+    /**
+     * @return Post-aggregation alignment clause. When a carry operator is set, missing
+     * datetime buckets are materialised and filled after group_by+aggregate.
+     * Omitting this field preserves honest-null behaviour.
+     */
+    @JsonIgnore
+    public Optional<AlignExpr> getAlign() {
+        if (align == null) {
+            return Optional.empty();
+        }
+        return align;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("where")
     private Optional<String> _getWhere() {
         return where;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("align")
+    private Optional<AlignExpr> _getAlign() {
+        return align;
     }
 
     @java.lang.Override
@@ -88,12 +111,15 @@ public final class Query {
     }
 
     private boolean equalTo(Query other) {
-        return select.equals(other.select) && groupBy.equals(other.groupBy) && where.equals(other.where);
+        return select.equals(other.select)
+                && groupBy.equals(other.groupBy)
+                && where.equals(other.where)
+                && align.equals(other.align);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.select, this.groupBy, this.where);
+        return Objects.hash(this.select, this.groupBy, this.where, this.align);
     }
 
     @java.lang.Override
@@ -113,6 +139,8 @@ public final class Query {
 
         private Optional<String> where = Optional.empty();
 
+        private Optional<AlignExpr> align = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -122,6 +150,7 @@ public final class Query {
             select(other.getSelect());
             groupBy(other.getGroupBy());
             where(other.getWhere());
+            align(other.getAlign());
             return this;
         }
 
@@ -187,8 +216,35 @@ public final class Query {
             return this;
         }
 
+        /**
+         * <p>Post-aggregation alignment clause. When a carry operator is set, missing
+         * datetime buckets are materialised and filled after group_by+aggregate.
+         * Omitting this field preserves honest-null behaviour.</p>
+         */
+        @JsonSetter(value = "align", nulls = Nulls.SKIP)
+        public Builder align(Optional<AlignExpr> align) {
+            this.align = align;
+            return this;
+        }
+
+        public Builder align(AlignExpr align) {
+            this.align = Optional.ofNullable(align);
+            return this;
+        }
+
+        public Builder align(Nullable<AlignExpr> align) {
+            if (align.isNull()) {
+                this.align = null;
+            } else if (align.isEmpty()) {
+                this.align = Optional.empty();
+            } else {
+                this.align = Optional.of(align.get());
+            }
+            return this;
+        }
+
         public Query build() {
-            return new Query(select, groupBy, where, additionalProperties);
+            return new Query(select, groupBy, where, align, additionalProperties);
         }
 
         public Builder additionalProperty(String key, Object value) {

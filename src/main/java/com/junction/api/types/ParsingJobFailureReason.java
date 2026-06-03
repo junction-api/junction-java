@@ -7,6 +7,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class ParsingJobFailureReason {
+    public static final ParsingJobFailureReason TOO_MANY_PAGES =
+            new ParsingJobFailureReason(Value.TOO_MANY_PAGES, "too_many_pages");
+
     public static final ParsingJobFailureReason NOT_ENGLISH =
             new ParsingJobFailureReason(Value.NOT_ENGLISH, "not_english");
 
@@ -49,6 +52,8 @@ public final class ParsingJobFailureReason {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
+            case TOO_MANY_PAGES:
+                return visitor.visitTooManyPages();
             case NOT_ENGLISH:
                 return visitor.visitNotEnglish();
             case LOW_QUALITY:
@@ -64,6 +69,8 @@ public final class ParsingJobFailureReason {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static ParsingJobFailureReason valueOf(String value) {
         switch (value) {
+            case "too_many_pages":
+                return TOO_MANY_PAGES;
             case "not_english":
                 return NOT_ENGLISH;
             case "low_quality":
@@ -82,6 +89,8 @@ public final class ParsingJobFailureReason {
 
         NOT_ENGLISH,
 
+        TOO_MANY_PAGES,
+
         UNKNOWN
     }
 
@@ -91,6 +100,8 @@ public final class ParsingJobFailureReason {
         T visitLowQuality();
 
         T visitNotEnglish();
+
+        T visitTooManyPages();
 
         T visitUnknown(String unknownType);
     }

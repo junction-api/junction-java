@@ -6,20 +6,20 @@ package com.junction.api.types;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-public final class LabReportResultIsSensitive {
-    public static final LabReportResultIsSensitive UNKNOWN = new LabReportResultIsSensitive(Value.UNKNOWN, "unknown");
+public final class LabReportResultSensitivity {
+    public static final LabReportResultSensitivity UNKNOWN = new LabReportResultSensitivity(Value.UNKNOWN, "unknown");
 
-    public static final LabReportResultIsSensitive INSENSITIVE =
-            new LabReportResultIsSensitive(Value.INSENSITIVE, "insensitive");
+    public static final LabReportResultSensitivity INSENSITIVE =
+            new LabReportResultSensitivity(Value.INSENSITIVE, "insensitive");
 
-    public static final LabReportResultIsSensitive SENSITIVE =
-            new LabReportResultIsSensitive(Value.SENSITIVE, "sensitive");
+    public static final LabReportResultSensitivity SENSITIVE =
+            new LabReportResultSensitivity(Value.SENSITIVE, "sensitive");
 
     private final Value value;
 
     private final String string;
 
-    LabReportResultIsSensitive(Value value, String string) {
+    LabReportResultSensitivity(Value value, String string) {
         this.value = value;
         this.string = string;
     }
@@ -37,8 +37,8 @@ public final class LabReportResultIsSensitive {
     @java.lang.Override
     public boolean equals(Object other) {
         return (this == other)
-                || (other instanceof LabReportResultIsSensitive
-                        && this.string.equals(((LabReportResultIsSensitive) other).string));
+                || (other instanceof LabReportResultSensitivity
+                        && this.string.equals(((LabReportResultSensitivity) other).string));
     }
 
     @java.lang.Override
@@ -61,7 +61,7 @@ public final class LabReportResultIsSensitive {
     }
 
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
-    public static LabReportResultIsSensitive valueOf(String value) {
+    public static LabReportResultSensitivity valueOf(String value) {
         switch (value) {
             case "unknown":
                 return UNKNOWN;
@@ -70,7 +70,7 @@ public final class LabReportResultIsSensitive {
             case "sensitive":
                 return SENSITIVE;
             default:
-                return new LabReportResultIsSensitive(Value._UNKNOWN, value);
+                return new LabReportResultSensitivity(Value._UNKNOWN, value);
         }
     }
 
