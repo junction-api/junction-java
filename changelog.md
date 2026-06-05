@@ -1,3 +1,18 @@
+## 1.2.0 - 2026-06-05
+### Added
+* **`AlignExpr`** — new public symbol
+* **`AlignExprCarry`** — new public symbol
+* **`CarryBackwardExpr`** — new public symbol
+* **`CarryForwardExpr`** — new public symbol
+* **`CarryNearestExpr`** — new public symbol
+### Changed
+* **`Query`** — new optional field(s): align
+### Beta
+* **`LabReportResult`** — field(s) removed: isSensitive
+* **`LabReportResultIsSensitive`** — public symbol removed
+* **`LabReportResultSensitivity`** — new public symbol
+* **`ParsingJobFailureReason`** — model changed (backwards-compatible)
+
 ## 1.1.0 - 2026-05-27
 * ## [1.1.0] - 2025
 ### Added

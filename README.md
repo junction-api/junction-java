@@ -46,7 +46,7 @@ Add the dependency in your `pom.xml` file:
 <dependency>
   <groupId>com.junction</groupId>
   <artifactId>junction-java</artifactId>
-  <version>1.1.1</version>
+  <version>1.2.0</version>
 </dependency>
 ```
 
