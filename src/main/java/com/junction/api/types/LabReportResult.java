@@ -43,7 +43,7 @@ public final class LabReportResult {
 
     private final Optional<String> sourcePanelName;
 
-    private final Optional<LabReportResultIsSensitive> isSensitive;
+    private final Optional<LabReportResultSensitivity> sensitivity;
 
     private final Optional<List<LoincMatch>> loincMatches;
 
@@ -67,7 +67,7 @@ public final class LabReportResult {
             Optional<Double> maxReferenceRange,
             Optional<Double> minReferenceRange,
             Optional<String> sourcePanelName,
-            Optional<LabReportResultIsSensitive> isSensitive,
+            Optional<LabReportResultSensitivity> sensitivity,
             Optional<List<LoincMatch>> loincMatches,
             Optional<LabReportResultLoincMatchStatus> loincMatchStatus,
             Optional<Interpretation> interpretation,
@@ -83,7 +83,7 @@ public final class LabReportResult {
         this.maxReferenceRange = maxReferenceRange;
         this.minReferenceRange = minReferenceRange;
         this.sourcePanelName = sourcePanelName;
-        this.isSensitive = isSensitive;
+        this.sensitivity = sensitivity;
         this.loincMatches = loincMatches;
         this.loincMatchStatus = loincMatchStatus;
         this.interpretation = interpretation;
@@ -164,9 +164,9 @@ public final class LabReportResult {
     /**
      * @return ℹ️ This enum is non-exhaustive.
      */
-    @JsonProperty("is_sensitive")
-    public Optional<LabReportResultIsSensitive> getIsSensitive() {
-        return isSensitive;
+    @JsonProperty("sensitivity")
+    public Optional<LabReportResultSensitivity> getSensitivity() {
+        return sensitivity;
     }
 
     @JsonIgnore
@@ -296,7 +296,7 @@ public final class LabReportResult {
                 && maxReferenceRange.equals(other.maxReferenceRange)
                 && minReferenceRange.equals(other.minReferenceRange)
                 && sourcePanelName.equals(other.sourcePanelName)
-                && isSensitive.equals(other.isSensitive)
+                && sensitivity.equals(other.sensitivity)
                 && loincMatches.equals(other.loincMatches)
                 && loincMatchStatus.equals(other.loincMatchStatus)
                 && interpretation.equals(other.interpretation)
@@ -316,7 +316,7 @@ public final class LabReportResult {
                 this.maxReferenceRange,
                 this.minReferenceRange,
                 this.sourcePanelName,
-                this.isSensitive,
+                this.sensitivity,
                 this.loincMatches,
                 this.loincMatchStatus,
                 this.interpretation,
@@ -400,9 +400,9 @@ public final class LabReportResult {
         /**
          * <p>ℹ️ This enum is non-exhaustive.</p>
          */
-        _FinalStage isSensitive(Optional<LabReportResultIsSensitive> isSensitive);
+        _FinalStage sensitivity(Optional<LabReportResultSensitivity> sensitivity);
 
-        _FinalStage isSensitive(LabReportResultIsSensitive isSensitive);
+        _FinalStage sensitivity(LabReportResultSensitivity sensitivity);
 
         _FinalStage loincMatches(Optional<List<LoincMatch>> loincMatches);
 
@@ -457,7 +457,7 @@ public final class LabReportResult {
 
         private Optional<List<LoincMatch>> loincMatches = Optional.empty();
 
-        private Optional<LabReportResultIsSensitive> isSensitive = Optional.empty();
+        private Optional<LabReportResultSensitivity> sensitivity = Optional.empty();
 
         private Optional<String> sourcePanelName = Optional.empty();
 
@@ -489,7 +489,7 @@ public final class LabReportResult {
             maxReferenceRange(other.getMaxReferenceRange());
             minReferenceRange(other.getMinReferenceRange());
             sourcePanelName(other.getSourcePanelName());
-            isSensitive(other.getIsSensitive());
+            sensitivity(other.getSensitivity());
             loincMatches(other.getLoincMatches());
             loincMatchStatus(other.getLoincMatchStatus());
             interpretation(other.getInterpretation());
@@ -664,8 +664,8 @@ public final class LabReportResult {
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
-        public _FinalStage isSensitive(LabReportResultIsSensitive isSensitive) {
-            this.isSensitive = Optional.ofNullable(isSensitive);
+        public _FinalStage sensitivity(LabReportResultSensitivity sensitivity) {
+            this.sensitivity = Optional.ofNullable(sensitivity);
             return this;
         }
 
@@ -673,9 +673,9 @@ public final class LabReportResult {
          * <p>ℹ️ This enum is non-exhaustive.</p>
          */
         @java.lang.Override
-        @JsonSetter(value = "is_sensitive", nulls = Nulls.SKIP)
-        public _FinalStage isSensitive(Optional<LabReportResultIsSensitive> isSensitive) {
-            this.isSensitive = isSensitive;
+        @JsonSetter(value = "sensitivity", nulls = Nulls.SKIP)
+        public _FinalStage sensitivity(Optional<LabReportResultSensitivity> sensitivity) {
+            this.sensitivity = sensitivity;
             return this;
         }
 
@@ -867,7 +867,7 @@ public final class LabReportResult {
                     maxReferenceRange,
                     minReferenceRange,
                     sourcePanelName,
-                    isSensitive,
+                    sensitivity,
                     loincMatches,
                     loincMatchStatus,
                     interpretation,
