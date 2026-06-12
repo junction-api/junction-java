@@ -1,3 +1,15 @@
+## [2.0.0] - 2026-06-12
+### Breaking Changes
+- **`LabReportResultIsSensitive`** — class removed; replace all references with **`LabReportResultSensitivity`**.
+- **`LabReportResult.getIsSensitive()`** — method removed along with builder method `isSensitive(…)` and JSON key `is_sensitive`; use `getSensitivity()`, `sensitivity(…)`, and JSON key `sensitivity` instead.
+- **`OAuthProviders.Visitor`** and **`Providers.Visitor`** — new required method `visitGoogleHealth()` added to both visitor interfaces; existing implementations must add this method to avoid a compile error.
+- **`ParsingJobFailureReason.Visitor`** — new required method `visitTooManyPages()` added to the visitor interface; existing implementations must add this method to avoid a compile error.
+
+### Added
+- **`AlignExpr`** and **`AlignExprCarry`** — new types representing a post-aggregation alignment clause with carry-forward/backward/nearest strategies, attachable to a `Query` via `Query.Builder.align(…)`.
+- **`OAuthProviders.GOOGLE_HEALTH`** and **`Providers.GOOGLE_HEALTH`** — new constants representing the Google Health Connect provider.
+- **`ParsingJobFailureReason.TOO_MANY_PAGES`** — new failure reason constant for parsing jobs that exceed the page limit.
+
 ## 1.2.0 - 2026-06-05
 ### Added
 * **`AlignExpr`** — new public symbol
