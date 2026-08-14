@@ -155,12 +155,6 @@ public final class CreateUserPortalUrlBody {
          * <p><code>communications</code>: Generates a long-lived (weeks) but shortened portal URL that is suitable for Emails, SMS
          * messages and other communication channels. Users may be asked to verify their identity with Email and SMS
          * authentication, e.g., when they open a short link on a new device. ℹ️ This enum is non-exhaustive.</p>
-         * <p><code>launch</code>: Generates a short-lived (minutes) portal URL that is intended for launching a user from your
-         * authenticated web context directly into the Junction User Portal. This URL is not suitable for asynchronous
-         * communications due to its verbosity as well as short-lived nature.</p>
-         * <p><code>communications</code>: Generates a long-lived (weeks) but shortened portal URL that is suitable for Emails, SMS
-         * messages and other communication channels. Users may be asked to verify their identity with Email and SMS
-         * authentication, e.g., when they open a short link on a new device. ℹ️ This enum is non-exhaustive.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

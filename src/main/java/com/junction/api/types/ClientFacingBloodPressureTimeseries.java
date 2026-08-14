@@ -287,7 +287,6 @@ public final class ClientFacingBloodPressureTimeseries {
 
         /**
          * <p>The unit of the value. We use SI units where possible, e.g. mmol/L for glucose/cholesterol, bpm for heart rate, etc.</p>
-         * <p>The unit of the value. We use SI units where possible, e.g. mmol/L for glucose/cholesterol, bpm for heart rate, etc.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

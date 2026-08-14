@@ -143,7 +143,6 @@ public final class ClientFacingDiagnosisInformation {
 
         /**
          * <p>Diagnosis code for insurance information.</p>
-         * <p>Diagnosis code for insurance information.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -154,7 +153,6 @@ public final class ClientFacingDiagnosisInformation {
         }
 
         /**
-         * <p>Diagnosis description insurance information.</p>
          * <p>Diagnosis description insurance information.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

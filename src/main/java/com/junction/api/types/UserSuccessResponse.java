@@ -98,7 +98,6 @@ public final class UserSuccessResponse {
 
         /**
          * <p>Whether operation was successful or not</p>
-         * <p>Whether operation was successful or not</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

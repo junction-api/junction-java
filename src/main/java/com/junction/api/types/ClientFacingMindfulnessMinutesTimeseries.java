@@ -304,7 +304,6 @@ public final class ClientFacingMindfulnessMinutesTimeseries {
 
         /**
          * <p>Measured in minutes.</p>
-         * <p>Measured in minutes.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -315,7 +314,6 @@ public final class ClientFacingMindfulnessMinutesTimeseries {
         }
 
         /**
-         * <p>Depracated. The start time (inclusive) of the interval.</p>
          * <p>Depracated. The start time (inclusive) of the interval.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -328,7 +326,6 @@ public final class ClientFacingMindfulnessMinutesTimeseries {
 
         /**
          * <p>The start time (inclusive) of the interval.</p>
-         * <p>The start time (inclusive) of the interval.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -340,7 +337,6 @@ public final class ClientFacingMindfulnessMinutesTimeseries {
 
         /**
          * <p>The end time (exclusive) of the interval.</p>
-         * <p>The end time (exclusive) of the interval.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -351,7 +347,6 @@ public final class ClientFacingMindfulnessMinutesTimeseries {
         }
 
         /**
-         * <p>Number of minutes spent in a mindful state.</p>
          * <p>Number of minutes spent in a mindful state.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

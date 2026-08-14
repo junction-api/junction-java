@@ -199,7 +199,6 @@ public final class ClientFacingPayorSearchResponseDeprecated {
 
         /**
          * <p>Payor code returned for the insurance information.</p>
-         * <p>Payor code returned for the insurance information.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -210,7 +209,6 @@ public final class ClientFacingPayorSearchResponseDeprecated {
         }
 
         /**
-         * <p>Insurance name returned for the insurance information.</p>
          * <p>Insurance name returned for the insurance information.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -223,7 +221,6 @@ public final class ClientFacingPayorSearchResponseDeprecated {
 
         /**
          * <p>Insurance business address returned for the insurance information.</p>
-         * <p>Insurance business address returned for the insurance information.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -234,7 +231,6 @@ public final class ClientFacingPayorSearchResponseDeprecated {
         }
 
         /**
-         * <p>The source of the payor, can be one of (platform, team). ℹ️ This enum is non-exhaustive.</p>
          * <p>The source of the payor, can be one of (platform, team). ℹ️ This enum is non-exhaustive.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

@@ -303,7 +303,6 @@ public final class ClientFacingCarbohydratesSample {
 
         /**
          * <p>Measured in grams.</p>
-         * <p>Measured in grams.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -314,7 +313,6 @@ public final class ClientFacingCarbohydratesSample {
         }
 
         /**
-         * <p>Depracated. The start time (inclusive) of the interval.</p>
          * <p>Depracated. The start time (inclusive) of the interval.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -327,7 +325,6 @@ public final class ClientFacingCarbohydratesSample {
 
         /**
          * <p>The start time (inclusive) of the interval.</p>
-         * <p>The start time (inclusive) of the interval.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -339,7 +336,6 @@ public final class ClientFacingCarbohydratesSample {
 
         /**
          * <p>The end time (exclusive) of the interval.</p>
-         * <p>The end time (exclusive) of the interval.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -350,7 +346,6 @@ public final class ClientFacingCarbohydratesSample {
         }
 
         /**
-         * <p>The recorded value for the interval.</p>
          * <p>The recorded value for the interval.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

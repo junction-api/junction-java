@@ -140,8 +140,6 @@ public final class FallbackTimeZone {
         /**
          * <p>Fallback time zone of the user, in the form of a valid IANA tzdatabase identifier (e.g., <code>Europe/London</code> or <code>America/Los_Angeles</code>).
          * Used when pulling data from sources that are completely time zone agnostic (e.g., all time is relative to UTC clock, without any time zone attributions on data points).</p>
-         * <p>Fallback time zone of the user, in the form of a valid IANA tzdatabase identifier (e.g., <code>Europe/London</code> or <code>America/Los_Angeles</code>).
-         * Used when pulling data from sources that are completely time zone agnostic (e.g., all time is relative to UTC clock, without any time zone attributions on data points).</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -152,7 +150,6 @@ public final class FallbackTimeZone {
         }
 
         /**
-         * <p>Slug for designated source</p>
          * <p>Slug for designated source</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

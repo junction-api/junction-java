@@ -1029,7 +1029,7 @@ client.electrocardiogram().get(
 <dl>
 <dd>
 
-**startDate:** `String` 
+**startDate:** `String` — Start date in YYYY-MM-DD
     
 </dd>
 </dl>
@@ -1037,7 +1037,7 @@ client.electrocardiogram().get(
 <dl>
 <dd>
 
-**endDate:** `Optional<String>` 
+**endDate:** `Optional<String>` — End date (inclusive) in YYYY-MM-DD
     
 </dd>
 </dl>
@@ -1116,7 +1116,7 @@ client.sleepCycle().get(
 <dl>
 <dd>
 
-**startDate:** `String` 
+**startDate:** `String` — Start date in YYYY-MM-DD
     
 </dd>
 </dl>
@@ -1124,7 +1124,7 @@ client.sleepCycle().get(
 <dl>
 <dd>
 
-**endDate:** `Optional<String>` 
+**endDate:** `Optional<String>` — End date (inclusive) in YYYY-MM-DD
     
 </dd>
 </dl>
@@ -2286,7 +2286,7 @@ client.menstrualCycle().get(
 <dl>
 <dd>
 
-**startDate:** `String` 
+**startDate:** `String` — Start date in YYYY-MM-DD
     
 </dd>
 </dl>
@@ -2294,7 +2294,7 @@ client.menstrualCycle().get(
 <dl>
 <dd>
 
-**endDate:** `Optional<String>` 
+**endDate:** `Optional<String>` — End date (inclusive) in YYYY-MM-DD
     
 </dd>
 </dl>
@@ -11028,6 +11028,7 @@ client.labTests().getMarkers(
         .labSlug("lab_slug")
         .name("name")
         .aLaCarteEnabled(true)
+        .includePricing(true)
         .labAccountId("lab_account_id")
         .page(1)
         .size(1)
@@ -11072,6 +11073,14 @@ client.labTests().getMarkers(
 <dd>
 
 **aLaCarteEnabled:** `Optional<Boolean>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**includePricing:** `Optional<Boolean>` 
     
 </dd>
 </dl>
@@ -11414,6 +11423,8 @@ client.labTests().getPaginated(
         )
         .labTestLimit(1)
         .nextCursor("next_cursor")
+        .includePricing(true)
+        .labAccountId("lab_account_id")
         .generationMethod(LabTestGenerationMethodFilter.AUTO)
         .labSlug("lab_slug")
         .collectionMethod(LabTestCollectionMethod.TESTKIT)
@@ -11445,7 +11456,23 @@ client.labTests().getPaginated(
 <dl>
 <dd>
 
-**nextCursor:** `Optional<String>` 
+**nextCursor:** `Optional<String>` — The cursor for fetching the next page, or `null` to fetch the first page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**includePricing:** `Optional<Boolean>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**labAccountId:** `Optional<String>` — The lab account ID. This lab account is used to determine the availability of markers and lab tests.
     
 </dd>
 </dl>
@@ -14044,6 +14071,463 @@ client.labTests().updateOnSiteCollectionOrderDrawCompleted(
 </dl>
 </details>
 
+<details><summary><code>client.labTests.listUnmatchedResultTestCases() -> ListUnmatchedResultTestCasesResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.labTests().listUnmatchedResultTestCases();
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.labTests.createUnmatchedResultTest(request) -> CreateUnmatchedResultTestResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.labTests().createUnmatchedResultTest(
+    CreateUnmatchedResultTestBody
+        .builder()
+        .idempotencyKey("X-Idempotency-Key")
+        .case_(UnmatchedResultTestCase.MATCH_COMPLETED)
+        .orderSource(UnmatchedResultTestOrderSource.MANAGED)
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**idempotencyKey:** `String` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**case_:** `UnmatchedResultTestCase` — ℹ️ This enum is non-exhaustive.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**orderSource:** `UnmatchedResultTestOrderSource` — ℹ️ This enum is non-exhaustive.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**orders:** `Optional<Map<String, Optional<String>>>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**resultStatus:** `Optional<ResultStatus>` — ℹ️ This enum is non-exhaustive.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**interpretation:** `Optional<Interpretation>` — ℹ️ This enum is non-exhaustive.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**labTestId:** `Optional<String>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**wrongLabTestId:** `Optional<String>` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.labTests.getUnmatchedResultTest(runId) -> GetUnmatchedResultTestResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.labTests().getUnmatchedResultTest(
+    "run_id",
+    GetUnmatchedResultTestLabTestsRequest
+        .builder()
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**runId:** `String` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.labTests.listUnmatchedResults() -> ListUnmatchedResultResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.labTests().listUnmatchedResults(
+    ListUnmatchedResultsLabTestsRequest
+        .builder()
+        .limit(1)
+        .nextCursor("next_cursor")
+        .decisionCode(MatchDecisionCode.MATCH_SAMPLE_ID)
+        .labSlug("lab_slug")
+        .status(MatchReviewStatusFilter.PENDING_CUSTOMER_REVIEW)
+        .createdAtStart("created_at_start")
+        .createdAtEnd("created_at_end")
+        .searchInput("search_input")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**limit:** `Optional<Integer>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**nextCursor:** `Optional<String>` — The cursor for fetching the next page, or `null` to fetch the first page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**decisionCode:** `Optional<MatchDecisionCode>` — Filter by match decision code.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**labSlug:** `Optional<String>` — Filter by lab slug (e.g. `labcorp`, `quest`).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**status:** `Optional<MatchReviewStatusFilter>` — Filter by review status. `pending_customer_review` returns items awaiting your action; `pending_ops_review` returns items you have escalated for review.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**createdAtStart:** `Optional<String>` — Filter by result receipt date on or after this date (UTC, inclusive, YYYY-MM-DD).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**createdAtEnd:** `Optional<String>` — Filter by result receipt date on or before this date (UTC, inclusive, YYYY-MM-DD).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**searchInput:** `Optional<String>` — Search by patient first name, last name, or date of birth (e.g. `Alice`, `Smith`, or `1990-01-15`).
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.labTests.getUnmatchedResult(rawResultId) -> GetUnmatchedResultResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.labTests().getUnmatchedResult(
+    "raw_result_id",
+    GetUnmatchedResultLabTestsRequest
+        .builder()
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**rawResultId:** `String` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.labTests.acceptUnmatchedResult(rawResultId, request) -> ClientFacingOrder</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.labTests().acceptUnmatchedResult(
+    "raw_result_id",
+    AcceptUnmatchedResultBody
+        .builder()
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**rawResultId:** `String` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**userId:** `Optional<String>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**orderId:** `Optional<String>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**note:** `Optional<String>` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.labTests.resolveUnmatchedResult(rawResultId, request) -> UnmatchedResult</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.labTests().resolveUnmatchedResult(
+    "raw_result_id",
+    ResolveUnmatchedResultBody
+        .builder()
+        .action(UnmatchedResultResolutionAction.REJECT)
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**rawResultId:** `String` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**action:** `UnmatchedResultResolutionAction` — ℹ️ This enum is non-exhaustive.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**note:** `Optional<String>` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.labTests.validateIcdCodes(request) -> ValidateIcdCodesResponse</code></summary>
 <dl>
 <dd>
@@ -14243,6 +14727,70 @@ client.compendium().convert(
 <dd>
 
 **limit:** `Optional<Integer>` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.compendium.searchOrderableTests(request) -> SearchOrderableTestsResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.compendium().searchOrderableTests(
+    SearchOrderableTestsBody
+        .builder()
+        .targetLab(CompendiumSearchLabs.LABCORP)
+        .providerIds(
+            Arrays.asList("provider_ids")
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**providerIds:** `List<String>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**targetLab:** `CompendiumSearchLabs` — ℹ️ This enum is non-exhaustive.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**perProviderLimit:** `Optional<Integer>` 
     
 </dd>
 </dl>
@@ -14500,7 +15048,7 @@ client.testkit().register(
 <dl>
 <dd>
 
-**userId:** `Optional<String>` — The user ID of the patient.
+**userId:** `Optional<String>` — The user ID of the patient. If it differs from the user currently associated with the unregistered testkit order, the order is rebound to this user at registration time. The user must exist on the same team as the order. If omitted, the order's existing user is kept.
     
 </dd>
 </dl>

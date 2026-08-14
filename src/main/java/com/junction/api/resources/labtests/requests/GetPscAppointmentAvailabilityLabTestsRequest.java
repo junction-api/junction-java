@@ -283,7 +283,6 @@ public final class GetPscAppointmentAvailabilityLabTestsRequest {
 
         /**
          * <p>Lab to check for availability</p>
-         * <p>Lab to check for availability</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

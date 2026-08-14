@@ -11,6 +11,7 @@ import com.junction.api.core.JunctionHttpResponse;
 import com.junction.api.core.ObjectMappers;
 import com.junction.api.core.QueryStringMapper;
 import com.junction.api.core.RequestOptions;
+import com.junction.api.core.RetryInterceptor;
 import com.junction.api.errors.UnprocessableEntityError;
 import com.junction.api.resources.workouts.requests.GetByWorkoutIdWorkoutsRequest;
 import com.junction.api.resources.workouts.requests.GetRawWorkoutsRequest;
@@ -79,6 +80,15 @@ public class AsyncRawWorkoutsClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
+        if (requestOptions != null && requestOptions.getMaxRetries().isPresent()) {
+            okhttpRequest = okhttpRequest
+                    .newBuilder()
+                    .tag(
+                            RetryInterceptor.MaxRetriesOverride.class,
+                            new RetryInterceptor.MaxRetriesOverride(
+                                    requestOptions.getMaxRetries().get()))
+                    .build();
+        }
         CompletableFuture<JunctionHttpResponse<ClientWorkoutResponse>> future = new CompletableFuture<>();
         client.newCall(okhttpRequest).enqueue(new Callback() {
             @Override
@@ -105,6 +115,9 @@ public class AsyncRawWorkoutsClient {
                     future.completeExceptionally(new ApiError(
                             "Error with status code " + response.code(), response.code(), errorBody, response));
                     return;
+                } catch (JsonProcessingException e) {
+                    future.completeExceptionally(
+                            new JunctionException("Failed to deserialize response: " + e.getMessage(), e));
                 } catch (IOException e) {
                     future.completeExceptionally(new JunctionException("Network error executing HTTP request", e));
                 }
@@ -160,6 +173,15 @@ public class AsyncRawWorkoutsClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
+        if (requestOptions != null && requestOptions.getMaxRetries().isPresent()) {
+            okhttpRequest = okhttpRequest
+                    .newBuilder()
+                    .tag(
+                            RetryInterceptor.MaxRetriesOverride.class,
+                            new RetryInterceptor.MaxRetriesOverride(
+                                    requestOptions.getMaxRetries().get()))
+                    .build();
+        }
         CompletableFuture<JunctionHttpResponse<RawWorkoutResponse>> future = new CompletableFuture<>();
         client.newCall(okhttpRequest).enqueue(new Callback() {
             @Override
@@ -186,6 +208,9 @@ public class AsyncRawWorkoutsClient {
                     future.completeExceptionally(new ApiError(
                             "Error with status code " + response.code(), response.code(), errorBody, response));
                     return;
+                } catch (JsonProcessingException e) {
+                    future.completeExceptionally(
+                            new JunctionException("Failed to deserialize response: " + e.getMessage(), e));
                 } catch (IOException e) {
                     future.completeExceptionally(new JunctionException("Network error executing HTTP request", e));
                 }
@@ -235,6 +260,15 @@ public class AsyncRawWorkoutsClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
+        if (requestOptions != null && requestOptions.getMaxRetries().isPresent()) {
+            okhttpRequest = okhttpRequest
+                    .newBuilder()
+                    .tag(
+                            RetryInterceptor.MaxRetriesOverride.class,
+                            new RetryInterceptor.MaxRetriesOverride(
+                                    requestOptions.getMaxRetries().get()))
+                    .build();
+        }
         CompletableFuture<JunctionHttpResponse<ClientFacingStream>> future = new CompletableFuture<>();
         client.newCall(okhttpRequest).enqueue(new Callback() {
             @Override
@@ -261,6 +295,9 @@ public class AsyncRawWorkoutsClient {
                     future.completeExceptionally(new ApiError(
                             "Error with status code " + response.code(), response.code(), errorBody, response));
                     return;
+                } catch (JsonProcessingException e) {
+                    future.completeExceptionally(
+                            new JunctionException("Failed to deserialize response: " + e.getMessage(), e));
                 } catch (IOException e) {
                     future.completeExceptionally(new JunctionException("Network error executing HTTP request", e));
                 }

@@ -351,7 +351,6 @@ public final class ClientFacingUser {
 
         /**
          * <p>User id returned by vital create user request. This id should be stored in your database against the user and used for all interactions with the vital api.</p>
-         * <p>User id returned by vital create user request. This id should be stored in your database against the user and used for all interactions with the vital api.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -362,7 +361,6 @@ public final class ClientFacingUser {
         }
 
         /**
-         * <p>Your team id.</p>
          * <p>Your team id.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -375,7 +373,6 @@ public final class ClientFacingUser {
 
         /**
          * <p>A unique ID representing the end user. Typically this will be a user ID from your application. Personally identifiable information, such as an email address or phone number, should not be used in the client_user_id.</p>
-         * <p>A unique ID representing the end user. Typically this will be a user ID from your application. Personally identifiable information, such as an email address or phone number, should not be used in the client_user_id.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -386,7 +383,6 @@ public final class ClientFacingUser {
         }
 
         /**
-         * <p>When your item is created</p>
          * <p>When your item is created</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

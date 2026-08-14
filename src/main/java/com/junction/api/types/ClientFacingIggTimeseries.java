@@ -244,7 +244,6 @@ public final class ClientFacingIggTimeseries {
 
         /**
          * <p>The reading type of the measurement.</p>
-         * <p>The reading type of the measurement.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -255,7 +254,6 @@ public final class ClientFacingIggTimeseries {
         }
 
         /**
-         * <p>Measured in FSU.</p>
          * <p>Measured in FSU.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -268,7 +266,6 @@ public final class ClientFacingIggTimeseries {
 
         /**
          * <p>The timestamp of the measurement.</p>
-         * <p>The timestamp of the measurement.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -279,7 +276,6 @@ public final class ClientFacingIggTimeseries {
         }
 
         /**
-         * <p>The value of the measurement.</p>
          * <p>The value of the measurement.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

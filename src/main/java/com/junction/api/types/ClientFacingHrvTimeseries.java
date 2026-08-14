@@ -255,7 +255,6 @@ public final class ClientFacingHrvTimeseries {
 
         /**
          * <p>Measured in rmssd.</p>
-         * <p>Measured in rmssd.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -267,7 +266,6 @@ public final class ClientFacingHrvTimeseries {
 
         /**
          * <p>The timestamp of the measurement.</p>
-         * <p>The timestamp of the measurement.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -278,7 +276,6 @@ public final class ClientFacingHrvTimeseries {
         }
 
         /**
-         * <p>HRV calculated using rmssd during sleep</p>
          * <p>HRV calculated using rmssd during sleep</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

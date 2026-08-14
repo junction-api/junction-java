@@ -137,7 +137,6 @@ public final class FallbackBirthDate {
 
         /**
          * <p>Fallback date of birth of the user, in YYYY-mm-dd format. Used for calculating max heartrate for providers that don not provide users' age.</p>
-         * <p>Fallback date of birth of the user, in YYYY-mm-dd format. Used for calculating max heartrate for providers that don not provide users' age.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -148,7 +147,6 @@ public final class FallbackBirthDate {
         }
 
         /**
-         * <p>Slug for designated source</p>
          * <p>Slug for designated source</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

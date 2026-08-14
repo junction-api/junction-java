@@ -245,7 +245,6 @@ public final class ClientFacingElectrocardiogramVoltageTimeseries {
 
         /**
          * <p>The lead of the measurement.</p>
-         * <p>The lead of the measurement.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -256,7 +255,6 @@ public final class ClientFacingElectrocardiogramVoltageTimeseries {
         }
 
         /**
-         * <p>Measured in mV.</p>
          * <p>Measured in mV.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -269,7 +267,6 @@ public final class ClientFacingElectrocardiogramVoltageTimeseries {
 
         /**
          * <p>The timestamp of the measurement.</p>
-         * <p>The timestamp of the measurement.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -280,7 +277,6 @@ public final class ClientFacingElectrocardiogramVoltageTimeseries {
         }
 
         /**
-         * <p>The value of the measurement.</p>
          * <p>The value of the measurement.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

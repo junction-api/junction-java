@@ -1009,7 +1009,6 @@ public final class ClientFacingOrder {
 
         /**
          * <p>User id returned by vital create user request. This id should be stored in your database against the user and used for all interactions with the vital api.</p>
-         * <p>User id returned by vital create user request. This id should be stored in your database against the user and used for all interactions with the vital api.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -1020,7 +1019,6 @@ public final class ClientFacingOrder {
         }
 
         /**
-         * <p>The Vital Order ID</p>
          * <p>The Vital Order ID</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -1033,7 +1031,6 @@ public final class ClientFacingOrder {
 
         /**
          * <p>Your team id.</p>
-         * <p>Your team id.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -1044,7 +1041,6 @@ public final class ClientFacingOrder {
         }
 
         /**
-         * <p>The Vital Test associated with the order</p>
          * <p>The Vital Test associated with the order</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -1064,7 +1060,6 @@ public final class ClientFacingOrder {
 
         /**
          * <p>When your order was created</p>
-         * <p>When your order was created</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -1075,7 +1070,6 @@ public final class ClientFacingOrder {
         }
 
         /**
-         * <p>When your order was last updated.</p>
          * <p>When your order was last updated.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -1088,7 +1082,6 @@ public final class ClientFacingOrder {
 
         /**
          * <p>The latest event in the order's lifecycle.</p>
-         * <p>The latest event in the order's lifecycle.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -1099,7 +1092,6 @@ public final class ClientFacingOrder {
         }
 
         /**
-         * <p>Defines whether the order has an Advanced Beneficiary Notice (ABN) form or not.</p>
          * <p>Defines whether the order has an Advanced Beneficiary Notice (ABN) form or not.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

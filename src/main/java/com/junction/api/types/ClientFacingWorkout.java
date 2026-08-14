@@ -989,7 +989,6 @@ public final class ClientFacingWorkout {
 
         /**
          * <p>User id returned by vital create user request. This id should be stored in your database against the user and used for all interactions with the vital api.</p>
-         * <p>User id returned by vital create user request. This id should be stored in your database against the user and used for all interactions with the vital api.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -1000,7 +999,6 @@ public final class ClientFacingWorkout {
         }
 
         /**
-         * <p>Date of the workout summary in the YYYY-mm-dd format. This generally matches the workout start date.</p>
          * <p>Date of the workout summary in the YYYY-mm-dd format. This generally matches the workout start date.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -1013,7 +1011,6 @@ public final class ClientFacingWorkout {
 
         /**
          * <p>Start time of the workout::time</p>
-         * <p>Start time of the workout::time</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -1024,7 +1021,6 @@ public final class ClientFacingWorkout {
         }
 
         /**
-         * <p>End time of the workout::time</p>
          * <p>End time of the workout::time</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -1037,7 +1033,6 @@ public final class ClientFacingWorkout {
 
         /**
          * <p>Provider ID given for that specific workout</p>
-         * <p>Provider ID given for that specific workout</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -1048,7 +1043,6 @@ public final class ClientFacingWorkout {
         }
 
         /**
-         * <p>Source the data has come from.</p>
          * <p>Source the data has come from.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

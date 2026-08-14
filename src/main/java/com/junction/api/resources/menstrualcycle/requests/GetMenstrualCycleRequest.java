@@ -54,11 +54,17 @@ public final class GetMenstrualCycleRequest {
         return provider;
     }
 
+    /**
+     * @return Start date in YYYY-MM-DD
+     */
     @JsonProperty("start_date")
     public String getStartDate() {
         return startDate;
     }
 
+    /**
+     * @return End date (inclusive) in YYYY-MM-DD
+     */
     @JsonIgnore
     public Optional<String> getEndDate() {
         if (endDate == null) {
@@ -109,6 +115,9 @@ public final class GetMenstrualCycleRequest {
     }
 
     public interface StartDateStage {
+        /**
+         * <p>Start date in YYYY-MM-DD</p>
+         */
         _FinalStage startDate(@NotNull String startDate);
 
         Builder from(GetMenstrualCycleRequest other);
@@ -130,6 +139,9 @@ public final class GetMenstrualCycleRequest {
 
         _FinalStage provider(Nullable<String> provider);
 
+        /**
+         * <p>End date (inclusive) in YYYY-MM-DD</p>
+         */
         _FinalStage endDate(Optional<String> endDate);
 
         _FinalStage endDate(String endDate);
@@ -158,6 +170,10 @@ public final class GetMenstrualCycleRequest {
             return this;
         }
 
+        /**
+         * <p>Start date in YYYY-MM-DD</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
         @java.lang.Override
         @JsonSetter("start_date")
         public _FinalStage startDate(@NotNull String startDate) {
@@ -165,6 +181,10 @@ public final class GetMenstrualCycleRequest {
             return this;
         }
 
+        /**
+         * <p>End date (inclusive) in YYYY-MM-DD</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
         @java.lang.Override
         public _FinalStage endDate(Nullable<String> endDate) {
             if (endDate.isNull()) {
@@ -177,12 +197,19 @@ public final class GetMenstrualCycleRequest {
             return this;
         }
 
+        /**
+         * <p>End date (inclusive) in YYYY-MM-DD</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
         @java.lang.Override
         public _FinalStage endDate(String endDate) {
             this.endDate = Optional.ofNullable(endDate);
             return this;
         }
 
+        /**
+         * <p>End date (inclusive) in YYYY-MM-DD</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "end_date", nulls = Nulls.SKIP)
         public _FinalStage endDate(Optional<String> endDate) {

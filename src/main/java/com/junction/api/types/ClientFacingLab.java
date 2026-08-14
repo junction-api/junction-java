@@ -5,18 +5,22 @@ package com.junction.api.types;
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.junction.api.core.Nullable;
+import com.junction.api.core.NullableNonemptyFilter;
 import com.junction.api.core.ObjectMappers;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import org.jetbrains.annotations.NotNull;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
@@ -38,6 +42,8 @@ public final class ClientFacingLab {
 
     private final List<LabTestSampleType> sampleTypes;
 
+    private final Optional<String> logoUrl;
+
     private final Map<String, Object> additionalProperties;
 
     private ClientFacingLab(
@@ -49,6 +55,7 @@ public final class ClientFacingLab {
             String zipcode,
             List<LabTestCollectionMethod> collectionMethods,
             List<LabTestSampleType> sampleTypes,
+            Optional<String> logoUrl,
             Map<String, Object> additionalProperties) {
         this.id = id;
         this.slug = slug;
@@ -58,6 +65,7 @@ public final class ClientFacingLab {
         this.zipcode = zipcode;
         this.collectionMethods = collectionMethods;
         this.sampleTypes = sampleTypes;
+        this.logoUrl = logoUrl;
         this.additionalProperties = additionalProperties;
     }
 
@@ -101,6 +109,20 @@ public final class ClientFacingLab {
         return sampleTypes;
     }
 
+    @JsonIgnore
+    public Optional<String> getLogoUrl() {
+        if (logoUrl == null) {
+            return Optional.empty();
+        }
+        return logoUrl;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("logo_url")
+    private Optional<String> _getLogoUrl() {
+        return logoUrl;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -120,7 +142,8 @@ public final class ClientFacingLab {
                 && city.equals(other.city)
                 && zipcode.equals(other.zipcode)
                 && collectionMethods.equals(other.collectionMethods)
-                && sampleTypes.equals(other.sampleTypes);
+                && sampleTypes.equals(other.sampleTypes)
+                && logoUrl.equals(other.logoUrl);
     }
 
     @java.lang.Override
@@ -133,7 +156,8 @@ public final class ClientFacingLab {
                 this.city,
                 this.zipcode,
                 this.collectionMethods,
-                this.sampleTypes);
+                this.sampleTypes,
+                this.logoUrl);
     }
 
     @java.lang.Override
@@ -189,6 +213,12 @@ public final class ClientFacingLab {
         _FinalStage addSampleTypes(LabTestSampleType sampleTypes);
 
         _FinalStage addAllSampleTypes(List<LabTestSampleType> sampleTypes);
+
+        _FinalStage logoUrl(Optional<String> logoUrl);
+
+        _FinalStage logoUrl(String logoUrl);
+
+        _FinalStage logoUrl(Nullable<String> logoUrl);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -205,6 +235,8 @@ public final class ClientFacingLab {
         private String city;
 
         private String zipcode;
+
+        private Optional<String> logoUrl = Optional.empty();
 
         private List<LabTestSampleType> sampleTypes = new ArrayList<>();
 
@@ -225,6 +257,7 @@ public final class ClientFacingLab {
             zipcode(other.getZipcode());
             collectionMethods(other.getCollectionMethods());
             sampleTypes(other.getSampleTypes());
+            logoUrl(other.getLogoUrl());
             return this;
         }
 
@@ -267,6 +300,31 @@ public final class ClientFacingLab {
         @JsonSetter("zipcode")
         public _FinalStage zipcode(@NotNull String zipcode) {
             this.zipcode = Objects.requireNonNull(zipcode, "zipcode must not be null");
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage logoUrl(Nullable<String> logoUrl) {
+            if (logoUrl.isNull()) {
+                this.logoUrl = null;
+            } else if (logoUrl.isEmpty()) {
+                this.logoUrl = Optional.empty();
+            } else {
+                this.logoUrl = Optional.of(logoUrl.get());
+            }
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage logoUrl(String logoUrl) {
+            this.logoUrl = Optional.ofNullable(logoUrl);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "logo_url", nulls = Nulls.SKIP)
+        public _FinalStage logoUrl(Optional<String> logoUrl) {
+            this.logoUrl = logoUrl;
             return this;
         }
 
@@ -329,6 +387,7 @@ public final class ClientFacingLab {
                     zipcode,
                     collectionMethods,
                     sampleTypes,
+                    logoUrl,
                     additionalProperties);
         }
 

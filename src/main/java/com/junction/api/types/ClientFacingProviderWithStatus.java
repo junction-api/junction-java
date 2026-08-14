@@ -302,7 +302,6 @@ public final class ClientFacingProviderWithStatus {
 
         /**
          * <p>Name of source of information</p>
-         * <p>Name of source of information</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -314,7 +313,6 @@ public final class ClientFacingProviderWithStatus {
 
         /**
          * <p>Slug for designated source</p>
-         * <p>Slug for designated source</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -325,7 +323,6 @@ public final class ClientFacingProviderWithStatus {
         }
 
         /**
-         * <p>URL for source logo</p>
          * <p>URL for source logo</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -344,7 +341,6 @@ public final class ClientFacingProviderWithStatus {
         }
 
         /**
-         * <p>Status of source, either error or connected</p>
          * <p>Status of source, either error or connected</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

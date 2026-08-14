@@ -11,12 +11,15 @@ import com.junction.api.core.JunctionHttpResponse;
 import com.junction.api.core.MediaTypes;
 import com.junction.api.core.ObjectMappers;
 import com.junction.api.core.RequestOptions;
+import com.junction.api.core.RetryInterceptor;
 import com.junction.api.errors.UnprocessableEntityError;
 import com.junction.api.resources.compendium.requests.ConvertCompendiumBody;
 import com.junction.api.resources.compendium.requests.SearchCompendiumBody;
+import com.junction.api.resources.compendium.requests.SearchOrderableTestsBody;
 import com.junction.api.types.ConvertCompendiumResponse;
 import com.junction.api.types.HttpValidationError;
 import com.junction.api.types.SearchCompendiumResponse;
+import com.junction.api.types.SearchOrderableTestsResponse;
 import java.io.IOException;
 import okhttp3.Headers;
 import okhttp3.HttpUrl;
@@ -65,6 +68,15 @@ public class RawCompendiumClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
+        if (requestOptions != null && requestOptions.getMaxRetries().isPresent()) {
+            okhttpRequest = okhttpRequest
+                    .newBuilder()
+                    .tag(
+                            RetryInterceptor.MaxRetriesOverride.class,
+                            new RetryInterceptor.MaxRetriesOverride(
+                                    requestOptions.getMaxRetries().get()))
+                    .build();
+        }
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
             String responseBodyString = responseBody != null ? responseBody.string() : "{}";
@@ -84,6 +96,8 @@ public class RawCompendiumClient {
             }
             Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
             throw new ApiError("Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (JsonProcessingException e) {
+            throw new JunctionException("Failed to deserialize response: " + e.getMessage(), e);
         } catch (IOException e) {
             throw new JunctionException("Network error executing HTTP request", e);
         }
@@ -121,6 +135,15 @@ public class RawCompendiumClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
+        if (requestOptions != null && requestOptions.getMaxRetries().isPresent()) {
+            okhttpRequest = okhttpRequest
+                    .newBuilder()
+                    .tag(
+                            RetryInterceptor.MaxRetriesOverride.class,
+                            new RetryInterceptor.MaxRetriesOverride(
+                                    requestOptions.getMaxRetries().get()))
+                    .build();
+        }
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
             String responseBodyString = responseBody != null ? responseBody.string() : "{}";
@@ -140,6 +163,75 @@ public class RawCompendiumClient {
             }
             Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
             throw new ApiError("Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (JsonProcessingException e) {
+            throw new JunctionException("Failed to deserialize response: " + e.getMessage(), e);
+        } catch (IOException e) {
+            throw new JunctionException("Network error executing HTTP request", e);
+        }
+    }
+
+    public JunctionHttpResponse<SearchOrderableTestsResponse> searchOrderableTests(SearchOrderableTestsBody request) {
+        return searchOrderableTests(request, null);
+    }
+
+    public JunctionHttpResponse<SearchOrderableTestsResponse> searchOrderableTests(
+            SearchOrderableTestsBody request, RequestOptions requestOptions) {
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+                .newBuilder()
+                .addPathSegments("v3/compendium/search_orderable_tests");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
+        RequestBody body;
+        try {
+            body = RequestBody.create(
+                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
+        } catch (JsonProcessingException e) {
+            throw new JunctionException("Failed to serialize request", e);
+        }
+        Request okhttpRequest = new Request.Builder()
+                .url(httpUrl.build())
+                .method("POST", body)
+                .headers(Headers.of(clientOptions.headers(requestOptions)))
+                .addHeader("Content-Type", "application/json")
+                .addHeader("Accept", "application/json")
+                .build();
+        OkHttpClient client = clientOptions.httpClient();
+        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
+            client = clientOptions.httpClientWithTimeout(requestOptions);
+        }
+        if (requestOptions != null && requestOptions.getMaxRetries().isPresent()) {
+            okhttpRequest = okhttpRequest
+                    .newBuilder()
+                    .tag(
+                            RetryInterceptor.MaxRetriesOverride.class,
+                            new RetryInterceptor.MaxRetriesOverride(
+                                    requestOptions.getMaxRetries().get()))
+                    .build();
+        }
+        try (Response response = client.newCall(okhttpRequest).execute()) {
+            ResponseBody responseBody = response.body();
+            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
+            if (response.isSuccessful()) {
+                return new JunctionHttpResponse<>(
+                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, SearchOrderableTestsResponse.class),
+                        response);
+            }
+            try {
+                if (response.code() == 422) {
+                    throw new UnprocessableEntityError(
+                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, HttpValidationError.class),
+                            response);
+                }
+            } catch (JsonProcessingException ignored) {
+                // unable to map error response, throwing generic error
+            }
+            Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
+            throw new ApiError("Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (JsonProcessingException e) {
+            throw new JunctionException("Failed to deserialize response: " + e.getMessage(), e);
         } catch (IOException e) {
             throw new JunctionException("Network error executing HTTP request", e);
         }

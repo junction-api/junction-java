@@ -38,6 +38,10 @@ public final class GetPaginatedLabTestsRequest {
 
     private final Optional<String> nextCursor;
 
+    private final Optional<Boolean> includePricing;
+
+    private final Optional<String> labAccountId;
+
     private final Optional<LabTestGenerationMethodFilter> generationMethod;
 
     private final Optional<String> labSlug;
@@ -59,6 +63,8 @@ public final class GetPaginatedLabTestsRequest {
             Optional<List<String>> providerIds,
             Optional<Integer> labTestLimit,
             Optional<String> nextCursor,
+            Optional<Boolean> includePricing,
+            Optional<String> labAccountId,
             Optional<LabTestGenerationMethodFilter> generationMethod,
             Optional<String> labSlug,
             Optional<LabTestCollectionMethod> collectionMethod,
@@ -71,6 +77,8 @@ public final class GetPaginatedLabTestsRequest {
         this.providerIds = providerIds;
         this.labTestLimit = labTestLimit;
         this.nextCursor = nextCursor;
+        this.includePricing = includePricing;
+        this.labAccountId = labAccountId;
         this.generationMethod = generationMethod;
         this.labSlug = labSlug;
         this.collectionMethod = collectionMethod;
@@ -111,12 +119,34 @@ public final class GetPaginatedLabTestsRequest {
         return labTestLimit;
     }
 
+    /**
+     * @return The cursor for fetching the next page, or <code>null</code> to fetch the first page.
+     */
     @JsonIgnore
     public Optional<String> getNextCursor() {
         if (nextCursor == null) {
             return Optional.empty();
         }
         return nextCursor;
+    }
+
+    @JsonIgnore
+    public Optional<Boolean> getIncludePricing() {
+        if (includePricing == null) {
+            return Optional.empty();
+        }
+        return includePricing;
+    }
+
+    /**
+     * @return The lab account ID. This lab account is used to determine the availability of markers and lab tests.
+     */
+    @JsonIgnore
+    public Optional<String> getLabAccountId() {
+        if (labAccountId == null) {
+            return Optional.empty();
+        }
+        return labAccountId;
     }
 
     /**
@@ -215,6 +245,18 @@ public final class GetPaginatedLabTestsRequest {
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("include_pricing")
+    private Optional<Boolean> _getIncludePricing() {
+        return includePricing;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("lab_account_id")
+    private Optional<String> _getLabAccountId() {
+        return labAccountId;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("generation_method")
     private Optional<LabTestGenerationMethodFilter> _getGenerationMethod() {
         return generationMethod;
@@ -272,6 +314,8 @@ public final class GetPaginatedLabTestsRequest {
                 && providerIds.equals(other.providerIds)
                 && labTestLimit.equals(other.labTestLimit)
                 && nextCursor.equals(other.nextCursor)
+                && includePricing.equals(other.includePricing)
+                && labAccountId.equals(other.labAccountId)
                 && generationMethod.equals(other.generationMethod)
                 && labSlug.equals(other.labSlug)
                 && collectionMethod.equals(other.collectionMethod)
@@ -288,6 +332,8 @@ public final class GetPaginatedLabTestsRequest {
                 this.providerIds,
                 this.labTestLimit,
                 this.nextCursor,
+                this.includePricing,
+                this.labAccountId,
                 this.generationMethod,
                 this.labSlug,
                 this.collectionMethod,
@@ -316,6 +362,10 @@ public final class GetPaginatedLabTestsRequest {
 
         private Optional<String> nextCursor = Optional.empty();
 
+        private Optional<Boolean> includePricing = Optional.empty();
+
+        private Optional<String> labAccountId = Optional.empty();
+
         private Optional<LabTestGenerationMethodFilter> generationMethod = Optional.empty();
 
         private Optional<String> labSlug = Optional.empty();
@@ -340,6 +390,8 @@ public final class GetPaginatedLabTestsRequest {
             providerIds(other.getProviderIds());
             labTestLimit(other.getLabTestLimit());
             nextCursor(other.getNextCursor());
+            includePricing(other.getIncludePricing());
+            labAccountId(other.getLabAccountId());
             generationMethod(other.getGenerationMethod());
             labSlug(other.getLabSlug());
             collectionMethod(other.getCollectionMethod());
@@ -432,6 +484,9 @@ public final class GetPaginatedLabTestsRequest {
             return this;
         }
 
+        /**
+         * <p>The cursor for fetching the next page, or <code>null</code> to fetch the first page.</p>
+         */
         @JsonSetter(value = "next_cursor", nulls = Nulls.SKIP)
         public Builder nextCursor(Optional<String> nextCursor) {
             this.nextCursor = nextCursor;
@@ -450,6 +505,53 @@ public final class GetPaginatedLabTestsRequest {
                 this.nextCursor = Optional.empty();
             } else {
                 this.nextCursor = Optional.of(nextCursor.get());
+            }
+            return this;
+        }
+
+        @JsonSetter(value = "include_pricing", nulls = Nulls.SKIP)
+        public Builder includePricing(Optional<Boolean> includePricing) {
+            this.includePricing = includePricing;
+            return this;
+        }
+
+        public Builder includePricing(Boolean includePricing) {
+            this.includePricing = Optional.ofNullable(includePricing);
+            return this;
+        }
+
+        public Builder includePricing(Nullable<Boolean> includePricing) {
+            if (includePricing.isNull()) {
+                this.includePricing = null;
+            } else if (includePricing.isEmpty()) {
+                this.includePricing = Optional.empty();
+            } else {
+                this.includePricing = Optional.of(includePricing.get());
+            }
+            return this;
+        }
+
+        /**
+         * <p>The lab account ID. This lab account is used to determine the availability of markers and lab tests.</p>
+         */
+        @JsonSetter(value = "lab_account_id", nulls = Nulls.SKIP)
+        public Builder labAccountId(Optional<String> labAccountId) {
+            this.labAccountId = labAccountId;
+            return this;
+        }
+
+        public Builder labAccountId(String labAccountId) {
+            this.labAccountId = Optional.ofNullable(labAccountId);
+            return this;
+        }
+
+        public Builder labAccountId(Nullable<String> labAccountId) {
+            if (labAccountId.isNull()) {
+                this.labAccountId = null;
+            } else if (labAccountId.isEmpty()) {
+                this.labAccountId = Optional.empty();
+            } else {
+                this.labAccountId = Optional.of(labAccountId.get());
             }
             return this;
         }
@@ -629,6 +731,8 @@ public final class GetPaginatedLabTestsRequest {
                     providerIds,
                     labTestLimit,
                     nextCursor,
+                    includePricing,
+                    labAccountId,
                     generationMethod,
                     labSlug,
                     collectionMethod,

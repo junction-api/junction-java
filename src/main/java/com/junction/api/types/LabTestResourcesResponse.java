@@ -29,12 +29,18 @@ public final class LabTestResourcesResponse {
 
     private final Optional<String> nextCursor;
 
+    private final Optional<GetLabTestPricingResponse> pricing;
+
     private final Map<String, Object> additionalProperties;
 
     private LabTestResourcesResponse(
-            List<ClientFacingLabTest> data, Optional<String> nextCursor, Map<String, Object> additionalProperties) {
+            List<ClientFacingLabTest> data,
+            Optional<String> nextCursor,
+            Optional<GetLabTestPricingResponse> pricing,
+            Map<String, Object> additionalProperties) {
         this.data = data;
         this.nextCursor = nextCursor;
+        this.pricing = pricing;
         this.additionalProperties = additionalProperties;
     }
 
@@ -54,10 +60,24 @@ public final class LabTestResourcesResponse {
         return nextCursor;
     }
 
+    @JsonIgnore
+    public Optional<GetLabTestPricingResponse> getPricing() {
+        if (pricing == null) {
+            return Optional.empty();
+        }
+        return pricing;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("next_cursor")
     private Optional<String> _getNextCursor() {
         return nextCursor;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("pricing")
+    private Optional<GetLabTestPricingResponse> _getPricing() {
+        return pricing;
     }
 
     @java.lang.Override
@@ -72,12 +92,12 @@ public final class LabTestResourcesResponse {
     }
 
     private boolean equalTo(LabTestResourcesResponse other) {
-        return data.equals(other.data) && nextCursor.equals(other.nextCursor);
+        return data.equals(other.data) && nextCursor.equals(other.nextCursor) && pricing.equals(other.pricing);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.data, this.nextCursor);
+        return Objects.hash(this.data, this.nextCursor, this.pricing);
     }
 
     @java.lang.Override
@@ -95,6 +115,8 @@ public final class LabTestResourcesResponse {
 
         private Optional<String> nextCursor = Optional.empty();
 
+        private Optional<GetLabTestPricingResponse> pricing = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -103,6 +125,7 @@ public final class LabTestResourcesResponse {
         public Builder from(LabTestResourcesResponse other) {
             data(other.getData());
             nextCursor(other.getNextCursor());
+            pricing(other.getPricing());
             return this;
         }
 
@@ -152,8 +175,30 @@ public final class LabTestResourcesResponse {
             return this;
         }
 
+        @JsonSetter(value = "pricing", nulls = Nulls.SKIP)
+        public Builder pricing(Optional<GetLabTestPricingResponse> pricing) {
+            this.pricing = pricing;
+            return this;
+        }
+
+        public Builder pricing(GetLabTestPricingResponse pricing) {
+            this.pricing = Optional.ofNullable(pricing);
+            return this;
+        }
+
+        public Builder pricing(Nullable<GetLabTestPricingResponse> pricing) {
+            if (pricing.isNull()) {
+                this.pricing = null;
+            } else if (pricing.isEmpty()) {
+                this.pricing = Optional.empty();
+            } else {
+                this.pricing = Optional.of(pricing.get());
+            }
+            return this;
+        }
+
         public LabTestResourcesResponse build() {
-            return new LabTestResourcesResponse(data, nextCursor, additionalProperties);
+            return new LabTestResourcesResponse(data, nextCursor, pricing, additionalProperties);
         }
 
         public Builder additionalProperty(String key, Object value) {

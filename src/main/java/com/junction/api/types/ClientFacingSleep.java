@@ -1001,7 +1001,6 @@ public final class ClientFacingSleep {
 
         /**
          * <p>User id returned by vital create user request. This id should be stored in your database against the user and used for all interactions with the vital api.</p>
-         * <p>User id returned by vital create user request. This id should be stored in your database against the user and used for all interactions with the vital api.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -1012,7 +1011,6 @@ public final class ClientFacingSleep {
         }
 
         /**
-         * <p>Date of the specified record, formatted as ISO8601 datetime string in UTC 00:00. Deprecated in favour of calendar_date.</p>
          * <p>Date of the specified record, formatted as ISO8601 datetime string in UTC 00:00. Deprecated in favour of calendar_date.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -1025,7 +1023,6 @@ public final class ClientFacingSleep {
 
         /**
          * <p>Date of the sleep summary in the YYYY-mm-dd format. This generally matches the sleep end date.</p>
-         * <p>Date of the sleep summary in the YYYY-mm-dd format. This generally matches the sleep end date.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -1037,7 +1034,6 @@ public final class ClientFacingSleep {
 
         /**
          * <p>UTC Time when the sleep period started</p>
-         * <p>UTC Time when the sleep period started</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -1048,7 +1044,6 @@ public final class ClientFacingSleep {
         }
 
         /**
-         * <p>UTC Time when the sleep period ended</p>
          * <p>UTC Time when the sleep period ended</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -1065,11 +1060,6 @@ public final class ClientFacingSleep {
          * <code>acknowledged_nap</code>: User-acknowledged naps, typically under 3 hours of sleep;
          * <code>unknown</code>: The sleep session recording is ongoing.
          * ℹ️ This enum is non-exhaustive.</p>
-         * <p><code>long_sleep</code>: &gt;=3 hours of sleep;
-         * <code>short_sleep</code>: &lt;3 hours of sleep;
-         * <code>acknowledged_nap</code>: User-acknowledged naps, typically under 3 hours of sleep;
-         * <code>unknown</code>: The sleep session recording is ongoing.
-         * ℹ️ This enum is non-exhaustive.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -1080,7 +1070,6 @@ public final class ClientFacingSleep {
         }
 
         /**
-         * <p>Total duration of the sleep period (sleep.duration = sleep.bedtime_end - sleep.bedtime_start)::seconds</p>
          * <p>Total duration of the sleep period (sleep.duration = sleep.bedtime_end - sleep.bedtime_start)::seconds</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -1093,7 +1082,6 @@ public final class ClientFacingSleep {
 
         /**
          * <p>Total amount of sleep registered during the sleep period (sleep.total = sleep.rem + sleep.light + sleep.deep)::seconds</p>
-         * <p>Total amount of sleep registered during the sleep period (sleep.total = sleep.rem + sleep.light + sleep.deep)::seconds</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -1104,7 +1092,6 @@ public final class ClientFacingSleep {
         }
 
         /**
-         * <p>Total amount of awake time registered during the sleep period::seconds</p>
          * <p>Total amount of awake time registered during the sleep period::seconds</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -1117,7 +1104,6 @@ public final class ClientFacingSleep {
 
         /**
          * <p>Total amount of light sleep registered during the sleep period::seconds</p>
-         * <p>Total amount of light sleep registered during the sleep period::seconds</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -1128,7 +1114,6 @@ public final class ClientFacingSleep {
         }
 
         /**
-         * <p>Total amount of REM sleep registered during the sleep period, minutes::seconds</p>
          * <p>Total amount of REM sleep registered during the sleep period, minutes::seconds</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -1141,7 +1126,6 @@ public final class ClientFacingSleep {
 
         /**
          * <p>Total amount of deep (N3) sleep registered during the sleep period::seconds</p>
-         * <p>Total amount of deep (N3) sleep registered during the sleep period::seconds</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -1152,7 +1136,6 @@ public final class ClientFacingSleep {
         }
 
         /**
-         * <p>Source the data has come from.</p>
          * <p>Source the data has come from.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

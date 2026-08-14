@@ -43,7 +43,7 @@ public final class Micros {
     }
 
     /**
-     * @return Amount of each mineral in their respective units. Most minerals are measured in mg (milligrams), while sodium and potassium are in g (grams).
+     * @return Amount of each mineral in milligrams (mg).
      */
     @JsonIgnore
     public Optional<Map<String, Optional<Double>>> getMinerals() {
@@ -65,7 +65,7 @@ public final class Micros {
     }
 
     /**
-     * @return Amount of each vitamin in their respective units. A, B12, D and K in μg (micrograms), while B1, B2, B3, B5, B6, C and folic acid are in mg (milligrams).
+     * @return Amount of each vitamin in their respective units. A, B12, D, K, biotin and folic acid are in μg (micrograms), while B1, B2, B3, B5, B6, C and E are in mg (milligrams).
      */
     @JsonIgnore
     public Optional<Map<String, Optional<Double>>> getVitamins() {
@@ -145,7 +145,7 @@ public final class Micros {
         }
 
         /**
-         * <p>Amount of each mineral in their respective units. Most minerals are measured in mg (milligrams), while sodium and potassium are in g (grams).</p>
+         * <p>Amount of each mineral in milligrams (mg).</p>
          */
         @JsonSetter(value = "minerals", nulls = Nulls.SKIP)
         public Builder minerals(Optional<Map<String, Optional<Double>>> minerals) {
@@ -195,7 +195,7 @@ public final class Micros {
         }
 
         /**
-         * <p>Amount of each vitamin in their respective units. A, B12, D and K in μg (micrograms), while B1, B2, B3, B5, B6, C and folic acid are in mg (milligrams).</p>
+         * <p>Amount of each vitamin in their respective units. A, B12, D, K, biotin and folic acid are in μg (micrograms), while B1, B2, B3, B5, B6, C and E are in mg (milligrams).</p>
          */
         @JsonSetter(value = "vitamins", nulls = Nulls.SKIP)
         public Builder vitamins(Optional<Map<String, Optional<Double>>> vitamins) {

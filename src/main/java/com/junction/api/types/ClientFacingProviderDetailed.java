@@ -238,7 +238,6 @@ public final class ClientFacingProviderDetailed {
 
         /**
          * <p>Name of source of information</p>
-         * <p>Name of source of information</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -250,7 +249,6 @@ public final class ClientFacingProviderDetailed {
 
         /**
          * <p>Slug for designated source</p>
-         * <p>Slug for designated source</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -261,7 +259,6 @@ public final class ClientFacingProviderDetailed {
         }
 
         /**
-         * <p>Description of source of information</p>
          * <p>Description of source of information</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

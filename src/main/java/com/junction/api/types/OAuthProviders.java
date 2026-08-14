@@ -32,6 +32,8 @@ public final class OAuthProviders {
 
     public static final OAuthProviders FITBIT = new OAuthProviders(Value.FITBIT, "fitbit");
 
+    public static final OAuthProviders GOOGLE_HEALTH = new OAuthProviders(Value.GOOGLE_HEALTH, "google_health");
+
     public static final OAuthProviders DEXCOM_V_3 = new OAuthProviders(Value.DEXCOM_V_3, "dexcom_v3");
 
     public static final OAuthProviders WITHINGS = new OAuthProviders(Value.WITHINGS, "withings");
@@ -96,6 +98,8 @@ public final class OAuthProviders {
                 return visitor.visitGoogleFit();
             case FITBIT:
                 return visitor.visitFitbit();
+            case GOOGLE_HEALTH:
+                return visitor.visitGoogleHealth();
             case DEXCOM_V_3:
                 return visitor.visitDexcomV3();
             case WITHINGS:
@@ -137,6 +141,8 @@ public final class OAuthProviders {
                 return GOOGLE_FIT;
             case "fitbit":
                 return FITBIT;
+            case "google_health":
+                return GOOGLE_HEALTH;
             case "dexcom_v3":
                 return DEXCOM_V_3;
             case "withings":
@@ -183,6 +189,8 @@ public final class OAuthProviders {
 
         RUNKEEPER,
 
+        GOOGLE_HEALTH,
+
         UNKNOWN
     }
 
@@ -218,6 +226,8 @@ public final class OAuthProviders {
         T visitUltrahuman();
 
         T visitRunkeeper();
+
+        T visitGoogleHealth();
 
         T visitUnknown(String unknownType);
     }

@@ -256,7 +256,6 @@ public final class ClientFacingRespiratoryRateTimeseries {
 
         /**
          * <p>Measured in bpm.</p>
-         * <p>Measured in bpm.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -268,7 +267,6 @@ public final class ClientFacingRespiratoryRateTimeseries {
 
         /**
          * <p>The timestamp of the measurement.</p>
-         * <p>The timestamp of the measurement.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -279,7 +277,6 @@ public final class ClientFacingRespiratoryRateTimeseries {
         }
 
         /**
-         * <p>Average respiratory rate::breaths per minute</p>
          * <p>Average respiratory rate::breaths per minute</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

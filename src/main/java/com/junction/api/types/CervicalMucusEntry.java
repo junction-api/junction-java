@@ -122,7 +122,6 @@ public final class CervicalMucusEntry {
 
         /**
          * <p>ℹ️ This enum is non-exhaustive.</p>
-         * <p>ℹ️ This enum is non-exhaustive.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

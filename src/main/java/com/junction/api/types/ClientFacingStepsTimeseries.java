@@ -286,7 +286,6 @@ public final class ClientFacingStepsTimeseries {
 
         /**
          * <p>Depracated. The start time (inclusive) of the interval.</p>
-         * <p>Depracated. The start time (inclusive) of the interval.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -297,7 +296,6 @@ public final class ClientFacingStepsTimeseries {
         }
 
         /**
-         * <p>The start time (inclusive) of the interval.</p>
          * <p>The start time (inclusive) of the interval.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -310,7 +308,6 @@ public final class ClientFacingStepsTimeseries {
 
         /**
          * <p>The end time (exclusive) of the interval.</p>
-         * <p>The end time (exclusive) of the interval.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -321,7 +318,6 @@ public final class ClientFacingStepsTimeseries {
         }
 
         /**
-         * <p>The number of steps sampled at the time or interval::count</p>
          * <p>The number of steps sampled at the time or interval::count</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

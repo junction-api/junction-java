@@ -141,7 +141,6 @@ public final class ClientFacingSport {
 
         /**
          * <p>This ID is unstable across environments. Use the slug instead.</p>
-         * <p>This ID is unstable across environments. Use the slug instead.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -153,7 +152,6 @@ public final class ClientFacingSport {
 
         /**
          * <p>Sport's name</p>
-         * <p>Sport's name</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -164,7 +162,6 @@ public final class ClientFacingSport {
         }
 
         /**
-         * <p>Slug for designated sport</p>
          * <p>Slug for designated sport</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

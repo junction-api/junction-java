@@ -287,7 +287,6 @@ public final class ClientFacingCaloriesActiveTimeseries {
 
         /**
          * <p>Depracated. The start time (inclusive) of the interval.</p>
-         * <p>Depracated. The start time (inclusive) of the interval.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -298,7 +297,6 @@ public final class ClientFacingCaloriesActiveTimeseries {
         }
 
         /**
-         * <p>The start time (inclusive) of the interval.</p>
          * <p>The start time (inclusive) of the interval.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -311,7 +309,6 @@ public final class ClientFacingCaloriesActiveTimeseries {
 
         /**
          * <p>The end time (exclusive) of the interval.</p>
-         * <p>The end time (exclusive) of the interval.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -322,7 +319,6 @@ public final class ClientFacingCaloriesActiveTimeseries {
         }
 
         /**
-         * <p>Energy consumption caused by the physical activity at the time or interval::kilocalories</p>
          * <p>Energy consumption caused by the physical activity at the time or interval::kilocalories</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

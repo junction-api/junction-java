@@ -213,7 +213,6 @@ public final class ProviderConnectionCreated {
 
         /**
          * <p>Deprecated. Use <code>provider</code> instead. Subject to removal after 1 Jan 2024.</p>
-         * <p>Deprecated. Use <code>provider</code> instead. Subject to removal after 1 Jan 2024.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

@@ -495,7 +495,6 @@ public final class MealInDbBaseClientFacingSource {
 
         /**
          * <p>This value has no meaning.</p>
-         * <p>This value has no meaning.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -507,7 +506,6 @@ public final class MealInDbBaseClientFacingSource {
 
         /**
          * <p>This value has no meaning.</p>
-         * <p>This value has no meaning.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -518,7 +516,6 @@ public final class MealInDbBaseClientFacingSource {
         }
 
         /**
-         * <p>This value is identical to <code>id</code>.</p>
          * <p>This value is identical to <code>id</code>.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -537,7 +534,6 @@ public final class MealInDbBaseClientFacingSource {
         }
 
         /**
-         * <p>Date of the meal in the YYYY-mm-dd format. For providers that only expose a date, this is the calendar date as recorded by the user.</p>
          * <p>Date of the meal in the YYYY-mm-dd format. For providers that only expose a date, this is the calendar date as recorded by the user.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

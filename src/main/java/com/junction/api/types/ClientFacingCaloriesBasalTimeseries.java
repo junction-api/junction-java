@@ -241,7 +241,6 @@ public final class ClientFacingCaloriesBasalTimeseries {
 
         /**
          * <p>The timestamp of the measurement.</p>
-         * <p>The timestamp of the measurement.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -252,7 +251,6 @@ public final class ClientFacingCaloriesBasalTimeseries {
         }
 
         /**
-         * <p>Basal Metabolic Rate at the time or interval::kilocalories</p>
          * <p>Basal Metabolic Rate at the time or interval::kilocalories</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

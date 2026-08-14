@@ -5,12 +5,14 @@ package com.junction.api.resources.labtests;
 
 import com.junction.api.core.ClientOptions;
 import com.junction.api.core.RequestOptions;
+import com.junction.api.resources.labtests.requests.AcceptUnmatchedResultBody;
 import com.junction.api.resources.labtests.requests.ApiApiV1EndpointsVitalApiLabTestingOrdersHelpersAppointmentCancelRequest;
 import com.junction.api.resources.labtests.requests.BookPhlebotomyAppointmentLabTestsRequest;
 import com.junction.api.resources.labtests.requests.BookPscAppointmentLabTestsRequest;
 import com.junction.api.resources.labtests.requests.CancelOrderLabTestsRequest;
 import com.junction.api.resources.labtests.requests.CreateLabTestRequest;
 import com.junction.api.resources.labtests.requests.CreateOrderRequestCompatible;
+import com.junction.api.resources.labtests.requests.CreateUnmatchedResultTestBody;
 import com.junction.api.resources.labtests.requests.GetAreaInfoLabTestsRequest;
 import com.junction.api.resources.labtests.requests.GetByIdLabTestsRequest;
 import com.junction.api.resources.labtests.requests.GetLabTestCollectionInstructionPdfLabTestsRequest;
@@ -35,10 +37,14 @@ import com.junction.api.resources.labtests.requests.GetPscInfoLabTestsRequest;
 import com.junction.api.resources.labtests.requests.GetResultMetadataLabTestsRequest;
 import com.junction.api.resources.labtests.requests.GetResultPdfLabTestsRequest;
 import com.junction.api.resources.labtests.requests.GetResultRawLabTestsRequest;
+import com.junction.api.resources.labtests.requests.GetUnmatchedResultLabTestsRequest;
+import com.junction.api.resources.labtests.requests.GetUnmatchedResultTestLabTestsRequest;
 import com.junction.api.resources.labtests.requests.ImportOrderBody;
+import com.junction.api.resources.labtests.requests.ListUnmatchedResultsLabTestsRequest;
 import com.junction.api.resources.labtests.requests.RequestAppointmentRequest;
 import com.junction.api.resources.labtests.requests.ReschedulePhlebotomyAppointmentLabTestsRequest;
 import com.junction.api.resources.labtests.requests.ReschedulePscAppointmentLabTestsRequest;
+import com.junction.api.resources.labtests.requests.ResolveUnmatchedResultBody;
 import com.junction.api.resources.labtests.requests.SimulateOrderProcessLabTestsRequest;
 import com.junction.api.resources.labtests.requests.UpdateLabTestRequest;
 import com.junction.api.resources.labtests.requests.UpdateOnSiteCollectionOrderDrawCompletedLabTestsRequest;
@@ -54,14 +60,20 @@ import com.junction.api.types.ClientFacingLab;
 import com.junction.api.types.ClientFacingLabTest;
 import com.junction.api.types.ClientFacingMarker;
 import com.junction.api.types.ClientFacingOrder;
+import com.junction.api.types.CreateUnmatchedResultTestResponse;
 import com.junction.api.types.GetMarkersResponse;
 import com.junction.api.types.GetOrdersResponse;
+import com.junction.api.types.GetUnmatchedResultResponse;
+import com.junction.api.types.GetUnmatchedResultTestResponse;
 import com.junction.api.types.LabResultsMetadata;
 import com.junction.api.types.LabResultsRaw;
 import com.junction.api.types.LabTestResourcesResponse;
+import com.junction.api.types.ListUnmatchedResultResponse;
+import com.junction.api.types.ListUnmatchedResultTestCasesResponse;
 import com.junction.api.types.OrderSetRequest;
 import com.junction.api.types.PostOrderResponse;
 import com.junction.api.types.PscInfo;
+import com.junction.api.types.UnmatchedResult;
 import com.junction.api.types.UsAddress;
 import com.junction.api.types.ValidateIcdCodesResponse;
 import java.io.InputStream;
@@ -1117,6 +1129,118 @@ public class AsyncLabTestsClient {
             RequestOptions requestOptions) {
         return this.rawClient
                 .updateOnSiteCollectionOrderDrawCompleted(orderId, request, requestOptions)
+                .thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<ListUnmatchedResultTestCasesResponse> listUnmatchedResultTestCases() {
+        return this.rawClient.listUnmatchedResultTestCases().thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<ListUnmatchedResultTestCasesResponse> listUnmatchedResultTestCases(
+            RequestOptions requestOptions) {
+        return this.rawClient.listUnmatchedResultTestCases(requestOptions).thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<CreateUnmatchedResultTestResponse> createUnmatchedResultTest(
+            CreateUnmatchedResultTestBody request) {
+        return this.rawClient.createUnmatchedResultTest(request).thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<CreateUnmatchedResultTestResponse> createUnmatchedResultTest(
+            CreateUnmatchedResultTestBody request, RequestOptions requestOptions) {
+        return this.rawClient.createUnmatchedResultTest(request, requestOptions).thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<GetUnmatchedResultTestResponse> getUnmatchedResultTest(String runId) {
+        return this.rawClient.getUnmatchedResultTest(runId).thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<GetUnmatchedResultTestResponse> getUnmatchedResultTest(
+            String runId, RequestOptions requestOptions) {
+        return this.rawClient.getUnmatchedResultTest(runId, requestOptions).thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<GetUnmatchedResultTestResponse> getUnmatchedResultTest(
+            String runId, GetUnmatchedResultTestLabTestsRequest request) {
+        return this.rawClient.getUnmatchedResultTest(runId, request).thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<GetUnmatchedResultTestResponse> getUnmatchedResultTest(
+            String runId, GetUnmatchedResultTestLabTestsRequest request, RequestOptions requestOptions) {
+        return this.rawClient
+                .getUnmatchedResultTest(runId, request, requestOptions)
+                .thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<ListUnmatchedResultResponse> listUnmatchedResults() {
+        return this.rawClient.listUnmatchedResults().thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<ListUnmatchedResultResponse> listUnmatchedResults(RequestOptions requestOptions) {
+        return this.rawClient.listUnmatchedResults(requestOptions).thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<ListUnmatchedResultResponse> listUnmatchedResults(
+            ListUnmatchedResultsLabTestsRequest request) {
+        return this.rawClient.listUnmatchedResults(request).thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<ListUnmatchedResultResponse> listUnmatchedResults(
+            ListUnmatchedResultsLabTestsRequest request, RequestOptions requestOptions) {
+        return this.rawClient.listUnmatchedResults(request, requestOptions).thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<GetUnmatchedResultResponse> getUnmatchedResult(String rawResultId) {
+        return this.rawClient.getUnmatchedResult(rawResultId).thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<GetUnmatchedResultResponse> getUnmatchedResult(
+            String rawResultId, RequestOptions requestOptions) {
+        return this.rawClient.getUnmatchedResult(rawResultId, requestOptions).thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<GetUnmatchedResultResponse> getUnmatchedResult(
+            String rawResultId, GetUnmatchedResultLabTestsRequest request) {
+        return this.rawClient.getUnmatchedResult(rawResultId, request).thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<GetUnmatchedResultResponse> getUnmatchedResult(
+            String rawResultId, GetUnmatchedResultLabTestsRequest request, RequestOptions requestOptions) {
+        return this.rawClient
+                .getUnmatchedResult(rawResultId, request, requestOptions)
+                .thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<ClientFacingOrder> acceptUnmatchedResult(String rawResultId) {
+        return this.rawClient.acceptUnmatchedResult(rawResultId).thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<ClientFacingOrder> acceptUnmatchedResult(
+            String rawResultId, RequestOptions requestOptions) {
+        return this.rawClient.acceptUnmatchedResult(rawResultId, requestOptions).thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<ClientFacingOrder> acceptUnmatchedResult(
+            String rawResultId, AcceptUnmatchedResultBody request) {
+        return this.rawClient.acceptUnmatchedResult(rawResultId, request).thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<ClientFacingOrder> acceptUnmatchedResult(
+            String rawResultId, AcceptUnmatchedResultBody request, RequestOptions requestOptions) {
+        return this.rawClient
+                .acceptUnmatchedResult(rawResultId, request, requestOptions)
+                .thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<UnmatchedResult> resolveUnmatchedResult(
+            String rawResultId, ResolveUnmatchedResultBody request) {
+        return this.rawClient.resolveUnmatchedResult(rawResultId, request).thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<UnmatchedResult> resolveUnmatchedResult(
+            String rawResultId, ResolveUnmatchedResultBody request, RequestOptions requestOptions) {
+        return this.rawClient
+                .resolveUnmatchedResult(rawResultId, request, requestOptions)
                 .thenApply(response -> response.body());
     }
 

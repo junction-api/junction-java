@@ -52,6 +52,8 @@ public final class BiomarkerResult {
 
     private final Optional<String> interpretation;
 
+    private final Optional<String> sourceInterpretation;
+
     private final Optional<String> loinc;
 
     private final Optional<String> loincSlug;
@@ -80,6 +82,7 @@ public final class BiomarkerResult {
             Optional<Boolean> isAboveMaxRange,
             Optional<Boolean> isBelowMinRange,
             Optional<String> interpretation,
+            Optional<String> sourceInterpretation,
             Optional<String> loinc,
             Optional<String> loincSlug,
             Optional<String> providerId,
@@ -100,6 +103,7 @@ public final class BiomarkerResult {
         this.isAboveMaxRange = isAboveMaxRange;
         this.isBelowMinRange = isBelowMinRange;
         this.interpretation = interpretation;
+        this.sourceInterpretation = sourceInterpretation;
         this.loinc = loinc;
         this.loincSlug = loincSlug;
         this.providerId = providerId;
@@ -199,6 +203,11 @@ public final class BiomarkerResult {
     @JsonProperty("interpretation")
     public Optional<String> getInterpretation() {
         return interpretation;
+    }
+
+    @JsonProperty("source_interpretation")
+    public Optional<String> getSourceInterpretation() {
+        return sourceInterpretation;
     }
 
     @JsonIgnore
@@ -358,6 +367,7 @@ public final class BiomarkerResult {
                 && isAboveMaxRange.equals(other.isAboveMaxRange)
                 && isBelowMinRange.equals(other.isBelowMinRange)
                 && interpretation.equals(other.interpretation)
+                && sourceInterpretation.equals(other.sourceInterpretation)
                 && loinc.equals(other.loinc)
                 && loincSlug.equals(other.loincSlug)
                 && providerId.equals(other.providerId)
@@ -382,6 +392,7 @@ public final class BiomarkerResult {
                 this.isAboveMaxRange,
                 this.isBelowMinRange,
                 this.interpretation,
+                this.sourceInterpretation,
                 this.loinc,
                 this.loincSlug,
                 this.providerId,
@@ -479,6 +490,10 @@ public final class BiomarkerResult {
 
         _FinalStage interpretation(String interpretation);
 
+        _FinalStage sourceInterpretation(Optional<String> sourceInterpretation);
+
+        _FinalStage sourceInterpretation(String sourceInterpretation);
+
         _FinalStage loinc(Optional<String> loinc);
 
         _FinalStage loinc(String loinc);
@@ -536,6 +551,8 @@ public final class BiomarkerResult {
 
         private Optional<String> loinc = Optional.empty();
 
+        private Optional<String> sourceInterpretation = Optional.empty();
+
         private Optional<String> interpretation = Optional.empty();
 
         private Optional<Boolean> isBelowMinRange = Optional.empty();
@@ -576,6 +593,7 @@ public final class BiomarkerResult {
             isAboveMaxRange(other.getIsAboveMaxRange());
             isBelowMinRange(other.getIsBelowMinRange());
             interpretation(other.getInterpretation());
+            sourceInterpretation(other.getSourceInterpretation());
             loinc(other.getLoinc());
             loincSlug(other.getLoincSlug());
             providerId(other.getProviderId());
@@ -600,7 +618,6 @@ public final class BiomarkerResult {
         }
 
         /**
-         * <p>ℹ️ This enum is non-exhaustive.</p>
          * <p>ℹ️ This enum is non-exhaustive.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -758,6 +775,19 @@ public final class BiomarkerResult {
         @JsonSetter(value = "loinc", nulls = Nulls.SKIP)
         public _FinalStage loinc(Optional<String> loinc) {
             this.loinc = loinc;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage sourceInterpretation(String sourceInterpretation) {
+            this.sourceInterpretation = Optional.ofNullable(sourceInterpretation);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "source_interpretation", nulls = Nulls.SKIP)
+        public _FinalStage sourceInterpretation(Optional<String> sourceInterpretation) {
+            this.sourceInterpretation = sourceInterpretation;
             return this;
         }
 
@@ -1003,6 +1033,7 @@ public final class BiomarkerResult {
                     isAboveMaxRange,
                     isBelowMinRange,
                     interpretation,
+                    sourceInterpretation,
                     loinc,
                     loincSlug,
                     providerId,

@@ -336,26 +336,6 @@ public final class QuerySelectItem {
                 } catch (RuntimeException e) {
                 }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, SleepScoreValueMacroExpr.class));
-            } catch (RuntimeException e) {
-            }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, ChronotypeValueMacroExpr.class));
-            } catch (RuntimeException e) {
-            }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, AsleepAtValueMacroExpr.class));
-            } catch (RuntimeException e) {
-            }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, AwakeAtValueMacroExpr.class));
-            } catch (RuntimeException e) {
-            }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, AwakeningsValueMacroExpr.class));
-            } catch (RuntimeException e) {
-            }
             if (value instanceof Map<?, ?> && ((Map<?, ?>) value).containsKey("value_macro")) {
                 try {
                     return of(ObjectMappers.JSON_MAPPER.convertValue(value, UnrecognizedValueMacroExpr.class));
@@ -429,6 +409,26 @@ public final class QuerySelectItem {
                     return of(ObjectMappers.JSON_MAPPER.convertValue(value, SourceColumnExpr.class));
                 } catch (RuntimeException e) {
                 }
+            }
+            try {
+                return of(ObjectMappers.JSON_MAPPER.convertValue(value, SleepScoreValueMacroExpr.class));
+            } catch (RuntimeException e) {
+            }
+            try {
+                return of(ObjectMappers.JSON_MAPPER.convertValue(value, ChronotypeValueMacroExpr.class));
+            } catch (RuntimeException e) {
+            }
+            try {
+                return of(ObjectMappers.JSON_MAPPER.convertValue(value, AsleepAtValueMacroExpr.class));
+            } catch (RuntimeException e) {
+            }
+            try {
+                return of(ObjectMappers.JSON_MAPPER.convertValue(value, AwakeAtValueMacroExpr.class));
+            } catch (RuntimeException e) {
+            }
+            try {
+                return of(ObjectMappers.JSON_MAPPER.convertValue(value, AwakeningsValueMacroExpr.class));
+            } catch (RuntimeException e) {
             }
             throw new JsonParseException(p, "Failed to deserialize");
         }

@@ -122,7 +122,6 @@ public final class DemoConnectionCreationPayload {
 
         /**
          * <p>Vital user ID</p>
-         * <p>Vital user ID</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -133,7 +132,6 @@ public final class DemoConnectionCreationPayload {
         }
 
         /**
-         * <p>Demo provider. For more information, please check out our docs (https://docs.tryvital.io/wearables/providers/test_data) ℹ️ This enum is non-exhaustive.</p>
          * <p>Demo provider. For more information, please check out our docs (https://docs.tryvital.io/wearables/providers/test_data) ℹ️ This enum is non-exhaustive.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

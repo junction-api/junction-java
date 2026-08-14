@@ -352,7 +352,6 @@ public final class ClientFacingShipment {
 
         /**
          * <p>The Vital Shipment ID</p>
-         * <p>The Vital Shipment ID</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

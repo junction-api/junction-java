@@ -273,7 +273,6 @@ public final class ConnectionRecipe {
 
         /**
          * <p>Vital User ID. The user must be created ahead of the bulk import operation.</p>
-         * <p>Vital User ID. The user must be created ahead of the bulk import operation.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -288,10 +287,6 @@ public final class ConnectionRecipe {
          * <li>OAuth 2.0 providers (Fitbit, etc): The latest Access Token.</li>
          * <li>OAuth 1.0 providers (Garmin): The Access Token.</li>
          * </ul>
-         * <ul>
-         * <li>OAuth 2.0 providers (Fitbit, etc): The latest Access Token.</li>
-         * <li>OAuth 1.0 providers (Garmin): The Access Token.</li>
-         * </ul>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -302,10 +297,6 @@ public final class ConnectionRecipe {
         }
 
         /**
-         * <ul>
-         * <li>OAuth 2.0 providers (Fitbit, etc): The latest Refresh Token.</li>
-         * <li>OAuth 1.0 providers (Garmin): The Token Secret.</li>
-         * </ul>
          * <ul>
          * <li>OAuth 2.0 providers (Fitbit, etc): The latest Refresh Token.</li>
          * <li>OAuth 1.0 providers (Garmin): The Token Secret.</li>
@@ -325,11 +316,6 @@ public final class ConnectionRecipe {
          * <li>Fitbit: 6-character Fitbit User ID</li>
          * <li>Garmin: 36-character Garmin User ID</li>
          * </ul>
-         * <p>User ID of the data provider.</p>
-         * <ul>
-         * <li>Fitbit: 6-character Fitbit User ID</li>
-         * <li>Garmin: 36-character Garmin User ID</li>
-         * </ul>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -340,11 +326,6 @@ public final class ConnectionRecipe {
         }
 
         /**
-         * <p>Access token expiry date, in terms of UNIX epoch seconds.</p>
-         * <ul>
-         * <li>OAuth 2.0 providers (Fitbit, etc): The latest expiry date on your record.</li>
-         * <li>OAuth 1.0 providers (Garmin): Use the constant value <code>2147483647</code>.</li>
-         * </ul>
          * <p>Access token expiry date, in terms of UNIX epoch seconds.</p>
          * <ul>
          * <li>OAuth 2.0 providers (Fitbit, etc): The latest expiry date on your record.</li>

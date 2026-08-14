@@ -245,7 +245,6 @@ public final class TimeSlot {
 
         /**
          * <p>Time is in UTC</p>
-         * <p>Time is in UTC</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -256,7 +255,6 @@ public final class TimeSlot {
         }
 
         /**
-         * <p>Time is in UTC</p>
          * <p>Time is in UTC</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
