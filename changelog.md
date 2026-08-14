@@ -1,3 +1,5 @@
+## [1.2.1] - 2026-08-14
+
 ## 1.2.0 - 2026-06-05
 ### Added
 * **`AlignExpr`** — new public symbol
