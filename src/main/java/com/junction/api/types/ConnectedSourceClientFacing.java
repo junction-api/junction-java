@@ -146,7 +146,6 @@ public final class ConnectedSourceClientFacing {
 
         /**
          * <p>The provider of this connected source.</p>
-         * <p>The provider of this connected source.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -158,7 +157,6 @@ public final class ConnectedSourceClientFacing {
 
         /**
          * <p>When your item is created</p>
-         * <p>When your item is created</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -169,7 +167,6 @@ public final class ConnectedSourceClientFacing {
         }
 
         /**
-         * <p>Deprecated. Use <code>provider</code> instead. Subject to removal after 1 Jan 2024.</p>
          * <p>Deprecated. Use <code>provider</code> instead. Subject to removal after 1 Jan 2024.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

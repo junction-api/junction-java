@@ -33,6 +33,8 @@ public final class GetMarkersLabTestsRequest {
 
     private final Optional<Boolean> aLaCarteEnabled;
 
+    private final Optional<Boolean> includePricing;
+
     private final Optional<String> labAccountId;
 
     private final Optional<Integer> page;
@@ -46,6 +48,7 @@ public final class GetMarkersLabTestsRequest {
             Optional<String> labSlug,
             Optional<String> name,
             Optional<Boolean> aLaCarteEnabled,
+            Optional<Boolean> includePricing,
             Optional<String> labAccountId,
             Optional<Integer> page,
             Optional<Integer> size,
@@ -54,6 +57,7 @@ public final class GetMarkersLabTestsRequest {
         this.labSlug = labSlug;
         this.name = name;
         this.aLaCarteEnabled = aLaCarteEnabled;
+        this.includePricing = includePricing;
         this.labAccountId = labAccountId;
         this.page = page;
         this.size = size;
@@ -99,6 +103,14 @@ public final class GetMarkersLabTestsRequest {
             return Optional.empty();
         }
         return aLaCarteEnabled;
+    }
+
+    @JsonIgnore
+    public Optional<Boolean> getIncludePricing() {
+        if (includePricing == null) {
+            return Optional.empty();
+        }
+        return includePricing;
     }
 
     /**
@@ -153,6 +165,12 @@ public final class GetMarkersLabTestsRequest {
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("include_pricing")
+    private Optional<Boolean> _getIncludePricing() {
+        return includePricing;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("lab_account_id")
     private Optional<String> _getLabAccountId() {
         return labAccountId;
@@ -186,6 +204,7 @@ public final class GetMarkersLabTestsRequest {
                 && labSlug.equals(other.labSlug)
                 && name.equals(other.name)
                 && aLaCarteEnabled.equals(other.aLaCarteEnabled)
+                && includePricing.equals(other.includePricing)
                 && labAccountId.equals(other.labAccountId)
                 && page.equals(other.page)
                 && size.equals(other.size);
@@ -194,7 +213,14 @@ public final class GetMarkersLabTestsRequest {
     @java.lang.Override
     public int hashCode() {
         return Objects.hash(
-                this.labId, this.labSlug, this.name, this.aLaCarteEnabled, this.labAccountId, this.page, this.size);
+                this.labId,
+                this.labSlug,
+                this.name,
+                this.aLaCarteEnabled,
+                this.includePricing,
+                this.labAccountId,
+                this.page,
+                this.size);
     }
 
     @java.lang.Override
@@ -216,6 +242,8 @@ public final class GetMarkersLabTestsRequest {
 
         private Optional<Boolean> aLaCarteEnabled = Optional.empty();
 
+        private Optional<Boolean> includePricing = Optional.empty();
+
         private Optional<String> labAccountId = Optional.empty();
 
         private Optional<Integer> page = Optional.empty();
@@ -232,6 +260,7 @@ public final class GetMarkersLabTestsRequest {
             labSlug(other.getLabSlug());
             name(other.getName());
             aLaCarteEnabled(other.getALaCarteEnabled());
+            includePricing(other.getIncludePricing());
             labAccountId(other.getLabAccountId());
             page(other.getPage());
             size(other.getSize());
@@ -340,6 +369,28 @@ public final class GetMarkersLabTestsRequest {
             return this;
         }
 
+        @JsonSetter(value = "include_pricing", nulls = Nulls.SKIP)
+        public Builder includePricing(Optional<Boolean> includePricing) {
+            this.includePricing = includePricing;
+            return this;
+        }
+
+        public Builder includePricing(Boolean includePricing) {
+            this.includePricing = Optional.ofNullable(includePricing);
+            return this;
+        }
+
+        public Builder includePricing(Nullable<Boolean> includePricing) {
+            if (includePricing.isNull()) {
+                this.includePricing = null;
+            } else if (includePricing.isEmpty()) {
+                this.includePricing = Optional.empty();
+            } else {
+                this.includePricing = Optional.of(includePricing.get());
+            }
+            return this;
+        }
+
         /**
          * <p>The lab account ID. This lab account is used to determine the availability of markers and lab tests.</p>
          */
@@ -411,7 +462,15 @@ public final class GetMarkersLabTestsRequest {
 
         public GetMarkersLabTestsRequest build() {
             return new GetMarkersLabTestsRequest(
-                    labId, labSlug, name, aLaCarteEnabled, labAccountId, page, size, additionalProperties);
+                    labId,
+                    labSlug,
+                    name,
+                    aLaCarteEnabled,
+                    includePricing,
+                    labAccountId,
+                    page,
+                    size,
+                    additionalProperties);
         }
 
         public Builder additionalProperty(String key, Object value) {

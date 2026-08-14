@@ -35,6 +35,8 @@ public final class GetMarkersResponse {
 
     private final Optional<Integer> pages;
 
+    private final Optional<MarkerPricingResponse> pricing;
+
     private final Map<String, Object> additionalProperties;
 
     private GetMarkersResponse(
@@ -43,12 +45,14 @@ public final class GetMarkersResponse {
             Optional<Integer> page,
             Optional<Integer> size,
             Optional<Integer> pages,
+            Optional<MarkerPricingResponse> pricing,
             Map<String, Object> additionalProperties) {
         this.markers = markers;
         this.total = total;
         this.page = page;
         this.size = size;
         this.pages = pages;
+        this.pricing = pricing;
         this.additionalProperties = additionalProperties;
     }
 
@@ -89,6 +93,14 @@ public final class GetMarkersResponse {
         return pages;
     }
 
+    @JsonIgnore
+    public Optional<MarkerPricingResponse> getPricing() {
+        if (pricing == null) {
+            return Optional.empty();
+        }
+        return pricing;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("total")
     private Optional<Integer> _getTotal() {
@@ -113,6 +125,12 @@ public final class GetMarkersResponse {
         return pages;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("pricing")
+    private Optional<MarkerPricingResponse> _getPricing() {
+        return pricing;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -129,12 +147,13 @@ public final class GetMarkersResponse {
                 && total.equals(other.total)
                 && page.equals(other.page)
                 && size.equals(other.size)
-                && pages.equals(other.pages);
+                && pages.equals(other.pages)
+                && pricing.equals(other.pricing);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.markers, this.total, this.page, this.size, this.pages);
+        return Objects.hash(this.markers, this.total, this.page, this.size, this.pages, this.pricing);
     }
 
     @java.lang.Override
@@ -158,6 +177,8 @@ public final class GetMarkersResponse {
 
         private Optional<Integer> pages = Optional.empty();
 
+        private Optional<MarkerPricingResponse> pricing = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -169,6 +190,7 @@ public final class GetMarkersResponse {
             page(other.getPage());
             size(other.getSize());
             pages(other.getPages());
+            pricing(other.getPricing());
             return this;
         }
 
@@ -281,8 +303,30 @@ public final class GetMarkersResponse {
             return this;
         }
 
+        @JsonSetter(value = "pricing", nulls = Nulls.SKIP)
+        public Builder pricing(Optional<MarkerPricingResponse> pricing) {
+            this.pricing = pricing;
+            return this;
+        }
+
+        public Builder pricing(MarkerPricingResponse pricing) {
+            this.pricing = Optional.ofNullable(pricing);
+            return this;
+        }
+
+        public Builder pricing(Nullable<MarkerPricingResponse> pricing) {
+            if (pricing.isNull()) {
+                this.pricing = null;
+            } else if (pricing.isEmpty()) {
+                this.pricing = Optional.empty();
+            } else {
+                this.pricing = Optional.of(pricing.get());
+            }
+            return this;
+        }
+
         public GetMarkersResponse build() {
-            return new GetMarkersResponse(markers, total, page, size, pages, additionalProperties);
+            return new GetMarkersResponse(markers, total, page, size, pages, pricing, additionalProperties);
         }
 
         public Builder additionalProperty(String key, Object value) {

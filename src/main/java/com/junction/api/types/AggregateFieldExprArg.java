@@ -166,10 +166,6 @@ public final class AggregateFieldExprArg {
                 } catch (RuntimeException e) {
                 }
             }
-            try {
-                return of(ObjectMappers.JSON_MAPPER.convertValue(value, McIntermenstrualBleedingFieldExpr.class));
-            } catch (RuntimeException e) {
-            }
             if (value instanceof Map<?, ?> && ((Map<?, ?>) value).containsKey("contraceptive")) {
                 try {
                     return of(ObjectMappers.JSON_MAPPER.convertValue(value, McContraceptiveFieldExpr.class));
@@ -211,6 +207,10 @@ public final class AggregateFieldExprArg {
                     return of(ObjectMappers.JSON_MAPPER.convertValue(value, McBasalBodyTemperatureFieldExpr.class));
                 } catch (RuntimeException e) {
                 }
+            }
+            try {
+                return of(ObjectMappers.JSON_MAPPER.convertValue(value, McIntermenstrualBleedingFieldExpr.class));
+            } catch (RuntimeException e) {
             }
             try {
                 return of(ObjectMappers.JSON_MAPPER.convertValue(value, ElementFieldExpr.class));

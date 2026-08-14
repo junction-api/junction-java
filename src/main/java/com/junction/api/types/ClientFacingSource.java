@@ -349,7 +349,6 @@ public final class ClientFacingSource {
 
         /**
          * <p>Provider slug. e.g., <code>oura</code>, <code>fitbit</code>, <code>garmin</code>.</p>
-         * <p>Provider slug. e.g., <code>oura</code>, <code>fitbit</code>, <code>garmin</code>.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

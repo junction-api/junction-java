@@ -158,6 +158,9 @@ public final class ClientFacingResource {
 
     public static final ClientFacingResource APPOINTMENT = new ClientFacingResource(Value.APPOINTMENT, "appointment");
 
+    public static final ClientFacingResource RESULT_TABLE =
+            new ClientFacingResource(Value.RESULT_TABLE, "result_table");
+
     public static final ClientFacingResource CALORIES_ACTIVE =
             new ClientFacingResource(Value.CALORIES_ACTIVE, "calories_active");
 
@@ -332,6 +335,8 @@ public final class ClientFacingResource {
                 return visitor.visitSleepCycle();
             case APPOINTMENT:
                 return visitor.visitAppointment();
+            case RESULT_TABLE:
+                return visitor.visitResultTable();
             case CALORIES_ACTIVE:
                 return visitor.visitCaloriesActive();
             case FLOORS_CLIMBED:
@@ -479,6 +484,8 @@ public final class ClientFacingResource {
                 return SLEEP_CYCLE;
             case "appointment":
                 return APPOINTMENT;
+            case "result_table":
+                return RESULT_TABLE;
             case "calories_active":
                 return CALORIES_ACTIVE;
             case "floors_climbed":
@@ -526,6 +533,8 @@ public final class ClientFacingResource {
         MATCH_REVIEW,
 
         APPOINTMENT,
+
+        RESULT_TABLE,
 
         GLUCOSE,
 
@@ -668,6 +677,8 @@ public final class ClientFacingResource {
         T visitMatchReview();
 
         T visitAppointment();
+
+        T visitResultTable();
 
         T visitGlucose();
 

@@ -201,7 +201,6 @@ public final class ClientFacingShallowWorkoutStream {
 
         /**
          * <p>User id returned by vital create user request. This id should be stored in your database against the user and used for all interactions with the vital api.</p>
-         * <p>User id returned by vital create user request. This id should be stored in your database against the user and used for all interactions with the vital api.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -226,7 +225,6 @@ public final class ClientFacingShallowWorkoutStream {
         }
 
         /**
-         * <p>Source the data has come from.</p>
          * <p>Source the data has come from.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

@@ -17,6 +17,8 @@ public final class Labs {
 
     public static final Labs BIOREFERENCE = new Labs(Value.BIOREFERENCE, "bioreference");
 
+    public static final Labs MTL = new Labs(Value.MTL, "mtl");
+
     public static final Labs SPIRIPLEX = new Labs(Value.SPIRIPLEX, "spiriplex");
 
     public static final Labs MANUAL = new Labs(Value.MANUAL, "manual");
@@ -76,6 +78,8 @@ public final class Labs {
                 return visitor.visitLabcorp();
             case BIOREFERENCE:
                 return visitor.visitBioreference();
+            case MTL:
+                return visitor.visitMtl();
             case SPIRIPLEX:
                 return visitor.visitSpiriplex();
             case MANUAL:
@@ -113,6 +117,8 @@ public final class Labs {
                 return LABCORP;
             case "bioreference":
                 return BIOREFERENCE;
+            case "mtl":
+                return MTL;
             case "spiriplex":
                 return SPIRIPLEX;
             case "manual":
@@ -165,6 +171,8 @@ public final class Labs {
 
         CRL,
 
+        MTL,
+
         UNKNOWN
     }
 
@@ -196,6 +204,8 @@ public final class Labs {
         T visitMyUti();
 
         T visitCrl();
+
+        T visitMtl();
 
         T visitUnknown(String unknownType);
     }

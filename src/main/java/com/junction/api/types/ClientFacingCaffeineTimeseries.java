@@ -303,7 +303,6 @@ public final class ClientFacingCaffeineTimeseries {
 
         /**
          * <p>Measured in grams.</p>
-         * <p>Measured in grams.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -314,7 +313,6 @@ public final class ClientFacingCaffeineTimeseries {
         }
 
         /**
-         * <p>Depracated. The start time (inclusive) of the interval.</p>
          * <p>Depracated. The start time (inclusive) of the interval.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -327,7 +325,6 @@ public final class ClientFacingCaffeineTimeseries {
 
         /**
          * <p>The start time (inclusive) of the interval.</p>
-         * <p>The start time (inclusive) of the interval.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -339,7 +336,6 @@ public final class ClientFacingCaffeineTimeseries {
 
         /**
          * <p>The end time (exclusive) of the interval.</p>
-         * <p>The end time (exclusive) of the interval.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -350,7 +346,6 @@ public final class ClientFacingCaffeineTimeseries {
         }
 
         /**
-         * <p>Quantity of caffeine consumed during the time period.</p>
          * <p>Quantity of caffeine consumed during the time period.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

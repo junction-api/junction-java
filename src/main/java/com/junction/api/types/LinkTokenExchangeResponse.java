@@ -120,7 +120,6 @@ public final class LinkTokenExchangeResponse {
 
         /**
          * <p>A short-lived Vital Link token for your Custom Link Widget to communicate with the Vital API.</p>
-         * <p>A short-lived Vital Link token for your Custom Link Widget to communicate with the Vital API.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -131,7 +130,6 @@ public final class LinkTokenExchangeResponse {
         }
 
         /**
-         * <p>The web browser link to launch the default Vital Link experience. If you requested the token for one specific provider, the link would redirect directly to the provider authentication flow. Otherwise, the user would be presented with a list of providers based on your team and token configurations.</p>
          * <p>The web browser link to launch the default Vital Link experience. If you requested the token for one specific provider, the link would redirect directly to the provider authentication flow. Otherwise, the user would be presented with a list of providers based on your team and token configurations.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

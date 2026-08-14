@@ -616,7 +616,6 @@ public final class ClientFacingTeam {
 
         /**
          * <p>ℹ️ This enum is non-exhaustive.</p>
-         * <p>ℹ️ This enum is non-exhaustive.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

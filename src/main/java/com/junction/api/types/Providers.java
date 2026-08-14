@@ -81,6 +81,8 @@ public final class Providers {
 
     public static final Providers FREESTYLE_LIBRE = new Providers(Value.FREESTYLE_LIBRE, "freestyle_libre");
 
+    public static final Providers GOOGLE_HEALTH = new Providers(Value.GOOGLE_HEALTH, "google_health");
+
     public static final Providers DEXCOM_V_3 = new Providers(Value.DEXCOM_V_3, "dexcom_v3");
 
     public static final Providers WITHINGS = new Providers(Value.WITHINGS, "withings");
@@ -192,6 +194,8 @@ public final class Providers {
                 return visitor.visitRenpho();
             case FREESTYLE_LIBRE:
                 return visitor.visitFreestyleLibre();
+            case GOOGLE_HEALTH:
+                return visitor.visitGoogleHealth();
             case DEXCOM_V_3:
                 return visitor.visitDexcomV3();
             case WITHINGS:
@@ -281,6 +285,8 @@ public final class Providers {
                 return RENPHO;
             case "freestyle_libre":
                 return FREESTYLE_LIBRE;
+            case "google_health":
+                return GOOGLE_HEALTH;
             case "dexcom_v3":
                 return DEXCOM_V_3;
             case "withings":
@@ -373,6 +379,8 @@ public final class Providers {
 
         RUNKEEPER,
 
+        GOOGLE_HEALTH,
+
         UNKNOWN
     }
 
@@ -456,6 +464,8 @@ public final class Providers {
         T visitMapMyFitness();
 
         T visitRunkeeper();
+
+        T visitGoogleHealth();
 
         T visitUnknown(String unknownType);
     }

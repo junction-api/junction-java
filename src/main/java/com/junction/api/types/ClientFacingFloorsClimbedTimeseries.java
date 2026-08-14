@@ -241,7 +241,6 @@ public final class ClientFacingFloorsClimbedTimeseries {
 
         /**
          * <p>The timestamp of the measurement.</p>
-         * <p>The timestamp of the measurement.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -252,7 +251,6 @@ public final class ClientFacingFloorsClimbedTimeseries {
         }
 
         /**
-         * <p>Number of floors climbed at the time or interval::count</p>
          * <p>Number of floors climbed at the time or interval::count</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

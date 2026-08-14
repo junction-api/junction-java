@@ -175,7 +175,6 @@ public final class ClientFacingTestkitOrder {
 
         /**
          * <p>The Vital TestKit Order ID</p>
-         * <p>The Vital TestKit Order ID</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

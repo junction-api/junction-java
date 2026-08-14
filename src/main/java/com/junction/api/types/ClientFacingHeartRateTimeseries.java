@@ -255,7 +255,6 @@ public final class ClientFacingHeartRateTimeseries {
 
         /**
          * <p>Measured in bpm.</p>
-         * <p>Measured in bpm.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -267,7 +266,6 @@ public final class ClientFacingHeartRateTimeseries {
 
         /**
          * <p>The timestamp of the measurement.</p>
-         * <p>The timestamp of the measurement.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -278,7 +276,6 @@ public final class ClientFacingHeartRateTimeseries {
         }
 
         /**
-         * <p>Heart rate in bpm</p>
          * <p>Heart rate in bpm</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

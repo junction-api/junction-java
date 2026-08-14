@@ -255,7 +255,6 @@ public final class ClientFacingWaterTimeseries {
 
         /**
          * <p>Measured in milliters.</p>
-         * <p>Measured in milliters.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -267,7 +266,6 @@ public final class ClientFacingWaterTimeseries {
 
         /**
          * <p>The timestamp of the measurement.</p>
-         * <p>The timestamp of the measurement.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -278,7 +276,6 @@ public final class ClientFacingWaterTimeseries {
         }
 
         /**
-         * <p>Quantity of water drank during the time period.</p>
          * <p>Quantity of water drank during the time period.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

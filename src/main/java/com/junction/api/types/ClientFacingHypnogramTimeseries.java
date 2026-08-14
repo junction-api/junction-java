@@ -303,7 +303,6 @@ public final class ClientFacingHypnogramTimeseries {
 
         /**
          * <p>enum: 1: deep, 2: light, 3: rem, 4: awake, -1: missing_data.</p>
-         * <p>enum: 1: deep, 2: light, 3: rem, 4: awake, -1: missing_data.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -314,7 +313,6 @@ public final class ClientFacingHypnogramTimeseries {
         }
 
         /**
-         * <p>Depracated. The start time (inclusive) of the interval.</p>
          * <p>Depracated. The start time (inclusive) of the interval.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -327,7 +325,6 @@ public final class ClientFacingHypnogramTimeseries {
 
         /**
          * <p>The start time (inclusive) of the interval.</p>
-         * <p>The start time (inclusive) of the interval.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -339,7 +336,6 @@ public final class ClientFacingHypnogramTimeseries {
 
         /**
          * <p>The end time (exclusive) of the interval.</p>
-         * <p>The end time (exclusive) of the interval.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -350,7 +346,6 @@ public final class ClientFacingHypnogramTimeseries {
         }
 
         /**
-         * <p>Hypnogram for sleep stages {&quot;deep&quot;: 1, &quot;light&quot;: 2, &quot;rem&quot;: 3, &quot;awake&quot;: 4, &quot;manual&quot;: 5, &quot;missing_data&quot;: -1}</p>
          * <p>Hypnogram for sleep stages {&quot;deep&quot;: 1, &quot;light&quot;: 2, &quot;rem&quot;: 3, &quot;awake&quot;: 4, &quot;manual&quot;: 5, &quot;missing_data&quot;: -1}</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

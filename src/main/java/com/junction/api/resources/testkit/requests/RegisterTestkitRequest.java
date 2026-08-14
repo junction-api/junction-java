@@ -66,7 +66,7 @@ public final class RegisterTestkitRequest {
     }
 
     /**
-     * @return The user ID of the patient.
+     * @return The user ID of the patient. If it differs from the user currently associated with the unregistered testkit order, the order is rebound to this user at registration time. The user must exist on the same team as the order. If omitted, the order's existing user is kept.
      */
     @JsonIgnore
     public Optional<String> getUserId() {
@@ -194,7 +194,7 @@ public final class RegisterTestkitRequest {
         _FinalStage additionalProperties(Map<String, Object> additionalProperties);
 
         /**
-         * <p>The user ID of the patient.</p>
+         * <p>The user ID of the patient. If it differs from the user currently associated with the unregistered testkit order, the order is rebound to this user at registration time. The user must exist on the same team as the order. If omitted, the order's existing user is kept.</p>
          */
         _FinalStage userId(Optional<String> userId);
 
@@ -337,7 +337,7 @@ public final class RegisterTestkitRequest {
         }
 
         /**
-         * <p>The user ID of the patient.</p>
+         * <p>The user ID of the patient. If it differs from the user currently associated with the unregistered testkit order, the order is rebound to this user at registration time. The user must exist on the same team as the order. If omitted, the order's existing user is kept.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -353,7 +353,7 @@ public final class RegisterTestkitRequest {
         }
 
         /**
-         * <p>The user ID of the patient.</p>
+         * <p>The user ID of the patient. If it differs from the user currently associated with the unregistered testkit order, the order is rebound to this user at registration time. The user must exist on the same team as the order. If omitted, the order's existing user is kept.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -363,7 +363,7 @@ public final class RegisterTestkitRequest {
         }
 
         /**
-         * <p>The user ID of the patient.</p>
+         * <p>The user ID of the patient. If it differs from the user currently associated with the unregistered testkit order, the order is rebound to this user at registration time. The user must exist on the same team as the order. If omitted, the order's existing user is kept.</p>
          */
         @java.lang.Override
         @JsonSetter(value = "user_id", nulls = Nulls.SKIP)

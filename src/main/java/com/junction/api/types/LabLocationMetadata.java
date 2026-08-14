@@ -42,6 +42,8 @@ public final class LabLocationMetadata {
 
     private final Optional<Map<String, Object>> hours;
 
+    private final Optional<String> website;
+
     private final Map<String, Object> additionalProperties;
 
     private LabLocationMetadata(
@@ -54,6 +56,7 @@ public final class LabLocationMetadata {
             Optional<String> phoneNumber,
             Optional<String> faxNumber,
             Optional<Map<String, Object>> hours,
+            Optional<String> website,
             Map<String, Object> additionalProperties) {
         this.name = name;
         this.state = state;
@@ -64,6 +67,7 @@ public final class LabLocationMetadata {
         this.phoneNumber = phoneNumber;
         this.faxNumber = faxNumber;
         this.hours = hours;
+        this.website = website;
         this.additionalProperties = additionalProperties;
     }
 
@@ -124,6 +128,14 @@ public final class LabLocationMetadata {
         return hours;
     }
 
+    @JsonIgnore
+    public Optional<String> getWebsite() {
+        if (website == null) {
+            return Optional.empty();
+        }
+        return website;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("second_line")
     private Optional<String> _getSecondLine() {
@@ -148,6 +160,12 @@ public final class LabLocationMetadata {
         return hours;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("website")
+    private Optional<String> _getWebsite() {
+        return website;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -168,7 +186,8 @@ public final class LabLocationMetadata {
                 && secondLine.equals(other.secondLine)
                 && phoneNumber.equals(other.phoneNumber)
                 && faxNumber.equals(other.faxNumber)
-                && hours.equals(other.hours);
+                && hours.equals(other.hours)
+                && website.equals(other.website);
     }
 
     @java.lang.Override
@@ -182,7 +201,8 @@ public final class LabLocationMetadata {
                 this.secondLine,
                 this.phoneNumber,
                 this.faxNumber,
-                this.hours);
+                this.hours,
+                this.website);
     }
 
     @java.lang.Override
@@ -246,6 +266,12 @@ public final class LabLocationMetadata {
         _FinalStage hours(Map<String, Object> hours);
 
         _FinalStage hours(Nullable<Map<String, Object>> hours);
+
+        _FinalStage website(Optional<String> website);
+
+        _FinalStage website(String website);
+
+        _FinalStage website(Nullable<String> website);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -260,6 +286,8 @@ public final class LabLocationMetadata {
         private String zipCode;
 
         private String firstLine;
+
+        private Optional<String> website = Optional.empty();
 
         private Optional<Map<String, Object>> hours = Optional.empty();
 
@@ -285,6 +313,7 @@ public final class LabLocationMetadata {
             phoneNumber(other.getPhoneNumber());
             faxNumber(other.getFaxNumber());
             hours(other.getHours());
+            website(other.getWebsite());
             return this;
         }
 
@@ -320,6 +349,31 @@ public final class LabLocationMetadata {
         @JsonSetter("first_line")
         public _FinalStage firstLine(@NotNull String firstLine) {
             this.firstLine = Objects.requireNonNull(firstLine, "firstLine must not be null");
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage website(Nullable<String> website) {
+            if (website.isNull()) {
+                this.website = null;
+            } else if (website.isEmpty()) {
+                this.website = Optional.empty();
+            } else {
+                this.website = Optional.of(website.get());
+            }
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage website(String website) {
+            this.website = Optional.ofNullable(website);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "website", nulls = Nulls.SKIP)
+        public _FinalStage website(Optional<String> website) {
+            this.website = website;
             return this;
         }
 
@@ -435,6 +489,7 @@ public final class LabLocationMetadata {
                     phoneNumber,
                     faxNumber,
                     hours,
+                    website,
                     additionalProperties);
         }
 

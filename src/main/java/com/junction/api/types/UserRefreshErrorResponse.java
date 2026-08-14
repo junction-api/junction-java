@@ -144,7 +144,6 @@ public final class UserRefreshErrorResponse {
 
         /**
          * <p>A unique ID representing the end user. Typically this will be a user ID from your application. Personally identifiable information, such as an email address or phone number, should not be used in the client_user_id.</p>
-         * <p>A unique ID representing the end user. Typically this will be a user ID from your application. Personally identifiable information, such as an email address or phone number, should not be used in the client_user_id.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

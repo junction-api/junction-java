@@ -242,7 +242,6 @@ public final class InhalerUsageGroupedVitalsRequest {
 
         /**
          * <p>Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00</p>
-         * <p>Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

@@ -7,8 +7,10 @@ import com.junction.api.core.ClientOptions;
 import com.junction.api.core.RequestOptions;
 import com.junction.api.resources.compendium.requests.ConvertCompendiumBody;
 import com.junction.api.resources.compendium.requests.SearchCompendiumBody;
+import com.junction.api.resources.compendium.requests.SearchOrderableTestsBody;
 import com.junction.api.types.ConvertCompendiumResponse;
 import com.junction.api.types.SearchCompendiumResponse;
+import com.junction.api.types.SearchOrderableTestsResponse;
 import java.util.concurrent.CompletableFuture;
 
 public class AsyncCompendiumClient {
@@ -44,5 +46,14 @@ public class AsyncCompendiumClient {
     public CompletableFuture<ConvertCompendiumResponse> convert(
             ConvertCompendiumBody request, RequestOptions requestOptions) {
         return this.rawClient.convert(request, requestOptions).thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<SearchOrderableTestsResponse> searchOrderableTests(SearchOrderableTestsBody request) {
+        return this.rawClient.searchOrderableTests(request).thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<SearchOrderableTestsResponse> searchOrderableTests(
+            SearchOrderableTestsBody request, RequestOptions requestOptions) {
+        return this.rawClient.searchOrderableTests(request, requestOptions).thenApply(response -> response.body());
     }
 }

@@ -131,7 +131,6 @@ public final class ClientFacingOnSiteCollectionOrder {
 
         /**
          * <p>The Junction on-site collection Order ID</p>
-         * <p>The Junction on-site collection Order ID</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

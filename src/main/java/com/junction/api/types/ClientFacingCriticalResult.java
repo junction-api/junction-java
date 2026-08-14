@@ -274,7 +274,6 @@ public final class ClientFacingCriticalResult {
 
         /**
          * <p>The Vital Order ID</p>
-         * <p>The Vital Order ID</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -285,7 +284,6 @@ public final class ClientFacingCriticalResult {
         }
 
         /**
-         * <p>Sample ID</p>
          * <p>Sample ID</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -298,7 +296,6 @@ public final class ClientFacingCriticalResult {
 
         /**
          * <p>The current results status, can be either (final, partial).</p>
-         * <p>The current results status, can be either (final, partial).</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -310,7 +307,6 @@ public final class ClientFacingCriticalResult {
 
         /**
          * <p>The results interpretation, can be one of (normal, abnormal, critical).</p>
-         * <p>The results interpretation, can be one of (normal, abnormal, critical).</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -321,7 +317,6 @@ public final class ClientFacingCriticalResult {
         }
 
         /**
-         * <p>Your team id.</p>
          * <p>Your team id.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -341,7 +336,6 @@ public final class ClientFacingCriticalResult {
 
         /**
          * <p>When the result was first fetched from a laboratory.</p>
-         * <p>When the result was first fetched from a laboratory.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -352,7 +346,6 @@ public final class ClientFacingCriticalResult {
         }
 
         /**
-         * <p>When the result was last fetched from a laboratory.</p>
          * <p>When the result was last fetched from a laboratory.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

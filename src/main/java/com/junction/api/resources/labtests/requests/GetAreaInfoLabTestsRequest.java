@@ -248,7 +248,6 @@ public final class GetAreaInfoLabTestsRequest {
 
         /**
          * <p>Zip code of the area to check</p>
-         * <p>Zip code of the area to check</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

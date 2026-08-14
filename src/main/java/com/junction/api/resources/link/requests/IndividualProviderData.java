@@ -186,7 +186,6 @@ public final class IndividualProviderData {
 
         /**
          * <p>Username for provider</p>
-         * <p>Username for provider</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -197,7 +196,6 @@ public final class IndividualProviderData {
         }
 
         /**
-         * <p>Password for provider</p>
          * <p>Password for provider</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

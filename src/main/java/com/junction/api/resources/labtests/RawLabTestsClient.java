@@ -14,14 +14,17 @@ import com.junction.api.core.ObjectMappers;
 import com.junction.api.core.QueryStringMapper;
 import com.junction.api.core.RequestOptions;
 import com.junction.api.core.ResponseBodyInputStream;
+import com.junction.api.core.RetryInterceptor;
 import com.junction.api.errors.NotFoundError;
 import com.junction.api.errors.UnprocessableEntityError;
+import com.junction.api.resources.labtests.requests.AcceptUnmatchedResultBody;
 import com.junction.api.resources.labtests.requests.ApiApiV1EndpointsVitalApiLabTestingOrdersHelpersAppointmentCancelRequest;
 import com.junction.api.resources.labtests.requests.BookPhlebotomyAppointmentLabTestsRequest;
 import com.junction.api.resources.labtests.requests.BookPscAppointmentLabTestsRequest;
 import com.junction.api.resources.labtests.requests.CancelOrderLabTestsRequest;
 import com.junction.api.resources.labtests.requests.CreateLabTestRequest;
 import com.junction.api.resources.labtests.requests.CreateOrderRequestCompatible;
+import com.junction.api.resources.labtests.requests.CreateUnmatchedResultTestBody;
 import com.junction.api.resources.labtests.requests.GetAreaInfoLabTestsRequest;
 import com.junction.api.resources.labtests.requests.GetByIdLabTestsRequest;
 import com.junction.api.resources.labtests.requests.GetLabTestCollectionInstructionPdfLabTestsRequest;
@@ -46,10 +49,14 @@ import com.junction.api.resources.labtests.requests.GetPscInfoLabTestsRequest;
 import com.junction.api.resources.labtests.requests.GetResultMetadataLabTestsRequest;
 import com.junction.api.resources.labtests.requests.GetResultPdfLabTestsRequest;
 import com.junction.api.resources.labtests.requests.GetResultRawLabTestsRequest;
+import com.junction.api.resources.labtests.requests.GetUnmatchedResultLabTestsRequest;
+import com.junction.api.resources.labtests.requests.GetUnmatchedResultTestLabTestsRequest;
 import com.junction.api.resources.labtests.requests.ImportOrderBody;
+import com.junction.api.resources.labtests.requests.ListUnmatchedResultsLabTestsRequest;
 import com.junction.api.resources.labtests.requests.RequestAppointmentRequest;
 import com.junction.api.resources.labtests.requests.ReschedulePhlebotomyAppointmentLabTestsRequest;
 import com.junction.api.resources.labtests.requests.ReschedulePscAppointmentLabTestsRequest;
+import com.junction.api.resources.labtests.requests.ResolveUnmatchedResultBody;
 import com.junction.api.resources.labtests.requests.SimulateOrderProcessLabTestsRequest;
 import com.junction.api.resources.labtests.requests.UpdateLabTestRequest;
 import com.junction.api.resources.labtests.requests.UpdateOnSiteCollectionOrderDrawCompletedLabTestsRequest;
@@ -65,16 +72,22 @@ import com.junction.api.types.ClientFacingLab;
 import com.junction.api.types.ClientFacingLabTest;
 import com.junction.api.types.ClientFacingMarker;
 import com.junction.api.types.ClientFacingOrder;
+import com.junction.api.types.CreateUnmatchedResultTestResponse;
 import com.junction.api.types.GetMarkersResponse;
 import com.junction.api.types.GetOrdersResponse;
+import com.junction.api.types.GetUnmatchedResultResponse;
+import com.junction.api.types.GetUnmatchedResultTestResponse;
 import com.junction.api.types.HttpValidationError;
 import com.junction.api.types.LabResultsMetadata;
 import com.junction.api.types.LabResultsRaw;
 import com.junction.api.types.LabTestResourcesResponse;
+import com.junction.api.types.ListUnmatchedResultResponse;
+import com.junction.api.types.ListUnmatchedResultTestCasesResponse;
 import com.junction.api.types.NotFoundErrorBody;
 import com.junction.api.types.OrderSetRequest;
 import com.junction.api.types.PostOrderResponse;
 import com.junction.api.types.PscInfo;
+import com.junction.api.types.UnmatchedResult;
 import com.junction.api.types.UsAddress;
 import com.junction.api.types.ValidateIcdCodesResponse;
 import java.io.IOException;
@@ -175,6 +188,15 @@ public class RawLabTestsClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
+        if (requestOptions != null && requestOptions.getMaxRetries().isPresent()) {
+            okhttpRequest = okhttpRequest
+                    .newBuilder()
+                    .tag(
+                            RetryInterceptor.MaxRetriesOverride.class,
+                            new RetryInterceptor.MaxRetriesOverride(
+                                    requestOptions.getMaxRetries().get()))
+                    .build();
+        }
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
             String responseBodyString = responseBody != null ? responseBody.string() : "{}";
@@ -195,6 +217,8 @@ public class RawLabTestsClient {
             }
             Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
             throw new ApiError("Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (JsonProcessingException e) {
+            throw new JunctionException("Failed to deserialize response: " + e.getMessage(), e);
         } catch (IOException e) {
             throw new JunctionException("Network error executing HTTP request", e);
         }
@@ -232,6 +256,15 @@ public class RawLabTestsClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
+        if (requestOptions != null && requestOptions.getMaxRetries().isPresent()) {
+            okhttpRequest = okhttpRequest
+                    .newBuilder()
+                    .tag(
+                            RetryInterceptor.MaxRetriesOverride.class,
+                            new RetryInterceptor.MaxRetriesOverride(
+                                    requestOptions.getMaxRetries().get()))
+                    .build();
+        }
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
             String responseBodyString = responseBody != null ? responseBody.string() : "{}";
@@ -250,6 +283,8 @@ public class RawLabTestsClient {
             }
             Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
             throw new ApiError("Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (JsonProcessingException e) {
+            throw new JunctionException("Failed to deserialize response: " + e.getMessage(), e);
         } catch (IOException e) {
             throw new JunctionException("Network error executing HTTP request", e);
         }
@@ -304,6 +339,15 @@ public class RawLabTestsClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
+        if (requestOptions != null && requestOptions.getMaxRetries().isPresent()) {
+            okhttpRequest = okhttpRequest
+                    .newBuilder()
+                    .tag(
+                            RetryInterceptor.MaxRetriesOverride.class,
+                            new RetryInterceptor.MaxRetriesOverride(
+                                    requestOptions.getMaxRetries().get()))
+                    .build();
+        }
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
             String responseBodyString = responseBody != null ? responseBody.string() : "{}";
@@ -322,6 +366,8 @@ public class RawLabTestsClient {
             }
             Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
             throw new ApiError("Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (JsonProcessingException e) {
+            throw new JunctionException("Failed to deserialize response: " + e.getMessage(), e);
         } catch (IOException e) {
             throw new JunctionException("Network error executing HTTP request", e);
         }
@@ -368,6 +414,15 @@ public class RawLabTestsClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
+        if (requestOptions != null && requestOptions.getMaxRetries().isPresent()) {
+            okhttpRequest = okhttpRequest
+                    .newBuilder()
+                    .tag(
+                            RetryInterceptor.MaxRetriesOverride.class,
+                            new RetryInterceptor.MaxRetriesOverride(
+                                    requestOptions.getMaxRetries().get()))
+                    .build();
+        }
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
             String responseBodyString = responseBody != null ? responseBody.string() : "{}";
@@ -386,6 +441,8 @@ public class RawLabTestsClient {
             }
             Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
             throw new ApiError("Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (JsonProcessingException e) {
+            throw new JunctionException("Failed to deserialize response: " + e.getMessage(), e);
         } catch (IOException e) {
             throw new JunctionException("Network error executing HTTP request", e);
         }
@@ -432,6 +489,10 @@ public class RawLabTestsClient {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "a_la_carte_enabled", request.getALaCarteEnabled().get(), false);
         }
+        if (request.getIncludePricing().isPresent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "include_pricing", request.getIncludePricing().get(), false);
+        }
         if (request.getLabAccountId().isPresent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "lab_account_id", request.getLabAccountId().get(), false);
@@ -463,6 +524,15 @@ public class RawLabTestsClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
+        if (requestOptions != null && requestOptions.getMaxRetries().isPresent()) {
+            okhttpRequest = okhttpRequest
+                    .newBuilder()
+                    .tag(
+                            RetryInterceptor.MaxRetriesOverride.class,
+                            new RetryInterceptor.MaxRetriesOverride(
+                                    requestOptions.getMaxRetries().get()))
+                    .build();
+        }
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
             String responseBodyString = responseBody != null ? responseBody.string() : "{}";
@@ -481,6 +551,8 @@ public class RawLabTestsClient {
             }
             Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
             throw new ApiError("Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (JsonProcessingException e) {
+            throw new JunctionException("Failed to deserialize response: " + e.getMessage(), e);
         } catch (IOException e) {
             throw new JunctionException("Network error executing HTTP request", e);
         }
@@ -538,6 +610,15 @@ public class RawLabTestsClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
+        if (requestOptions != null && requestOptions.getMaxRetries().isPresent()) {
+            okhttpRequest = okhttpRequest
+                    .newBuilder()
+                    .tag(
+                            RetryInterceptor.MaxRetriesOverride.class,
+                            new RetryInterceptor.MaxRetriesOverride(
+                                    requestOptions.getMaxRetries().get()))
+                    .build();
+        }
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
             String responseBodyString = responseBody != null ? responseBody.string() : "{}";
@@ -556,6 +637,8 @@ public class RawLabTestsClient {
             }
             Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
             throw new ApiError("Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (JsonProcessingException e) {
+            throw new JunctionException("Failed to deserialize response: " + e.getMessage(), e);
         } catch (IOException e) {
             throw new JunctionException("Network error executing HTTP request", e);
         }
@@ -623,6 +706,15 @@ public class RawLabTestsClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
+        if (requestOptions != null && requestOptions.getMaxRetries().isPresent()) {
+            okhttpRequest = okhttpRequest
+                    .newBuilder()
+                    .tag(
+                            RetryInterceptor.MaxRetriesOverride.class,
+                            new RetryInterceptor.MaxRetriesOverride(
+                                    requestOptions.getMaxRetries().get()))
+                    .build();
+        }
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
             String responseBodyString = responseBody != null ? responseBody.string() : "{}";
@@ -641,6 +733,8 @@ public class RawLabTestsClient {
             }
             Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
             throw new ApiError("Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (JsonProcessingException e) {
+            throw new JunctionException("Failed to deserialize response: " + e.getMessage(), e);
         } catch (IOException e) {
             throw new JunctionException("Network error executing HTTP request", e);
         }
@@ -709,6 +803,15 @@ public class RawLabTestsClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
+        if (requestOptions != null && requestOptions.getMaxRetries().isPresent()) {
+            okhttpRequest = okhttpRequest
+                    .newBuilder()
+                    .tag(
+                            RetryInterceptor.MaxRetriesOverride.class,
+                            new RetryInterceptor.MaxRetriesOverride(
+                                    requestOptions.getMaxRetries().get()))
+                    .build();
+        }
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
             String responseBodyString = responseBody != null ? responseBody.string() : "{}";
@@ -727,6 +830,8 @@ public class RawLabTestsClient {
             }
             Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
             throw new ApiError("Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (JsonProcessingException e) {
+            throw new JunctionException("Failed to deserialize response: " + e.getMessage(), e);
         } catch (IOException e) {
             throw new JunctionException("Network error executing HTTP request", e);
         }
@@ -761,6 +866,15 @@ public class RawLabTestsClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
+        if (requestOptions != null && requestOptions.getMaxRetries().isPresent()) {
+            okhttpRequest = okhttpRequest
+                    .newBuilder()
+                    .tag(
+                            RetryInterceptor.MaxRetriesOverride.class,
+                            new RetryInterceptor.MaxRetriesOverride(
+                                    requestOptions.getMaxRetries().get()))
+                    .build();
+        }
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
             String responseBodyString = responseBody != null ? responseBody.string() : "{}";
@@ -772,6 +886,8 @@ public class RawLabTestsClient {
             }
             Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
             throw new ApiError("Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (JsonProcessingException e) {
+            throw new JunctionException("Failed to deserialize response: " + e.getMessage(), e);
         } catch (IOException e) {
             throw new JunctionException("Network error executing HTTP request", e);
         }
@@ -813,6 +929,14 @@ public class RawLabTestsClient {
         if (request.getNextCursor().isPresent()) {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "next_cursor", request.getNextCursor().get(), false);
+        }
+        if (request.getIncludePricing().isPresent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "include_pricing", request.getIncludePricing().get(), false);
+        }
+        if (request.getLabAccountId().isPresent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "lab_account_id", request.getLabAccountId().get(), false);
         }
         if (request.getGenerationMethod().isPresent()) {
             QueryStringMapper.addQueryParameter(
@@ -865,6 +989,15 @@ public class RawLabTestsClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
+        if (requestOptions != null && requestOptions.getMaxRetries().isPresent()) {
+            okhttpRequest = okhttpRequest
+                    .newBuilder()
+                    .tag(
+                            RetryInterceptor.MaxRetriesOverride.class,
+                            new RetryInterceptor.MaxRetriesOverride(
+                                    requestOptions.getMaxRetries().get()))
+                    .build();
+        }
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
             String responseBodyString = responseBody != null ? responseBody.string() : "{}";
@@ -884,6 +1017,8 @@ public class RawLabTestsClient {
             }
             Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
             throw new ApiError("Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (JsonProcessingException e) {
+            throw new JunctionException("Failed to deserialize response: " + e.getMessage(), e);
         } catch (IOException e) {
             throw new JunctionException("Network error executing HTTP request", e);
         }
@@ -932,6 +1067,15 @@ public class RawLabTestsClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
+        if (requestOptions != null && requestOptions.getMaxRetries().isPresent()) {
+            okhttpRequest = okhttpRequest
+                    .newBuilder()
+                    .tag(
+                            RetryInterceptor.MaxRetriesOverride.class,
+                            new RetryInterceptor.MaxRetriesOverride(
+                                    requestOptions.getMaxRetries().get()))
+                    .build();
+        }
         try {
             Response response = client.newCall(okhttpRequest).execute();
             ResponseBody responseBody = response.body();
@@ -950,6 +1094,8 @@ public class RawLabTestsClient {
             }
             Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
             throw new ApiError("Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (JsonProcessingException e) {
+            throw new JunctionException("Failed to deserialize response: " + e.getMessage(), e);
         } catch (IOException e) {
             throw new JunctionException("Network error executing HTTP request", e);
         }
@@ -1084,6 +1230,15 @@ public class RawLabTestsClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
+        if (requestOptions != null && requestOptions.getMaxRetries().isPresent()) {
+            okhttpRequest = okhttpRequest
+                    .newBuilder()
+                    .tag(
+                            RetryInterceptor.MaxRetriesOverride.class,
+                            new RetryInterceptor.MaxRetriesOverride(
+                                    requestOptions.getMaxRetries().get()))
+                    .build();
+        }
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
             String responseBodyString = responseBody != null ? responseBody.string() : "{}";
@@ -1102,6 +1257,8 @@ public class RawLabTestsClient {
             }
             Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
             throw new ApiError("Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (JsonProcessingException e) {
+            throw new JunctionException("Failed to deserialize response: " + e.getMessage(), e);
         } catch (IOException e) {
             throw new JunctionException("Network error executing HTTP request", e);
         }
@@ -1175,6 +1332,15 @@ public class RawLabTestsClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
+        if (requestOptions != null && requestOptions.getMaxRetries().isPresent()) {
+            okhttpRequest = okhttpRequest
+                    .newBuilder()
+                    .tag(
+                            RetryInterceptor.MaxRetriesOverride.class,
+                            new RetryInterceptor.MaxRetriesOverride(
+                                    requestOptions.getMaxRetries().get()))
+                    .build();
+        }
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
             String responseBodyString = responseBody != null ? responseBody.string() : "{}";
@@ -1194,6 +1360,8 @@ public class RawLabTestsClient {
             }
             Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
             throw new ApiError("Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (JsonProcessingException e) {
+            throw new JunctionException("Failed to deserialize response: " + e.getMessage(), e);
         } catch (IOException e) {
             throw new JunctionException("Network error executing HTTP request", e);
         }
@@ -1241,6 +1409,15 @@ public class RawLabTestsClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
+        if (requestOptions != null && requestOptions.getMaxRetries().isPresent()) {
+            okhttpRequest = okhttpRequest
+                    .newBuilder()
+                    .tag(
+                            RetryInterceptor.MaxRetriesOverride.class,
+                            new RetryInterceptor.MaxRetriesOverride(
+                                    requestOptions.getMaxRetries().get()))
+                    .build();
+        }
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
             String responseBodyString = responseBody != null ? responseBody.string() : "{}";
@@ -1260,6 +1437,8 @@ public class RawLabTestsClient {
             }
             Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
             throw new ApiError("Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (JsonProcessingException e) {
+            throw new JunctionException("Failed to deserialize response: " + e.getMessage(), e);
         } catch (IOException e) {
             throw new JunctionException("Network error executing HTTP request", e);
         }
@@ -1307,6 +1486,15 @@ public class RawLabTestsClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
+        if (requestOptions != null && requestOptions.getMaxRetries().isPresent()) {
+            okhttpRequest = okhttpRequest
+                    .newBuilder()
+                    .tag(
+                            RetryInterceptor.MaxRetriesOverride.class,
+                            new RetryInterceptor.MaxRetriesOverride(
+                                    requestOptions.getMaxRetries().get()))
+                    .build();
+        }
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
             String responseBodyString = responseBody != null ? responseBody.string() : "{}";
@@ -1326,6 +1514,8 @@ public class RawLabTestsClient {
             }
             Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
             throw new ApiError("Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (JsonProcessingException e) {
+            throw new JunctionException("Failed to deserialize response: " + e.getMessage(), e);
         } catch (IOException e) {
             throw new JunctionException("Network error executing HTTP request", e);
         }
@@ -1373,6 +1563,15 @@ public class RawLabTestsClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
+        if (requestOptions != null && requestOptions.getMaxRetries().isPresent()) {
+            okhttpRequest = okhttpRequest
+                    .newBuilder()
+                    .tag(
+                            RetryInterceptor.MaxRetriesOverride.class,
+                            new RetryInterceptor.MaxRetriesOverride(
+                                    requestOptions.getMaxRetries().get()))
+                    .build();
+        }
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
             String responseBodyString = responseBody != null ? responseBody.string() : "{}";
@@ -1392,6 +1591,8 @@ public class RawLabTestsClient {
             }
             Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
             throw new ApiError("Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (JsonProcessingException e) {
+            throw new JunctionException("Failed to deserialize response: " + e.getMessage(), e);
         } catch (IOException e) {
             throw new JunctionException("Network error executing HTTP request", e);
         }
@@ -1441,6 +1642,15 @@ public class RawLabTestsClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
+        if (requestOptions != null && requestOptions.getMaxRetries().isPresent()) {
+            okhttpRequest = okhttpRequest
+                    .newBuilder()
+                    .tag(
+                            RetryInterceptor.MaxRetriesOverride.class,
+                            new RetryInterceptor.MaxRetriesOverride(
+                                    requestOptions.getMaxRetries().get()))
+                    .build();
+        }
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
             String responseBodyString = responseBody != null ? responseBody.string() : "{}";
@@ -1460,6 +1670,8 @@ public class RawLabTestsClient {
             }
             Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
             throw new ApiError("Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (JsonProcessingException e) {
+            throw new JunctionException("Failed to deserialize response: " + e.getMessage(), e);
         } catch (IOException e) {
             throw new JunctionException("Network error executing HTTP request", e);
         }
@@ -1496,6 +1708,15 @@ public class RawLabTestsClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
+        if (requestOptions != null && requestOptions.getMaxRetries().isPresent()) {
+            okhttpRequest = okhttpRequest
+                    .newBuilder()
+                    .tag(
+                            RetryInterceptor.MaxRetriesOverride.class,
+                            new RetryInterceptor.MaxRetriesOverride(
+                                    requestOptions.getMaxRetries().get()))
+                    .build();
+        }
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
             String responseBodyString = responseBody != null ? responseBody.string() : "{}";
@@ -1508,6 +1729,8 @@ public class RawLabTestsClient {
             }
             Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
             throw new ApiError("Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (JsonProcessingException e) {
+            throw new JunctionException("Failed to deserialize response: " + e.getMessage(), e);
         } catch (IOException e) {
             throw new JunctionException("Network error executing HTTP request", e);
         }
@@ -1564,6 +1787,15 @@ public class RawLabTestsClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
+        if (requestOptions != null && requestOptions.getMaxRetries().isPresent()) {
+            okhttpRequest = okhttpRequest
+                    .newBuilder()
+                    .tag(
+                            RetryInterceptor.MaxRetriesOverride.class,
+                            new RetryInterceptor.MaxRetriesOverride(
+                                    requestOptions.getMaxRetries().get()))
+                    .build();
+        }
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
             String responseBodyString = responseBody != null ? responseBody.string() : "{}";
@@ -1583,6 +1815,8 @@ public class RawLabTestsClient {
             }
             Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
             throw new ApiError("Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (JsonProcessingException e) {
+            throw new JunctionException("Failed to deserialize response: " + e.getMessage(), e);
         } catch (IOException e) {
             throw new JunctionException("Network error executing HTTP request", e);
         }
@@ -1644,6 +1878,15 @@ public class RawLabTestsClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
+        if (requestOptions != null && requestOptions.getMaxRetries().isPresent()) {
+            okhttpRequest = okhttpRequest
+                    .newBuilder()
+                    .tag(
+                            RetryInterceptor.MaxRetriesOverride.class,
+                            new RetryInterceptor.MaxRetriesOverride(
+                                    requestOptions.getMaxRetries().get()))
+                    .build();
+        }
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
             String responseBodyString = responseBody != null ? responseBody.string() : "{}";
@@ -1662,6 +1905,8 @@ public class RawLabTestsClient {
             }
             Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
             throw new ApiError("Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (JsonProcessingException e) {
+            throw new JunctionException("Failed to deserialize response: " + e.getMessage(), e);
         } catch (IOException e) {
             throw new JunctionException("Network error executing HTTP request", e);
         }
@@ -1704,6 +1949,15 @@ public class RawLabTestsClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
+        if (requestOptions != null && requestOptions.getMaxRetries().isPresent()) {
+            okhttpRequest = okhttpRequest
+                    .newBuilder()
+                    .tag(
+                            RetryInterceptor.MaxRetriesOverride.class,
+                            new RetryInterceptor.MaxRetriesOverride(
+                                    requestOptions.getMaxRetries().get()))
+                    .build();
+        }
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
             String responseBodyString = responseBody != null ? responseBody.string() : "{}";
@@ -1722,6 +1976,8 @@ public class RawLabTestsClient {
             }
             Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
             throw new ApiError("Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (JsonProcessingException e) {
+            throw new JunctionException("Failed to deserialize response: " + e.getMessage(), e);
         } catch (IOException e) {
             throw new JunctionException("Network error executing HTTP request", e);
         }
@@ -1770,6 +2026,15 @@ public class RawLabTestsClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
+        if (requestOptions != null && requestOptions.getMaxRetries().isPresent()) {
+            okhttpRequest = okhttpRequest
+                    .newBuilder()
+                    .tag(
+                            RetryInterceptor.MaxRetriesOverride.class,
+                            new RetryInterceptor.MaxRetriesOverride(
+                                    requestOptions.getMaxRetries().get()))
+                    .build();
+        }
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
             String responseBodyString = responseBody != null ? responseBody.string() : "{}";
@@ -1788,6 +2053,8 @@ public class RawLabTestsClient {
             }
             Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
             throw new ApiError("Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (JsonProcessingException e) {
+            throw new JunctionException("Failed to deserialize response: " + e.getMessage(), e);
         } catch (IOException e) {
             throw new JunctionException("Network error executing HTTP request", e);
         }
@@ -1840,6 +2107,15 @@ public class RawLabTestsClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
+        if (requestOptions != null && requestOptions.getMaxRetries().isPresent()) {
+            okhttpRequest = okhttpRequest
+                    .newBuilder()
+                    .tag(
+                            RetryInterceptor.MaxRetriesOverride.class,
+                            new RetryInterceptor.MaxRetriesOverride(
+                                    requestOptions.getMaxRetries().get()))
+                    .build();
+        }
         try {
             Response response = client.newCall(okhttpRequest).execute();
             ResponseBody responseBody = response.body();
@@ -1858,6 +2134,8 @@ public class RawLabTestsClient {
             }
             Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
             throw new ApiError("Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (JsonProcessingException e) {
+            throw new JunctionException("Failed to deserialize response: " + e.getMessage(), e);
         } catch (IOException e) {
             throw new JunctionException("Network error executing HTTP request", e);
         }
@@ -1917,6 +2195,15 @@ public class RawLabTestsClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
+        if (requestOptions != null && requestOptions.getMaxRetries().isPresent()) {
+            okhttpRequest = okhttpRequest
+                    .newBuilder()
+                    .tag(
+                            RetryInterceptor.MaxRetriesOverride.class,
+                            new RetryInterceptor.MaxRetriesOverride(
+                                    requestOptions.getMaxRetries().get()))
+                    .build();
+        }
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
             String responseBodyString = responseBody != null ? responseBody.string() : "{}";
@@ -1935,6 +2222,8 @@ public class RawLabTestsClient {
             }
             Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
             throw new ApiError("Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (JsonProcessingException e) {
+            throw new JunctionException("Failed to deserialize response: " + e.getMessage(), e);
         } catch (IOException e) {
             throw new JunctionException("Network error executing HTTP request", e);
         }
@@ -1986,6 +2275,15 @@ public class RawLabTestsClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
+        if (requestOptions != null && requestOptions.getMaxRetries().isPresent()) {
+            okhttpRequest = okhttpRequest
+                    .newBuilder()
+                    .tag(
+                            RetryInterceptor.MaxRetriesOverride.class,
+                            new RetryInterceptor.MaxRetriesOverride(
+                                    requestOptions.getMaxRetries().get()))
+                    .build();
+        }
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
             String responseBodyString = responseBody != null ? responseBody.string() : "{}";
@@ -2004,6 +2302,8 @@ public class RawLabTestsClient {
             }
             Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
             throw new ApiError("Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (JsonProcessingException e) {
+            throw new JunctionException("Failed to deserialize response: " + e.getMessage(), e);
         } catch (IOException e) {
             throw new JunctionException("Network error executing HTTP request", e);
         }
@@ -2047,6 +2347,15 @@ public class RawLabTestsClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
+        if (requestOptions != null && requestOptions.getMaxRetries().isPresent()) {
+            okhttpRequest = okhttpRequest
+                    .newBuilder()
+                    .tag(
+                            RetryInterceptor.MaxRetriesOverride.class,
+                            new RetryInterceptor.MaxRetriesOverride(
+                                    requestOptions.getMaxRetries().get()))
+                    .build();
+        }
         try {
             Response response = client.newCall(okhttpRequest).execute();
             ResponseBody responseBody = response.body();
@@ -2065,6 +2374,8 @@ public class RawLabTestsClient {
             }
             Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
             throw new ApiError("Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (JsonProcessingException e) {
+            throw new JunctionException("Failed to deserialize response: " + e.getMessage(), e);
         } catch (IOException e) {
             throw new JunctionException("Network error executing HTTP request", e);
         }
@@ -2116,6 +2427,15 @@ public class RawLabTestsClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
+        if (requestOptions != null && requestOptions.getMaxRetries().isPresent()) {
+            okhttpRequest = okhttpRequest
+                    .newBuilder()
+                    .tag(
+                            RetryInterceptor.MaxRetriesOverride.class,
+                            new RetryInterceptor.MaxRetriesOverride(
+                                    requestOptions.getMaxRetries().get()))
+                    .build();
+        }
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
             String responseBodyString = responseBody != null ? responseBody.string() : "{}";
@@ -2140,6 +2460,8 @@ public class RawLabTestsClient {
             }
             Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
             throw new ApiError("Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (JsonProcessingException e) {
+            throw new JunctionException("Failed to deserialize response: " + e.getMessage(), e);
         } catch (IOException e) {
             throw new JunctionException("Network error executing HTTP request", e);
         }
@@ -2201,6 +2523,15 @@ public class RawLabTestsClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
+        if (requestOptions != null && requestOptions.getMaxRetries().isPresent()) {
+            okhttpRequest = okhttpRequest
+                    .newBuilder()
+                    .tag(
+                            RetryInterceptor.MaxRetriesOverride.class,
+                            new RetryInterceptor.MaxRetriesOverride(
+                                    requestOptions.getMaxRetries().get()))
+                    .build();
+        }
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
             String responseBodyString = responseBody != null ? responseBody.string() : "{}";
@@ -2220,6 +2551,8 @@ public class RawLabTestsClient {
             }
             Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
             throw new ApiError("Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (JsonProcessingException e) {
+            throw new JunctionException("Failed to deserialize response: " + e.getMessage(), e);
         } catch (IOException e) {
             throw new JunctionException("Network error executing HTTP request", e);
         }
@@ -2261,6 +2594,15 @@ public class RawLabTestsClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
+        if (requestOptions != null && requestOptions.getMaxRetries().isPresent()) {
+            okhttpRequest = okhttpRequest
+                    .newBuilder()
+                    .tag(
+                            RetryInterceptor.MaxRetriesOverride.class,
+                            new RetryInterceptor.MaxRetriesOverride(
+                                    requestOptions.getMaxRetries().get()))
+                    .build();
+        }
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
             String responseBodyString = responseBody != null ? responseBody.string() : "{}";
@@ -2280,6 +2622,8 @@ public class RawLabTestsClient {
             }
             Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
             throw new ApiError("Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (JsonProcessingException e) {
+            throw new JunctionException("Failed to deserialize response: " + e.getMessage(), e);
         } catch (IOException e) {
             throw new JunctionException("Network error executing HTTP request", e);
         }
@@ -2323,6 +2667,15 @@ public class RawLabTestsClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
+        if (requestOptions != null && requestOptions.getMaxRetries().isPresent()) {
+            okhttpRequest = okhttpRequest
+                    .newBuilder()
+                    .tag(
+                            RetryInterceptor.MaxRetriesOverride.class,
+                            new RetryInterceptor.MaxRetriesOverride(
+                                    requestOptions.getMaxRetries().get()))
+                    .build();
+        }
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
             String responseBodyString = responseBody != null ? responseBody.string() : "{}";
@@ -2342,6 +2695,8 @@ public class RawLabTestsClient {
             }
             Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
             throw new ApiError("Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (JsonProcessingException e) {
+            throw new JunctionException("Failed to deserialize response: " + e.getMessage(), e);
         } catch (IOException e) {
             throw new JunctionException("Network error executing HTTP request", e);
         }
@@ -2371,6 +2726,15 @@ public class RawLabTestsClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
+        if (requestOptions != null && requestOptions.getMaxRetries().isPresent()) {
+            okhttpRequest = okhttpRequest
+                    .newBuilder()
+                    .tag(
+                            RetryInterceptor.MaxRetriesOverride.class,
+                            new RetryInterceptor.MaxRetriesOverride(
+                                    requestOptions.getMaxRetries().get()))
+                    .build();
+        }
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
             String responseBodyString = responseBody != null ? responseBody.string() : "{}";
@@ -2383,6 +2747,8 @@ public class RawLabTestsClient {
             }
             Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
             throw new ApiError("Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (JsonProcessingException e) {
+            throw new JunctionException("Failed to deserialize response: " + e.getMessage(), e);
         } catch (IOException e) {
             throw new JunctionException("Network error executing HTTP request", e);
         }
@@ -2439,6 +2805,15 @@ public class RawLabTestsClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
+        if (requestOptions != null && requestOptions.getMaxRetries().isPresent()) {
+            okhttpRequest = okhttpRequest
+                    .newBuilder()
+                    .tag(
+                            RetryInterceptor.MaxRetriesOverride.class,
+                            new RetryInterceptor.MaxRetriesOverride(
+                                    requestOptions.getMaxRetries().get()))
+                    .build();
+        }
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
             String responseBodyString = responseBody != null ? responseBody.string() : "{}";
@@ -2458,6 +2833,8 @@ public class RawLabTestsClient {
             }
             Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
             throw new ApiError("Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (JsonProcessingException e) {
+            throw new JunctionException("Failed to deserialize response: " + e.getMessage(), e);
         } catch (IOException e) {
             throw new JunctionException("Network error executing HTTP request", e);
         }
@@ -2516,6 +2893,15 @@ public class RawLabTestsClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
+        if (requestOptions != null && requestOptions.getMaxRetries().isPresent()) {
+            okhttpRequest = okhttpRequest
+                    .newBuilder()
+                    .tag(
+                            RetryInterceptor.MaxRetriesOverride.class,
+                            new RetryInterceptor.MaxRetriesOverride(
+                                    requestOptions.getMaxRetries().get()))
+                    .build();
+        }
         try {
             Response response = client.newCall(okhttpRequest).execute();
             ResponseBody responseBody = response.body();
@@ -2534,6 +2920,8 @@ public class RawLabTestsClient {
             }
             Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
             throw new ApiError("Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (JsonProcessingException e) {
+            throw new JunctionException("Failed to deserialize response: " + e.getMessage(), e);
         } catch (IOException e) {
             throw new JunctionException("Network error executing HTTP request", e);
         }
@@ -2589,6 +2977,15 @@ public class RawLabTestsClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
+        if (requestOptions != null && requestOptions.getMaxRetries().isPresent()) {
+            okhttpRequest = okhttpRequest
+                    .newBuilder()
+                    .tag(
+                            RetryInterceptor.MaxRetriesOverride.class,
+                            new RetryInterceptor.MaxRetriesOverride(
+                                    requestOptions.getMaxRetries().get()))
+                    .build();
+        }
         try {
             Response response = client.newCall(okhttpRequest).execute();
             ResponseBody responseBody = response.body();
@@ -2607,6 +3004,8 @@ public class RawLabTestsClient {
             }
             Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
             throw new ApiError("Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (JsonProcessingException e) {
+            throw new JunctionException("Failed to deserialize response: " + e.getMessage(), e);
         } catch (IOException e) {
             throw new JunctionException("Network error executing HTTP request", e);
         }
@@ -2658,6 +3057,15 @@ public class RawLabTestsClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
+        if (requestOptions != null && requestOptions.getMaxRetries().isPresent()) {
+            okhttpRequest = okhttpRequest
+                    .newBuilder()
+                    .tag(
+                            RetryInterceptor.MaxRetriesOverride.class,
+                            new RetryInterceptor.MaxRetriesOverride(
+                                    requestOptions.getMaxRetries().get()))
+                    .build();
+        }
         try {
             Response response = client.newCall(okhttpRequest).execute();
             ResponseBody responseBody = response.body();
@@ -2676,6 +3084,8 @@ public class RawLabTestsClient {
             }
             Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
             throw new ApiError("Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (JsonProcessingException e) {
+            throw new JunctionException("Failed to deserialize response: " + e.getMessage(), e);
         } catch (IOException e) {
             throw new JunctionException("Network error executing HTTP request", e);
         }
@@ -2726,6 +3136,15 @@ public class RawLabTestsClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
+        if (requestOptions != null && requestOptions.getMaxRetries().isPresent()) {
+            okhttpRequest = okhttpRequest
+                    .newBuilder()
+                    .tag(
+                            RetryInterceptor.MaxRetriesOverride.class,
+                            new RetryInterceptor.MaxRetriesOverride(
+                                    requestOptions.getMaxRetries().get()))
+                    .build();
+        }
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
             String responseBodyString = responseBody != null ? responseBody.string() : "{}";
@@ -2744,6 +3163,8 @@ public class RawLabTestsClient {
             }
             Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
             throw new ApiError("Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (JsonProcessingException e) {
+            throw new JunctionException("Failed to deserialize response: " + e.getMessage(), e);
         } catch (IOException e) {
             throw new JunctionException("Network error executing HTTP request", e);
         }
@@ -2842,6 +3263,15 @@ public class RawLabTestsClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
+        if (requestOptions != null && requestOptions.getMaxRetries().isPresent()) {
+            okhttpRequest = okhttpRequest
+                    .newBuilder()
+                    .tag(
+                            RetryInterceptor.MaxRetriesOverride.class,
+                            new RetryInterceptor.MaxRetriesOverride(
+                                    requestOptions.getMaxRetries().get()))
+                    .build();
+        }
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
             String responseBodyString = responseBody != null ? responseBody.string() : "{}";
@@ -2860,6 +3290,8 @@ public class RawLabTestsClient {
             }
             Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
             throw new ApiError("Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (JsonProcessingException e) {
+            throw new JunctionException("Failed to deserialize response: " + e.getMessage(), e);
         } catch (IOException e) {
             throw new JunctionException("Network error executing HTTP request", e);
         }
@@ -2905,6 +3337,15 @@ public class RawLabTestsClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
+        if (requestOptions != null && requestOptions.getMaxRetries().isPresent()) {
+            okhttpRequest = okhttpRequest
+                    .newBuilder()
+                    .tag(
+                            RetryInterceptor.MaxRetriesOverride.class,
+                            new RetryInterceptor.MaxRetriesOverride(
+                                    requestOptions.getMaxRetries().get()))
+                    .build();
+        }
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
             String responseBodyString = responseBody != null ? responseBody.string() : "{}";
@@ -2923,6 +3364,8 @@ public class RawLabTestsClient {
             }
             Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
             throw new ApiError("Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (JsonProcessingException e) {
+            throw new JunctionException("Failed to deserialize response: " + e.getMessage(), e);
         } catch (IOException e) {
             throw new JunctionException("Network error executing HTTP request", e);
         }
@@ -2959,6 +3402,15 @@ public class RawLabTestsClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
+        if (requestOptions != null && requestOptions.getMaxRetries().isPresent()) {
+            okhttpRequest = okhttpRequest
+                    .newBuilder()
+                    .tag(
+                            RetryInterceptor.MaxRetriesOverride.class,
+                            new RetryInterceptor.MaxRetriesOverride(
+                                    requestOptions.getMaxRetries().get()))
+                    .build();
+        }
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
             String responseBodyString = responseBody != null ? responseBody.string() : "{}";
@@ -2977,6 +3429,8 @@ public class RawLabTestsClient {
             }
             Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
             throw new ApiError("Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (JsonProcessingException e) {
+            throw new JunctionException("Failed to deserialize response: " + e.getMessage(), e);
         } catch (IOException e) {
             throw new JunctionException("Network error executing HTTP request", e);
         }
@@ -3028,6 +3482,15 @@ public class RawLabTestsClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
+        if (requestOptions != null && requestOptions.getMaxRetries().isPresent()) {
+            okhttpRequest = okhttpRequest
+                    .newBuilder()
+                    .tag(
+                            RetryInterceptor.MaxRetriesOverride.class,
+                            new RetryInterceptor.MaxRetriesOverride(
+                                    requestOptions.getMaxRetries().get()))
+                    .build();
+        }
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
             String responseBodyString = responseBody != null ? responseBody.string() : "{}";
@@ -3046,6 +3509,8 @@ public class RawLabTestsClient {
             }
             Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
             throw new ApiError("Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (JsonProcessingException e) {
+            throw new JunctionException("Failed to deserialize response: " + e.getMessage(), e);
         } catch (IOException e) {
             throw new JunctionException("Network error executing HTTP request", e);
         }
@@ -3119,6 +3584,15 @@ public class RawLabTestsClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
+        if (requestOptions != null && requestOptions.getMaxRetries().isPresent()) {
+            okhttpRequest = okhttpRequest
+                    .newBuilder()
+                    .tag(
+                            RetryInterceptor.MaxRetriesOverride.class,
+                            new RetryInterceptor.MaxRetriesOverride(
+                                    requestOptions.getMaxRetries().get()))
+                    .build();
+        }
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
             String responseBodyString = responseBody != null ? responseBody.string() : "{}";
@@ -3137,6 +3611,8 @@ public class RawLabTestsClient {
             }
             Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
             throw new ApiError("Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (JsonProcessingException e) {
+            throw new JunctionException("Failed to deserialize response: " + e.getMessage(), e);
         } catch (IOException e) {
             throw new JunctionException("Network error executing HTTP request", e);
         }
@@ -3199,6 +3675,15 @@ public class RawLabTestsClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
+        if (requestOptions != null && requestOptions.getMaxRetries().isPresent()) {
+            okhttpRequest = okhttpRequest
+                    .newBuilder()
+                    .tag(
+                            RetryInterceptor.MaxRetriesOverride.class,
+                            new RetryInterceptor.MaxRetriesOverride(
+                                    requestOptions.getMaxRetries().get()))
+                    .build();
+        }
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
             String responseBodyString = responseBody != null ? responseBody.string() : "{}";
@@ -3217,6 +3702,524 @@ public class RawLabTestsClient {
             }
             Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
             throw new ApiError("Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (JsonProcessingException e) {
+            throw new JunctionException("Failed to deserialize response: " + e.getMessage(), e);
+        } catch (IOException e) {
+            throw new JunctionException("Network error executing HTTP request", e);
+        }
+    }
+
+    public JunctionHttpResponse<ListUnmatchedResultTestCasesResponse> listUnmatchedResultTestCases() {
+        return listUnmatchedResultTestCases(null);
+    }
+
+    public JunctionHttpResponse<ListUnmatchedResultTestCasesResponse> listUnmatchedResultTestCases(
+            RequestOptions requestOptions) {
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+                .newBuilder()
+                .addPathSegments("v3/unmatched_result_test/case");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
+        Request okhttpRequest = new Request.Builder()
+                .url(httpUrl.build())
+                .method("GET", null)
+                .headers(Headers.of(clientOptions.headers(requestOptions)))
+                .addHeader("Accept", "application/json")
+                .build();
+        OkHttpClient client = clientOptions.httpClient();
+        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
+            client = clientOptions.httpClientWithTimeout(requestOptions);
+        }
+        if (requestOptions != null && requestOptions.getMaxRetries().isPresent()) {
+            okhttpRequest = okhttpRequest
+                    .newBuilder()
+                    .tag(
+                            RetryInterceptor.MaxRetriesOverride.class,
+                            new RetryInterceptor.MaxRetriesOverride(
+                                    requestOptions.getMaxRetries().get()))
+                    .build();
+        }
+        try (Response response = client.newCall(okhttpRequest).execute()) {
+            ResponseBody responseBody = response.body();
+            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
+            if (response.isSuccessful()) {
+                return new JunctionHttpResponse<>(
+                        ObjectMappers.JSON_MAPPER.readValue(
+                                responseBodyString, ListUnmatchedResultTestCasesResponse.class),
+                        response);
+            }
+            Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
+            throw new ApiError("Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (JsonProcessingException e) {
+            throw new JunctionException("Failed to deserialize response: " + e.getMessage(), e);
+        } catch (IOException e) {
+            throw new JunctionException("Network error executing HTTP request", e);
+        }
+    }
+
+    public JunctionHttpResponse<CreateUnmatchedResultTestResponse> createUnmatchedResultTest(
+            CreateUnmatchedResultTestBody request) {
+        return createUnmatchedResultTest(request, null);
+    }
+
+    public JunctionHttpResponse<CreateUnmatchedResultTestResponse> createUnmatchedResultTest(
+            CreateUnmatchedResultTestBody request, RequestOptions requestOptions) {
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+                .newBuilder()
+                .addPathSegments("v3/unmatched_result_test");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
+        RequestBody body;
+        try {
+            body = RequestBody.create(
+                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        Request.Builder _requestBuilder = new Request.Builder()
+                .url(httpUrl.build())
+                .method("POST", body)
+                .headers(Headers.of(clientOptions.headers(requestOptions)))
+                .addHeader("Content-Type", "application/json")
+                .addHeader("Accept", "application/json");
+        _requestBuilder.addHeader("X-Idempotency-Key", request.getIdempotencyKey());
+        Request okhttpRequest = _requestBuilder.build();
+        OkHttpClient client = clientOptions.httpClient();
+        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
+            client = clientOptions.httpClientWithTimeout(requestOptions);
+        }
+        if (requestOptions != null && requestOptions.getMaxRetries().isPresent()) {
+            okhttpRequest = okhttpRequest
+                    .newBuilder()
+                    .tag(
+                            RetryInterceptor.MaxRetriesOverride.class,
+                            new RetryInterceptor.MaxRetriesOverride(
+                                    requestOptions.getMaxRetries().get()))
+                    .build();
+        }
+        try (Response response = client.newCall(okhttpRequest).execute()) {
+            ResponseBody responseBody = response.body();
+            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
+            if (response.isSuccessful()) {
+                return new JunctionHttpResponse<>(
+                        ObjectMappers.JSON_MAPPER.readValue(
+                                responseBodyString, CreateUnmatchedResultTestResponse.class),
+                        response);
+            }
+            try {
+                if (response.code() == 422) {
+                    throw new UnprocessableEntityError(
+                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, HttpValidationError.class),
+                            response);
+                }
+            } catch (JsonProcessingException ignored) {
+                // unable to map error response, throwing generic error
+            }
+            Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
+            throw new ApiError("Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (JsonProcessingException e) {
+            throw new JunctionException("Failed to deserialize response: " + e.getMessage(), e);
+        } catch (IOException e) {
+            throw new JunctionException("Network error executing HTTP request", e);
+        }
+    }
+
+    public JunctionHttpResponse<GetUnmatchedResultTestResponse> getUnmatchedResultTest(String runId) {
+        return getUnmatchedResultTest(
+                runId, GetUnmatchedResultTestLabTestsRequest.builder().build());
+    }
+
+    public JunctionHttpResponse<GetUnmatchedResultTestResponse> getUnmatchedResultTest(
+            String runId, RequestOptions requestOptions) {
+        return getUnmatchedResultTest(
+                runId, GetUnmatchedResultTestLabTestsRequest.builder().build(), requestOptions);
+    }
+
+    public JunctionHttpResponse<GetUnmatchedResultTestResponse> getUnmatchedResultTest(
+            String runId, GetUnmatchedResultTestLabTestsRequest request) {
+        return getUnmatchedResultTest(runId, request, null);
+    }
+
+    public JunctionHttpResponse<GetUnmatchedResultTestResponse> getUnmatchedResultTest(
+            String runId, GetUnmatchedResultTestLabTestsRequest request, RequestOptions requestOptions) {
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+                .newBuilder()
+                .addPathSegments("v3/unmatched_result_test")
+                .addPathSegment(runId);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
+        Request.Builder _requestBuilder = new Request.Builder()
+                .url(httpUrl.build())
+                .method("GET", null)
+                .headers(Headers.of(clientOptions.headers(requestOptions)))
+                .addHeader("Accept", "application/json");
+        Request okhttpRequest = _requestBuilder.build();
+        OkHttpClient client = clientOptions.httpClient();
+        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
+            client = clientOptions.httpClientWithTimeout(requestOptions);
+        }
+        if (requestOptions != null && requestOptions.getMaxRetries().isPresent()) {
+            okhttpRequest = okhttpRequest
+                    .newBuilder()
+                    .tag(
+                            RetryInterceptor.MaxRetriesOverride.class,
+                            new RetryInterceptor.MaxRetriesOverride(
+                                    requestOptions.getMaxRetries().get()))
+                    .build();
+        }
+        try (Response response = client.newCall(okhttpRequest).execute()) {
+            ResponseBody responseBody = response.body();
+            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
+            if (response.isSuccessful()) {
+                return new JunctionHttpResponse<>(
+                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, GetUnmatchedResultTestResponse.class),
+                        response);
+            }
+            try {
+                if (response.code() == 422) {
+                    throw new UnprocessableEntityError(
+                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, HttpValidationError.class),
+                            response);
+                }
+            } catch (JsonProcessingException ignored) {
+                // unable to map error response, throwing generic error
+            }
+            Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
+            throw new ApiError("Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (JsonProcessingException e) {
+            throw new JunctionException("Failed to deserialize response: " + e.getMessage(), e);
+        } catch (IOException e) {
+            throw new JunctionException("Network error executing HTTP request", e);
+        }
+    }
+
+    public JunctionHttpResponse<ListUnmatchedResultResponse> listUnmatchedResults() {
+        return listUnmatchedResults(
+                ListUnmatchedResultsLabTestsRequest.builder().build());
+    }
+
+    public JunctionHttpResponse<ListUnmatchedResultResponse> listUnmatchedResults(RequestOptions requestOptions) {
+        return listUnmatchedResults(
+                ListUnmatchedResultsLabTestsRequest.builder().build(), requestOptions);
+    }
+
+    public JunctionHttpResponse<ListUnmatchedResultResponse> listUnmatchedResults(
+            ListUnmatchedResultsLabTestsRequest request) {
+        return listUnmatchedResults(request, null);
+    }
+
+    public JunctionHttpResponse<ListUnmatchedResultResponse> listUnmatchedResults(
+            ListUnmatchedResultsLabTestsRequest request, RequestOptions requestOptions) {
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+                .newBuilder()
+                .addPathSegments("v3/unmatched_result");
+        if (request.getLimit().isPresent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "limit", request.getLimit().get(), false);
+        }
+        if (request.getNextCursor().isPresent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "next_cursor", request.getNextCursor().get(), false);
+        }
+        if (request.getDecisionCode().isPresent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "decision_code", request.getDecisionCode().get(), false);
+        }
+        if (request.getLabSlug().isPresent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "lab_slug", request.getLabSlug().get(), false);
+        }
+        if (request.getStatus().isPresent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "status", request.getStatus().get(), false);
+        }
+        if (request.getCreatedAtStart().isPresent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "created_at_start", request.getCreatedAtStart().get(), false);
+        }
+        if (request.getCreatedAtEnd().isPresent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "created_at_end", request.getCreatedAtEnd().get(), false);
+        }
+        if (request.getSearchInput().isPresent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "search_input", request.getSearchInput().get(), false);
+        }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
+        Request.Builder _requestBuilder = new Request.Builder()
+                .url(httpUrl.build())
+                .method("GET", null)
+                .headers(Headers.of(clientOptions.headers(requestOptions)))
+                .addHeader("Accept", "application/json");
+        Request okhttpRequest = _requestBuilder.build();
+        OkHttpClient client = clientOptions.httpClient();
+        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
+            client = clientOptions.httpClientWithTimeout(requestOptions);
+        }
+        if (requestOptions != null && requestOptions.getMaxRetries().isPresent()) {
+            okhttpRequest = okhttpRequest
+                    .newBuilder()
+                    .tag(
+                            RetryInterceptor.MaxRetriesOverride.class,
+                            new RetryInterceptor.MaxRetriesOverride(
+                                    requestOptions.getMaxRetries().get()))
+                    .build();
+        }
+        try (Response response = client.newCall(okhttpRequest).execute()) {
+            ResponseBody responseBody = response.body();
+            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
+            if (response.isSuccessful()) {
+                return new JunctionHttpResponse<>(
+                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, ListUnmatchedResultResponse.class),
+                        response);
+            }
+            try {
+                if (response.code() == 422) {
+                    throw new UnprocessableEntityError(
+                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, HttpValidationError.class),
+                            response);
+                }
+            } catch (JsonProcessingException ignored) {
+                // unable to map error response, throwing generic error
+            }
+            Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
+            throw new ApiError("Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (JsonProcessingException e) {
+            throw new JunctionException("Failed to deserialize response: " + e.getMessage(), e);
+        } catch (IOException e) {
+            throw new JunctionException("Network error executing HTTP request", e);
+        }
+    }
+
+    public JunctionHttpResponse<GetUnmatchedResultResponse> getUnmatchedResult(String rawResultId) {
+        return getUnmatchedResult(
+                rawResultId, GetUnmatchedResultLabTestsRequest.builder().build());
+    }
+
+    public JunctionHttpResponse<GetUnmatchedResultResponse> getUnmatchedResult(
+            String rawResultId, RequestOptions requestOptions) {
+        return getUnmatchedResult(
+                rawResultId, GetUnmatchedResultLabTestsRequest.builder().build(), requestOptions);
+    }
+
+    public JunctionHttpResponse<GetUnmatchedResultResponse> getUnmatchedResult(
+            String rawResultId, GetUnmatchedResultLabTestsRequest request) {
+        return getUnmatchedResult(rawResultId, request, null);
+    }
+
+    public JunctionHttpResponse<GetUnmatchedResultResponse> getUnmatchedResult(
+            String rawResultId, GetUnmatchedResultLabTestsRequest request, RequestOptions requestOptions) {
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+                .newBuilder()
+                .addPathSegments("v3/unmatched_result")
+                .addPathSegment(rawResultId);
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
+        Request.Builder _requestBuilder = new Request.Builder()
+                .url(httpUrl.build())
+                .method("GET", null)
+                .headers(Headers.of(clientOptions.headers(requestOptions)))
+                .addHeader("Accept", "application/json");
+        Request okhttpRequest = _requestBuilder.build();
+        OkHttpClient client = clientOptions.httpClient();
+        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
+            client = clientOptions.httpClientWithTimeout(requestOptions);
+        }
+        if (requestOptions != null && requestOptions.getMaxRetries().isPresent()) {
+            okhttpRequest = okhttpRequest
+                    .newBuilder()
+                    .tag(
+                            RetryInterceptor.MaxRetriesOverride.class,
+                            new RetryInterceptor.MaxRetriesOverride(
+                                    requestOptions.getMaxRetries().get()))
+                    .build();
+        }
+        try (Response response = client.newCall(okhttpRequest).execute()) {
+            ResponseBody responseBody = response.body();
+            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
+            if (response.isSuccessful()) {
+                return new JunctionHttpResponse<>(
+                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, GetUnmatchedResultResponse.class),
+                        response);
+            }
+            try {
+                if (response.code() == 422) {
+                    throw new UnprocessableEntityError(
+                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, HttpValidationError.class),
+                            response);
+                }
+            } catch (JsonProcessingException ignored) {
+                // unable to map error response, throwing generic error
+            }
+            Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
+            throw new ApiError("Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (JsonProcessingException e) {
+            throw new JunctionException("Failed to deserialize response: " + e.getMessage(), e);
+        } catch (IOException e) {
+            throw new JunctionException("Network error executing HTTP request", e);
+        }
+    }
+
+    public JunctionHttpResponse<ClientFacingOrder> acceptUnmatchedResult(String rawResultId) {
+        return acceptUnmatchedResult(
+                rawResultId, AcceptUnmatchedResultBody.builder().build());
+    }
+
+    public JunctionHttpResponse<ClientFacingOrder> acceptUnmatchedResult(
+            String rawResultId, RequestOptions requestOptions) {
+        return acceptUnmatchedResult(
+                rawResultId, AcceptUnmatchedResultBody.builder().build(), requestOptions);
+    }
+
+    public JunctionHttpResponse<ClientFacingOrder> acceptUnmatchedResult(
+            String rawResultId, AcceptUnmatchedResultBody request) {
+        return acceptUnmatchedResult(rawResultId, request, null);
+    }
+
+    public JunctionHttpResponse<ClientFacingOrder> acceptUnmatchedResult(
+            String rawResultId, AcceptUnmatchedResultBody request, RequestOptions requestOptions) {
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+                .newBuilder()
+                .addPathSegments("v3/unmatched_result")
+                .addPathSegment(rawResultId)
+                .addPathSegments("accept");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
+        RequestBody body;
+        try {
+            body = RequestBody.create(
+                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
+        } catch (JsonProcessingException e) {
+            throw new JunctionException("Failed to serialize request", e);
+        }
+        Request okhttpRequest = new Request.Builder()
+                .url(httpUrl.build())
+                .method("POST", body)
+                .headers(Headers.of(clientOptions.headers(requestOptions)))
+                .addHeader("Content-Type", "application/json")
+                .addHeader("Accept", "application/json")
+                .build();
+        OkHttpClient client = clientOptions.httpClient();
+        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
+            client = clientOptions.httpClientWithTimeout(requestOptions);
+        }
+        if (requestOptions != null && requestOptions.getMaxRetries().isPresent()) {
+            okhttpRequest = okhttpRequest
+                    .newBuilder()
+                    .tag(
+                            RetryInterceptor.MaxRetriesOverride.class,
+                            new RetryInterceptor.MaxRetriesOverride(
+                                    requestOptions.getMaxRetries().get()))
+                    .build();
+        }
+        try (Response response = client.newCall(okhttpRequest).execute()) {
+            ResponseBody responseBody = response.body();
+            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
+            if (response.isSuccessful()) {
+                return new JunctionHttpResponse<>(
+                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, ClientFacingOrder.class), response);
+            }
+            try {
+                if (response.code() == 422) {
+                    throw new UnprocessableEntityError(
+                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, HttpValidationError.class),
+                            response);
+                }
+            } catch (JsonProcessingException ignored) {
+                // unable to map error response, throwing generic error
+            }
+            Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
+            throw new ApiError("Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (JsonProcessingException e) {
+            throw new JunctionException("Failed to deserialize response: " + e.getMessage(), e);
+        } catch (IOException e) {
+            throw new JunctionException("Network error executing HTTP request", e);
+        }
+    }
+
+    public JunctionHttpResponse<UnmatchedResult> resolveUnmatchedResult(
+            String rawResultId, ResolveUnmatchedResultBody request) {
+        return resolveUnmatchedResult(rawResultId, request, null);
+    }
+
+    public JunctionHttpResponse<UnmatchedResult> resolveUnmatchedResult(
+            String rawResultId, ResolveUnmatchedResultBody request, RequestOptions requestOptions) {
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+                .newBuilder()
+                .addPathSegments("v3/unmatched_result")
+                .addPathSegment(rawResultId)
+                .addPathSegments("resolve");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
+        RequestBody body;
+        try {
+            body = RequestBody.create(
+                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
+        } catch (JsonProcessingException e) {
+            throw new JunctionException("Failed to serialize request", e);
+        }
+        Request okhttpRequest = new Request.Builder()
+                .url(httpUrl.build())
+                .method("POST", body)
+                .headers(Headers.of(clientOptions.headers(requestOptions)))
+                .addHeader("Content-Type", "application/json")
+                .addHeader("Accept", "application/json")
+                .build();
+        OkHttpClient client = clientOptions.httpClient();
+        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
+            client = clientOptions.httpClientWithTimeout(requestOptions);
+        }
+        if (requestOptions != null && requestOptions.getMaxRetries().isPresent()) {
+            okhttpRequest = okhttpRequest
+                    .newBuilder()
+                    .tag(
+                            RetryInterceptor.MaxRetriesOverride.class,
+                            new RetryInterceptor.MaxRetriesOverride(
+                                    requestOptions.getMaxRetries().get()))
+                    .build();
+        }
+        try (Response response = client.newCall(okhttpRequest).execute()) {
+            ResponseBody responseBody = response.body();
+            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
+            if (response.isSuccessful()) {
+                return new JunctionHttpResponse<>(
+                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, UnmatchedResult.class), response);
+            }
+            try {
+                if (response.code() == 422) {
+                    throw new UnprocessableEntityError(
+                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, HttpValidationError.class),
+                            response);
+                }
+            } catch (JsonProcessingException ignored) {
+                // unable to map error response, throwing generic error
+            }
+            Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
+            throw new ApiError("Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (JsonProcessingException e) {
+            throw new JunctionException("Failed to deserialize response: " + e.getMessage(), e);
         } catch (IOException e) {
             throw new JunctionException("Network error executing HTTP request", e);
         }
@@ -3254,6 +4257,15 @@ public class RawLabTestsClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
+        if (requestOptions != null && requestOptions.getMaxRetries().isPresent()) {
+            okhttpRequest = okhttpRequest
+                    .newBuilder()
+                    .tag(
+                            RetryInterceptor.MaxRetriesOverride.class,
+                            new RetryInterceptor.MaxRetriesOverride(
+                                    requestOptions.getMaxRetries().get()))
+                    .build();
+        }
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
             String responseBodyString = responseBody != null ? responseBody.string() : "{}";
@@ -3273,6 +4285,8 @@ public class RawLabTestsClient {
             }
             Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
             throw new ApiError("Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (JsonProcessingException e) {
+            throw new JunctionException("Failed to deserialize response: " + e.getMessage(), e);
         } catch (IOException e) {
             throw new JunctionException("Network error executing HTTP request", e);
         }

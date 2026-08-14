@@ -169,7 +169,6 @@ public final class ClientFacingAtHomePhlebotomyOrder {
 
         /**
          * <p>The Vital at-home phlebotomy Order ID</p>
-         * <p>The Vital at-home phlebotomy Order ID</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

@@ -237,7 +237,6 @@ public final class GetPscInfoLabTestsRequest {
 
         /**
          * <p>Zip code of the area to check</p>
-         * <p>Zip code of the area to check</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -248,7 +247,6 @@ public final class GetPscInfoLabTestsRequest {
         }
 
         /**
-         * <p>Lab ID to check for PSCs</p>
          * <p>Lab ID to check for PSCs</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

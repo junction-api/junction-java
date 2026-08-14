@@ -255,7 +255,6 @@ public final class ClientFacingBodyFatTimeseries {
 
         /**
          * <p>Measured in percentage (0-100).</p>
-         * <p>Measured in percentage (0-100).</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -267,7 +266,6 @@ public final class ClientFacingBodyFatTimeseries {
 
         /**
          * <p>The timestamp of the measurement.</p>
-         * <p>The timestamp of the measurement.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -278,7 +276,6 @@ public final class ClientFacingBodyFatTimeseries {
         }
 
         /**
-         * <p>The value of the measurement.</p>
          * <p>The value of the measurement.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
