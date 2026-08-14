@@ -1,4 +1,20 @@
-## [1.2.1] - 2026-08-14
+## 1.3.0 - 2026-08-14
+
+### Added
+
+* **Orderable-test search** — added sync and async `CompendiumClient.searchOrderableTests()` methods and the related request and response models.
+* **Unmatched lab-result management** — added sync and async methods for listing, testing, reviewing, accepting, and resolving unmatched results, together with match-review webhook models.
+* **Lab-test pricing** — added pricing models and optional `includePricing` and `labAccountId` request fields.
+* **Provider and lab coverage** — added Google Health provider and OAuth values and the MTL lab value.
+* **Lab metadata** — added optional source interpretation, lab logo URL, and lab-location website fields.
+
+### Changed
+
+* **HTTP reliability** — added configurable retry jitter, per-request retry overrides, and decompression for encoded responses.
+
+### Beta
+
+* **Aggregate and lab-report states** — added the result-table resource and processing-error parsing state without affecting the stable-surface SemVer calculation.
 
 ## 1.2.0 - 2026-06-05
 ### Added
