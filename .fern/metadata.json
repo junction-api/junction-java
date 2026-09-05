@@ -1,5 +1,5 @@
 {
-  "cliVersion": "5.95.1",
+  "cliVersion": "5.114.1",
   "generatorName": "fernapi/fern-java-sdk",
   "generatorVersion": "4.18.1",
   "generatorConfig": {
@@ -9,10 +9,10 @@
     "client-class-name": "Junction",
     "enable-forward-compatible-enums": true
   },
-  "originGitCommit": "1f6b39f773631700784a588e04910b954fbe1383",
+  "originGitCommit": "9dae7898c326f6206010de956312f4bf834b4c35",
   "originGitCommitIsDirty": true,
   "invokedBy": "ci",
   "requestedVersion": "AUTO",
   "ciProvider": "unknown",
-  "sdkVersion": "1.3.0"
+  "sdkVersion": "2.0.0"
 }

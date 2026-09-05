@@ -1,3 +1,15 @@
+## [2.0.0] - 2026-09-05
+### Breaking Changes
+- **`MatchReviewStatus.Visitor`** — new required method `visitPendingCustomerReviewInProgress()` added to the visitor interface; all existing implementations must add this method or they will fail to compile.
+
+### Added
+- **`CheckoutClient`**, **`AsyncCheckoutClient`**, **`RawCheckoutClient`**, and **`AsyncRawCheckoutClient`** — new sync and async clients (accessible via `Junction.checkout()` and `AsyncJunction.checkout()`) for managing checkout sessions (`getCheckoutSession()`, `confirmCheckoutSession()`) and quotes (`createQuote()`, `refineQuote()`, `getQuote()`).
+- **`CheckoutSession`** and **`CheckoutQuote`** — new response types representing a payment session (with status, pay-before deadline, and optional order/transaction IDs) and a pricing quote (with modality, priority, US state, order set, walk-in networks, and line items).
+- **`LabTestsClient.estimateOrderSetPricing()`** and **`AsyncLabTestsClient.estimateOrderSetPricing()`** — new sync and async methods posting to `v3/lab_test/estimate_order_set_pricing` and returning an `EstimateOrderSetPricingResponse` with per-order-set pricing breakdowns.
+- **`Billing.UPFRONT_PAYMENT`** and **`CheckoutSessionStatus`** — new enum constant/visitor method on `Billing` and a new non-exhaustive enum (`UNPAID`, `PAID`, `EXPIRED`, `CANCELLED`) for tracking checkout session state.
+- **New pricing model types** — `OrderSetPricing`, `ComponentPricingConditions`, `GenericPricingComponent`, `LabChargePricingComponent`, `PricingComponentId`, `PricingModifierComponentPricingConditions`, `SpecifiedPricingComponentPricingConditions`, `WalkInCollectionNetworkSlug`, and related union/builder types added to support detailed order-set and component-level pricing; `PricingModifierMarkerPricingConditions` gains a new `keys` field (`List<String>`) with full builder support.
+- See full changelog for all changes
+
 ## 1.3.0 - 2026-08-14
 
 ### Added
