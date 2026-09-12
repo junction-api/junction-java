@@ -11385,6 +11385,83 @@ client.labTests().getLabs();
 </dl>
 </details>
 
+<details><summary><code>client.labTests.estimateOrderSetPricing(request) -> EstimateOrderSetPricingResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.labTests().estimateOrderSetPricing(
+    EstimateOrderSetPricingBody
+        .builder()
+        .modality(LabTestCollectionMethod.TESTKIT)
+        .usState("us_state")
+        .orderSets(
+            Arrays.asList(
+                OrderSetRequest
+                    .builder()
+                    .build()
+            )
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**orderSets:** `List<OrderSetRequest>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**modality:** `LabTestCollectionMethod` — ℹ️ This enum is non-exhaustive.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**usState:** `String` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**billing:** `Optional<Billing>` — ℹ️ This enum is non-exhaustive.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.labTests.getPaginated() -> LabTestResourcesResponse</code></summary>
 <dl>
 <dd>
@@ -15168,6 +15245,22 @@ client.testkit().createOrder(
 <dl>
 <dd>
 
+**idempotencyKey:** `Optional<String>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**idempotencyError:** `Optional<String>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **userId:** `String` 
     
 </dd>
@@ -15634,6 +15727,438 @@ client.labReport().parserGetJob(
 <dd>
 
 **jobId:** `String` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Checkout
+<details><summary><code>client.checkout.createCheckoutSession(request) -> CheckoutSession</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a checkout session for a quote.
+
+Retries carrying the same X-Idempotency-Key attach to the existing session
+and return its identifiers; omitting the key deliberately creates a fresh
+attempt. The session expires at the quote's expiry or 24 hours after
+creation, whichever comes first.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.checkout().createCheckoutSession(
+    CreateCheckoutSessionBody
+        .builder()
+        .quoteId("quote_id")
+        .userId("user_id")
+        .payment(
+            CheckoutSessionPayment
+                .builder()
+                .method(CheckoutSessionPaymentMethod.CHECKOUT_SESSION)
+                .build()
+        )
+        .patientDetails(
+            PatientDetailsWithValidation
+                .builder()
+                .firstName("first_name")
+                .lastName("last_name")
+                .dob("dob")
+                .gender(Gender.FEMALE)
+                .phoneNumber("phone_number")
+                .email("email")
+                .build()
+        )
+        .patientAddress(
+            PatientAddressWithValidation
+                .builder()
+                .firstLine("first_line")
+                .city("city")
+                .state("state")
+                .zip("zip")
+                .country("country")
+                .build()
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**idempotencyKey:** `Optional<String>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**quoteId:** `String` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**userId:** `String` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**payment:** `CheckoutSessionPayment` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**patientDetails:** `PatientDetailsWithValidation` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**patientAddress:** `PatientAddressWithValidation` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.checkout.getCheckoutSession(checkoutSessionId) -> CheckoutSession</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get the checkout session snapshot.
+
+In-flight sessions reflect live workflow state; terminal sessions are
+served from the persisted snapshot. A read arriving moments after session
+creation can 404 until the workflow's first persistence write commits.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.checkout().getCheckoutSession(
+    "checkout_session_id",
+    GetCheckoutSessionCheckoutRequest
+        .builder()
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**checkoutSessionId:** `String` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.checkout.confirmCheckoutSession(checkoutSessionId) -> CheckoutSession</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Confirm the checkout session after completing payment.
+
+In-flight sessions verify payment against the channel (Stripe) and report
+order progress; terminal sessions return the persisted snapshot untouched.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.checkout().confirmCheckoutSession(
+    "checkout_session_id",
+    ConfirmCheckoutSessionCheckoutRequest
+        .builder()
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**checkoutSessionId:** `String` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.checkout.createQuote(request) -> CheckoutQuote</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.checkout().createQuote(
+    CreateCheckoutQuoteBody
+        .builder()
+        .orderSet(
+            OrderSetRequest
+                .builder()
+                .build()
+        )
+        .modality(LabTestCollectionMethod.TESTKIT)
+        .priority(true)
+        .usState("us_state")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**orderSet:** `OrderSetRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**modality:** `LabTestCollectionMethod` — ℹ️ This enum is non-exhaustive.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**priority:** `Boolean` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**usState:** `String` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.checkout.refineQuote(quoteId, request) -> CheckoutQuote</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.checkout().refineQuote(
+    "quote_id",
+    RefineCheckoutQuoteBody
+        .builder()
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**quoteId:** `String` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**priority:** `Optional<Boolean>` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.checkout.getQuote(quoteId) -> CheckoutQuote</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.checkout().getQuote(
+    "quote_id",
+    GetQuoteCheckoutRequest
+        .builder()
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**quoteId:** `String` 
     
 </dd>
 </dl>

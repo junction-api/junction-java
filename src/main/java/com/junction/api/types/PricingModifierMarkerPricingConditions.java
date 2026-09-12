@@ -9,9 +9,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.junction.api.core.ObjectMappers;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import org.jetbrains.annotations.NotNull;
@@ -23,14 +26,18 @@ public final class PricingModifierMarkerPricingConditions {
 
     private final MarkerPricingConditions conditions;
 
+    private final List<String> keys;
+
     private final Map<String, Object> additionalProperties;
 
     private PricingModifierMarkerPricingConditions(
             PricingModifierMarkerPricingConditionsDeltaAmountMinor deltaAmountMinor,
             MarkerPricingConditions conditions,
+            List<String> keys,
             Map<String, Object> additionalProperties) {
         this.deltaAmountMinor = deltaAmountMinor;
         this.conditions = conditions;
+        this.keys = keys;
         this.additionalProperties = additionalProperties;
     }
 
@@ -47,6 +54,14 @@ public final class PricingModifierMarkerPricingConditions {
         return conditions;
     }
 
+    /**
+     * @return Property names present in conditions, including names unknown to a deserializer.
+     */
+    @JsonProperty("keys")
+    public List<String> getKeys() {
+        return keys;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -60,12 +75,14 @@ public final class PricingModifierMarkerPricingConditions {
     }
 
     private boolean equalTo(PricingModifierMarkerPricingConditions other) {
-        return deltaAmountMinor.equals(other.deltaAmountMinor) && conditions.equals(other.conditions);
+        return deltaAmountMinor.equals(other.deltaAmountMinor)
+                && conditions.equals(other.conditions)
+                && keys.equals(other.keys);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.deltaAmountMinor, this.conditions);
+        return Objects.hash(this.deltaAmountMinor, this.conditions, this.keys);
     }
 
     @java.lang.Override
@@ -97,6 +114,15 @@ public final class PricingModifierMarkerPricingConditions {
         _FinalStage additionalProperty(String key, Object value);
 
         _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
+        /**
+         * <p>Property names present in conditions, including names unknown to a deserializer.</p>
+         */
+        _FinalStage keys(List<String> keys);
+
+        _FinalStage addKeys(String keys);
+
+        _FinalStage addAllKeys(List<String> keys);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -104,6 +130,8 @@ public final class PricingModifierMarkerPricingConditions {
         private PricingModifierMarkerPricingConditionsDeltaAmountMinor deltaAmountMinor;
 
         private MarkerPricingConditions conditions;
+
+        private List<String> keys = new ArrayList<>();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -114,6 +142,7 @@ public final class PricingModifierMarkerPricingConditions {
         public Builder from(PricingModifierMarkerPricingConditions other) {
             deltaAmountMinor(other.getDeltaAmountMinor());
             conditions(other.getConditions());
+            keys(other.getKeys());
             return this;
         }
 
@@ -136,9 +165,44 @@ public final class PricingModifierMarkerPricingConditions {
             return this;
         }
 
+        /**
+         * <p>Property names present in conditions, including names unknown to a deserializer.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage addAllKeys(List<String> keys) {
+            if (keys != null) {
+                this.keys.addAll(keys);
+            }
+            return this;
+        }
+
+        /**
+         * <p>Property names present in conditions, including names unknown to a deserializer.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage addKeys(String keys) {
+            this.keys.add(keys);
+            return this;
+        }
+
+        /**
+         * <p>Property names present in conditions, including names unknown to a deserializer.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "keys", nulls = Nulls.SKIP)
+        public _FinalStage keys(List<String> keys) {
+            this.keys.clear();
+            if (keys != null) {
+                this.keys.addAll(keys);
+            }
+            return this;
+        }
+
         @java.lang.Override
         public PricingModifierMarkerPricingConditions build() {
-            return new PricingModifierMarkerPricingConditions(deltaAmountMinor, conditions, additionalProperties);
+            return new PricingModifierMarkerPricingConditions(deltaAmountMinor, conditions, keys, additionalProperties);
         }
 
         @java.lang.Override

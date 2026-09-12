@@ -8,6 +8,7 @@ import com.junction.api.core.Suppliers;
 import com.junction.api.resources.activity.ActivityClient;
 import com.junction.api.resources.aggregate.AggregateClient;
 import com.junction.api.resources.body.BodyClient;
+import com.junction.api.resources.checkout.CheckoutClient;
 import com.junction.api.resources.compendium.CompendiumClient;
 import com.junction.api.resources.devices.DevicesClient;
 import com.junction.api.resources.electrocardiogram.ElectrocardiogramClient;
@@ -86,6 +87,8 @@ public class Junction {
 
     protected final Supplier<LabReportClient> labReportClient;
 
+    protected final Supplier<CheckoutClient> checkoutClient;
+
     protected final Supplier<AggregateClient> aggregateClient;
 
     public Junction(ClientOptions clientOptions) {
@@ -115,6 +118,7 @@ public class Junction {
         this.insuranceClient = Suppliers.memoize(() -> new InsuranceClient(clientOptions));
         this.payorClient = Suppliers.memoize(() -> new PayorClient(clientOptions));
         this.labReportClient = Suppliers.memoize(() -> new LabReportClient(clientOptions));
+        this.checkoutClient = Suppliers.memoize(() -> new CheckoutClient(clientOptions));
         this.aggregateClient = Suppliers.memoize(() -> new AggregateClient(clientOptions));
     }
 
@@ -216,6 +220,10 @@ public class Junction {
 
     public LabReportClient labReport() {
         return this.labReportClient.get();
+    }
+
+    public CheckoutClient checkout() {
+        return this.checkoutClient.get();
     }
 
     public AggregateClient aggregate() {
