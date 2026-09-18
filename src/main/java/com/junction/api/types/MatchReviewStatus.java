@@ -10,6 +10,9 @@ public final class MatchReviewStatus {
     public static final MatchReviewStatus PENDING_CUSTOMER_REVIEW =
             new MatchReviewStatus(Value.PENDING_CUSTOMER_REVIEW, "pending_customer_review");
 
+    public static final MatchReviewStatus PENDING_CUSTOMER_REVIEW_IN_PROGRESS =
+            new MatchReviewStatus(Value.PENDING_CUSTOMER_REVIEW_IN_PROGRESS, "pending_customer_review:in_progress");
+
     public static final MatchReviewStatus PENDING_OPS_REVIEW =
             new MatchReviewStatus(Value.PENDING_OPS_REVIEW, "pending_ops_review");
 
@@ -51,6 +54,8 @@ public final class MatchReviewStatus {
         switch (value) {
             case PENDING_CUSTOMER_REVIEW:
                 return visitor.visitPendingCustomerReview();
+            case PENDING_CUSTOMER_REVIEW_IN_PROGRESS:
+                return visitor.visitPendingCustomerReviewInProgress();
             case PENDING_OPS_REVIEW:
                 return visitor.visitPendingOpsReview();
             case MATCHED:
@@ -68,6 +73,8 @@ public final class MatchReviewStatus {
         switch (value) {
             case "pending_customer_review":
                 return PENDING_CUSTOMER_REVIEW;
+            case "pending_customer_review:in_progress":
+                return PENDING_CUSTOMER_REVIEW_IN_PROGRESS;
             case "pending_ops_review":
                 return PENDING_OPS_REVIEW;
             case "matched":
@@ -86,6 +93,8 @@ public final class MatchReviewStatus {
 
         PENDING_OPS_REVIEW,
 
+        PENDING_CUSTOMER_REVIEW_IN_PROGRESS,
+
         RESOLVED,
 
         UNKNOWN
@@ -97,6 +106,8 @@ public final class MatchReviewStatus {
         T visitPendingCustomerReview();
 
         T visitPendingOpsReview();
+
+        T visitPendingCustomerReviewInProgress();
 
         T visitResolved();
 

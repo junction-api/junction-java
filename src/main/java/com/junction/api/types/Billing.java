@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class Billing {
+    public static final Billing UPFRONT_PAYMENT = new Billing(Value.UPFRONT_PAYMENT, "upfront_payment");
+
     public static final Billing PATIENT_BILL_PASSTHROUGH =
             new Billing(Value.PATIENT_BILL_PASSTHROUGH, "patient_bill_passthrough");
 
@@ -47,6 +49,8 @@ public final class Billing {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
+            case UPFRONT_PAYMENT:
+                return visitor.visitUpfrontPayment();
             case PATIENT_BILL_PASSTHROUGH:
                 return visitor.visitPatientBillPassthrough();
             case CLIENT_BILL:
@@ -64,6 +68,8 @@ public final class Billing {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static Billing valueOf(String value) {
         switch (value) {
+            case "upfront_payment":
+                return UPFRONT_PAYMENT;
             case "patient_bill_passthrough":
                 return PATIENT_BILL_PASSTHROUGH;
             case "client_bill":
@@ -86,6 +92,8 @@ public final class Billing {
 
         PATIENT_BILL,
 
+        UPFRONT_PAYMENT,
+
         UNKNOWN
     }
 
@@ -97,6 +105,8 @@ public final class Billing {
         T visitPatientBillPassthrough();
 
         T visitPatientBill();
+
+        T visitUpfrontPayment();
 
         T visitUnknown(String unknownType);
     }
