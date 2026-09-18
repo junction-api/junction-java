@@ -48,6 +48,8 @@ public final class UnmatchedResult {
 
     private final Optional<String> note;
 
+    private final Optional<Boolean> isStale;
+
     private final Optional<MatchReviewResolutionAction> resolutionAction;
 
     private final Optional<String> resolvedUserId;
@@ -78,6 +80,7 @@ public final class UnmatchedResult {
             Optional<Interpretation> interpretation,
             Optional<ResultStatus> resultStatus,
             Optional<String> note,
+            Optional<Boolean> isStale,
             Optional<MatchReviewResolutionAction> resolutionAction,
             Optional<String> resolvedUserId,
             Optional<String> resolvedOrderId,
@@ -98,6 +101,7 @@ public final class UnmatchedResult {
         this.interpretation = interpretation;
         this.resultStatus = resultStatus;
         this.note = note;
+        this.isStale = isStale;
         this.resolutionAction = resolutionAction;
         this.resolvedUserId = resolvedUserId;
         this.resolvedOrderId = resolvedOrderId;
@@ -186,6 +190,11 @@ public final class UnmatchedResult {
             return Optional.empty();
         }
         return note;
+    }
+
+    @JsonProperty("is_stale")
+    public Optional<Boolean> getIsStale() {
+        return isStale;
     }
 
     /**
@@ -314,6 +323,7 @@ public final class UnmatchedResult {
                 && interpretation.equals(other.interpretation)
                 && resultStatus.equals(other.resultStatus)
                 && note.equals(other.note)
+                && isStale.equals(other.isStale)
                 && resolutionAction.equals(other.resolutionAction)
                 && resolvedUserId.equals(other.resolvedUserId)
                 && resolvedOrderId.equals(other.resolvedOrderId)
@@ -338,6 +348,7 @@ public final class UnmatchedResult {
                 this.interpretation,
                 this.resultStatus,
                 this.note,
+                this.isStale,
                 this.resolutionAction,
                 this.resolvedUserId,
                 this.resolvedOrderId,
@@ -438,6 +449,10 @@ public final class UnmatchedResult {
 
         _FinalStage note(Nullable<String> note);
 
+        _FinalStage isStale(Optional<Boolean> isStale);
+
+        _FinalStage isStale(Boolean isStale);
+
         /**
          * <p>ℹ️ This enum is non-exhaustive.</p>
          */
@@ -510,6 +525,8 @@ public final class UnmatchedResult {
 
         private Optional<MatchReviewResolutionAction> resolutionAction = Optional.empty();
 
+        private Optional<Boolean> isStale = Optional.empty();
+
         private Optional<String> note = Optional.empty();
 
         private Optional<ResultStatus> resultStatus = Optional.empty();
@@ -540,6 +557,7 @@ public final class UnmatchedResult {
             interpretation(other.getInterpretation());
             resultStatus(other.getResultStatus());
             note(other.getNote());
+            isStale(other.getIsStale());
             resolutionAction(other.getResolutionAction());
             resolvedUserId(other.getResolvedUserId());
             resolvedOrderId(other.getResolvedOrderId());
@@ -746,6 +764,19 @@ public final class UnmatchedResult {
         }
 
         @java.lang.Override
+        public _FinalStage isStale(Boolean isStale) {
+            this.isStale = Optional.ofNullable(isStale);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "is_stale", nulls = Nulls.SKIP)
+        public _FinalStage isStale(Optional<Boolean> isStale) {
+            this.isStale = isStale;
+            return this;
+        }
+
+        @java.lang.Override
         public _FinalStage note(Nullable<String> note) {
             if (note.isNull()) {
                 this.note = null;
@@ -907,6 +938,7 @@ public final class UnmatchedResult {
                     interpretation,
                     resultStatus,
                     note,
+                    isStale,
                     resolutionAction,
                     resolvedUserId,
                     resolvedOrderId,

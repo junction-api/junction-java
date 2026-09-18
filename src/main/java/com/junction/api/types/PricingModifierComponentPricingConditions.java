@@ -20,19 +20,19 @@ import java.util.Objects;
 import org.jetbrains.annotations.NotNull;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
-@JsonDeserialize(builder = PricingModifierMarkerPricingConditions.Builder.class)
-public final class PricingModifierMarkerPricingConditions {
-    private final PricingModifierMarkerPricingConditionsDeltaAmountMinor deltaAmountMinor;
+@JsonDeserialize(builder = PricingModifierComponentPricingConditions.Builder.class)
+public final class PricingModifierComponentPricingConditions {
+    private final PricingModifierComponentPricingConditionsDeltaAmountMinor deltaAmountMinor;
 
-    private final MarkerPricingConditions conditions;
+    private final ComponentPricingConditions conditions;
 
     private final List<String> keys;
 
     private final Map<String, Object> additionalProperties;
 
-    private PricingModifierMarkerPricingConditions(
-            PricingModifierMarkerPricingConditionsDeltaAmountMinor deltaAmountMinor,
-            MarkerPricingConditions conditions,
+    private PricingModifierComponentPricingConditions(
+            PricingModifierComponentPricingConditionsDeltaAmountMinor deltaAmountMinor,
+            ComponentPricingConditions conditions,
             List<String> keys,
             Map<String, Object> additionalProperties) {
         this.deltaAmountMinor = deltaAmountMinor;
@@ -45,12 +45,12 @@ public final class PricingModifierMarkerPricingConditions {
      * @return Amount delta in the smallest denomination of the currency, e.g. cents for USD.
      */
     @JsonProperty("delta_amount_minor")
-    public PricingModifierMarkerPricingConditionsDeltaAmountMinor getDeltaAmountMinor() {
+    public PricingModifierComponentPricingConditionsDeltaAmountMinor getDeltaAmountMinor() {
         return deltaAmountMinor;
     }
 
     @JsonProperty("conditions")
-    public MarkerPricingConditions getConditions() {
+    public ComponentPricingConditions getConditions() {
         return conditions;
     }
 
@@ -65,8 +65,8 @@ public final class PricingModifierMarkerPricingConditions {
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
-        return other instanceof PricingModifierMarkerPricingConditions
-                && equalTo((PricingModifierMarkerPricingConditions) other);
+        return other instanceof PricingModifierComponentPricingConditions
+                && equalTo((PricingModifierComponentPricingConditions) other);
     }
 
     @JsonAnyGetter
@@ -74,7 +74,7 @@ public final class PricingModifierMarkerPricingConditions {
         return this.additionalProperties;
     }
 
-    private boolean equalTo(PricingModifierMarkerPricingConditions other) {
+    private boolean equalTo(PricingModifierComponentPricingConditions other) {
         return deltaAmountMinor.equals(other.deltaAmountMinor)
                 && conditions.equals(other.conditions)
                 && keys.equals(other.keys);
@@ -99,17 +99,17 @@ public final class PricingModifierMarkerPricingConditions {
          * <p>Amount delta in the smallest denomination of the currency, e.g. cents for USD.</p>
          */
         ConditionsStage deltaAmountMinor(
-                @NotNull PricingModifierMarkerPricingConditionsDeltaAmountMinor deltaAmountMinor);
+                @NotNull PricingModifierComponentPricingConditionsDeltaAmountMinor deltaAmountMinor);
 
-        Builder from(PricingModifierMarkerPricingConditions other);
+        Builder from(PricingModifierComponentPricingConditions other);
     }
 
     public interface ConditionsStage {
-        _FinalStage conditions(@NotNull MarkerPricingConditions conditions);
+        _FinalStage conditions(@NotNull ComponentPricingConditions conditions);
     }
 
     public interface _FinalStage {
-        PricingModifierMarkerPricingConditions build();
+        PricingModifierComponentPricingConditions build();
 
         _FinalStage additionalProperty(String key, Object value);
 
@@ -127,9 +127,9 @@ public final class PricingModifierMarkerPricingConditions {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements DeltaAmountMinorStage, ConditionsStage, _FinalStage {
-        private PricingModifierMarkerPricingConditionsDeltaAmountMinor deltaAmountMinor;
+        private PricingModifierComponentPricingConditionsDeltaAmountMinor deltaAmountMinor;
 
-        private MarkerPricingConditions conditions;
+        private ComponentPricingConditions conditions;
 
         private List<String> keys = new ArrayList<>();
 
@@ -139,7 +139,7 @@ public final class PricingModifierMarkerPricingConditions {
         private Builder() {}
 
         @java.lang.Override
-        public Builder from(PricingModifierMarkerPricingConditions other) {
+        public Builder from(PricingModifierComponentPricingConditions other) {
             deltaAmountMinor(other.getDeltaAmountMinor());
             conditions(other.getConditions());
             keys(other.getKeys());
@@ -153,14 +153,14 @@ public final class PricingModifierMarkerPricingConditions {
         @java.lang.Override
         @JsonSetter("delta_amount_minor")
         public ConditionsStage deltaAmountMinor(
-                @NotNull PricingModifierMarkerPricingConditionsDeltaAmountMinor deltaAmountMinor) {
+                @NotNull PricingModifierComponentPricingConditionsDeltaAmountMinor deltaAmountMinor) {
             this.deltaAmountMinor = Objects.requireNonNull(deltaAmountMinor, "deltaAmountMinor must not be null");
             return this;
         }
 
         @java.lang.Override
         @JsonSetter("conditions")
-        public _FinalStage conditions(@NotNull MarkerPricingConditions conditions) {
+        public _FinalStage conditions(@NotNull ComponentPricingConditions conditions) {
             this.conditions = Objects.requireNonNull(conditions, "conditions must not be null");
             return this;
         }
@@ -201,8 +201,9 @@ public final class PricingModifierMarkerPricingConditions {
         }
 
         @java.lang.Override
-        public PricingModifierMarkerPricingConditions build() {
-            return new PricingModifierMarkerPricingConditions(deltaAmountMinor, conditions, keys, additionalProperties);
+        public PricingModifierComponentPricingConditions build() {
+            return new PricingModifierComponentPricingConditions(
+                    deltaAmountMinor, conditions, keys, additionalProperties);
         }
 
         @java.lang.Override

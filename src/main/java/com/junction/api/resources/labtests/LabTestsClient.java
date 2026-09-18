@@ -13,6 +13,7 @@ import com.junction.api.resources.labtests.requests.CancelOrderLabTestsRequest;
 import com.junction.api.resources.labtests.requests.CreateLabTestRequest;
 import com.junction.api.resources.labtests.requests.CreateOrderRequestCompatible;
 import com.junction.api.resources.labtests.requests.CreateUnmatchedResultTestBody;
+import com.junction.api.resources.labtests.requests.EstimateOrderSetPricingBody;
 import com.junction.api.resources.labtests.requests.GetAreaInfoLabTestsRequest;
 import com.junction.api.resources.labtests.requests.GetByIdLabTestsRequest;
 import com.junction.api.resources.labtests.requests.GetLabTestCollectionInstructionPdfLabTestsRequest;
@@ -61,6 +62,7 @@ import com.junction.api.types.ClientFacingLabTest;
 import com.junction.api.types.ClientFacingMarker;
 import com.junction.api.types.ClientFacingOrder;
 import com.junction.api.types.CreateUnmatchedResultTestResponse;
+import com.junction.api.types.EstimateOrderSetPricingResponse;
 import com.junction.api.types.GetMarkersResponse;
 import com.junction.api.types.GetOrdersResponse;
 import com.junction.api.types.GetUnmatchedResultResponse;
@@ -306,6 +308,15 @@ public class LabTestsClient {
      */
     public List<ClientFacingLab> getLabs(RequestOptions requestOptions) {
         return this.rawClient.getLabs(requestOptions).body();
+    }
+
+    public EstimateOrderSetPricingResponse estimateOrderSetPricing(EstimateOrderSetPricingBody request) {
+        return this.rawClient.estimateOrderSetPricing(request).body();
+    }
+
+    public EstimateOrderSetPricingResponse estimateOrderSetPricing(
+            EstimateOrderSetPricingBody request, RequestOptions requestOptions) {
+        return this.rawClient.estimateOrderSetPricing(request, requestOptions).body();
     }
 
     /**
