@@ -5727,96 +5727,6 @@ client.vitals().iggGrouped(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.hypnogramGrouped(userId) -> GroupedHypnogramResponse</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```java
-client.vitals().hypnogramGrouped(
-    "user_id",
-    HypnogramGroupedVitalsRequest
-        .builder()
-        .startDate("start_date")
-        .cursor("cursor")
-        .nextCursor("next_cursor")
-        .provider("provider")
-        .endDate("end_date")
-        .build()
-);
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**userId:** `String` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**cursor:** `Optional<String>` — The cursor for fetching the next page, or `null` to fetch the first page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**nextCursor:** `Optional<String>` — The cursor for fetching the next page, or `null` to fetch the first page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**provider:** `Optional<String>` — Provider oura/strava etc
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**startDate:** `String` — Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**endDate:** `Optional<String>` — Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
 <details><summary><code>client.vitals.hrvGrouped(userId) -> GroupedHrvResponse</code></summary>
 <dl>
 <dd>
@@ -6862,1950 +6772,6 @@ client.vitals().bloodPressureGrouped(
 <dd>
 
 **nextCursor:** `Optional<String>` — The cursor for fetching the next page, or `null` to fetch the first page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**provider:** `Optional<String>` — Provider oura/strava etc
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**startDate:** `String` — Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**endDate:** `Optional<String>` — Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.vitals.vo2Max(userId) -> List&amp;lt;ClientFacingVo2MaxTimeseries&amp;gt;</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```java
-client.vitals().vo2Max(
-    "user_id",
-    Vo2MaxVitalsRequest
-        .builder()
-        .startDate("start_date")
-        .provider("provider")
-        .endDate("end_date")
-        .build()
-);
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**userId:** `String` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**provider:** `Optional<String>` — Provider oura/strava etc
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**startDate:** `String` — Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**endDate:** `Optional<String>` — Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.vitals.stressLevel(userId) -> List&amp;lt;ClientFacingStressLevelTimeseries&amp;gt;</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```java
-client.vitals().stressLevel(
-    "user_id",
-    StressLevelVitalsRequest
-        .builder()
-        .startDate("start_date")
-        .provider("provider")
-        .endDate("end_date")
-        .build()
-);
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**userId:** `String` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**provider:** `Optional<String>` — Provider oura/strava etc
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**startDate:** `String` — Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**endDate:** `Optional<String>` — Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.vitals.mindfulnessMinutes(userId) -> List&amp;lt;ClientFacingMindfulnessMinutesTimeseries&amp;gt;</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```java
-client.vitals().mindfulnessMinutes(
-    "user_id",
-    MindfulnessMinutesVitalsRequest
-        .builder()
-        .startDate("start_date")
-        .provider("provider")
-        .endDate("end_date")
-        .build()
-);
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**userId:** `String` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**provider:** `Optional<String>` — Provider oura/strava etc
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**startDate:** `String` — Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**endDate:** `Optional<String>` — Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.vitals.caffeine(userId) -> List&amp;lt;ClientFacingCaffeineTimeseries&amp;gt;</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```java
-client.vitals().caffeine(
-    "user_id",
-    CaffeineVitalsRequest
-        .builder()
-        .startDate("start_date")
-        .provider("provider")
-        .endDate("end_date")
-        .build()
-);
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**userId:** `String` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**provider:** `Optional<String>` — Provider oura/strava etc
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**startDate:** `String` — Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**endDate:** `Optional<String>` — Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.vitals.water(userId) -> List&amp;lt;ClientFacingWaterTimeseries&amp;gt;</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```java
-client.vitals().water(
-    "user_id",
-    WaterVitalsRequest
-        .builder()
-        .startDate("start_date")
-        .provider("provider")
-        .endDate("end_date")
-        .build()
-);
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**userId:** `String` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**provider:** `Optional<String>` — Provider oura/strava etc
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**startDate:** `String` — Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**endDate:** `Optional<String>` — Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.vitals.steps(userId) -> List&amp;lt;ClientFacingStepsTimeseries&amp;gt;</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```java
-client.vitals().steps(
-    "user_id",
-    StepsVitalsRequest
-        .builder()
-        .startDate("start_date")
-        .provider("provider")
-        .endDate("end_date")
-        .build()
-);
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**userId:** `String` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**provider:** `Optional<String>` — Provider oura/strava etc
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**startDate:** `String` — Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**endDate:** `Optional<String>` — Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.vitals.floorsClimbed(userId) -> List&amp;lt;ClientFacingFloorsClimbedTimeseries&amp;gt;</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```java
-client.vitals().floorsClimbed(
-    "user_id",
-    FloorsClimbedVitalsRequest
-        .builder()
-        .startDate("start_date")
-        .provider("provider")
-        .endDate("end_date")
-        .build()
-);
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**userId:** `String` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**provider:** `Optional<String>` — Provider oura/strava etc
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**startDate:** `String` — Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**endDate:** `Optional<String>` — Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.vitals.distance(userId) -> List&amp;lt;ClientFacingDistanceTimeseries&amp;gt;</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```java
-client.vitals().distance(
-    "user_id",
-    DistanceVitalsRequest
-        .builder()
-        .startDate("start_date")
-        .provider("provider")
-        .endDate("end_date")
-        .build()
-);
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**userId:** `String` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**provider:** `Optional<String>` — Provider oura/strava etc
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**startDate:** `String` — Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**endDate:** `Optional<String>` — Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.vitals.caloriesBasal(userId) -> List&amp;lt;ClientFacingCaloriesBasalTimeseries&amp;gt;</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```java
-client.vitals().caloriesBasal(
-    "user_id",
-    CaloriesBasalVitalsRequest
-        .builder()
-        .startDate("start_date")
-        .provider("provider")
-        .endDate("end_date")
-        .build()
-);
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**userId:** `String` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**provider:** `Optional<String>` — Provider oura/strava etc
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**startDate:** `String` — Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**endDate:** `Optional<String>` — Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.vitals.caloriesActive(userId) -> List&amp;lt;ClientFacingCaloriesActiveTimeseries&amp;gt;</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```java
-client.vitals().caloriesActive(
-    "user_id",
-    CaloriesActiveVitalsRequest
-        .builder()
-        .startDate("start_date")
-        .provider("provider")
-        .endDate("end_date")
-        .build()
-);
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**userId:** `String` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**provider:** `Optional<String>` — Provider oura/strava etc
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**startDate:** `String` — Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**endDate:** `Optional<String>` — Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.vitals.respiratoryRate(userId) -> List&amp;lt;ClientFacingRespiratoryRateTimeseries&amp;gt;</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```java
-client.vitals().respiratoryRate(
-    "user_id",
-    RespiratoryRateVitalsRequest
-        .builder()
-        .startDate("start_date")
-        .provider("provider")
-        .endDate("end_date")
-        .build()
-);
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**userId:** `String` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**provider:** `Optional<String>` — Provider oura/strava etc
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**startDate:** `String` — Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**endDate:** `Optional<String>` — Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.vitals.ige(userId) -> List&amp;lt;ClientFacingIgeTimeseries&amp;gt;</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```java
-client.vitals().ige(
-    "user_id",
-    IgeVitalsRequest
-        .builder()
-        .startDate("start_date")
-        .provider("provider")
-        .endDate("end_date")
-        .build()
-);
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**userId:** `String` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**provider:** `Optional<String>` — Provider oura/strava etc
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**startDate:** `String` — Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**endDate:** `Optional<String>` — Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.vitals.igg(userId) -> List&amp;lt;ClientFacingIggTimeseries&amp;gt;</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```java
-client.vitals().igg(
-    "user_id",
-    IggVitalsRequest
-        .builder()
-        .startDate("start_date")
-        .provider("provider")
-        .endDate("end_date")
-        .build()
-);
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**userId:** `String` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**provider:** `Optional<String>` — Provider oura/strava etc
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**startDate:** `String` — Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**endDate:** `Optional<String>` — Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.vitals.hypnogram(userId) -> List&amp;lt;ClientFacingHypnogramTimeseries&amp;gt;</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```java
-client.vitals().hypnogram(
-    "user_id",
-    HypnogramVitalsRequest
-        .builder()
-        .startDate("start_date")
-        .provider("provider")
-        .endDate("end_date")
-        .build()
-);
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**userId:** `String` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**provider:** `Optional<String>` — Provider oura/strava etc
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**startDate:** `String` — Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**endDate:** `Optional<String>` — Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.vitals.hrv(userId) -> List&amp;lt;ClientFacingHrvTimeseries&amp;gt;</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```java
-client.vitals().hrv(
-    "user_id",
-    HrvVitalsRequest
-        .builder()
-        .startDate("start_date")
-        .provider("provider")
-        .endDate("end_date")
-        .build()
-);
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**userId:** `String` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**provider:** `Optional<String>` — Provider oura/strava etc
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**startDate:** `String` — Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**endDate:** `Optional<String>` — Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.vitals.heartrate(userId) -> List&amp;lt;ClientFacingHeartRateTimeseries&amp;gt;</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```java
-client.vitals().heartrate(
-    "user_id",
-    HeartrateVitalsRequest
-        .builder()
-        .startDate("start_date")
-        .provider("provider")
-        .endDate("end_date")
-        .build()
-);
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**userId:** `String` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**provider:** `Optional<String>` — Provider oura/strava etc
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**startDate:** `String` — Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**endDate:** `Optional<String>` — Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.vitals.glucose(userId) -> List&amp;lt;ClientFacingGlucoseTimeseries&amp;gt;</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```java
-client.vitals().glucose(
-    "user_id",
-    GlucoseVitalsRequest
-        .builder()
-        .startDate("start_date")
-        .provider("provider")
-        .endDate("end_date")
-        .build()
-);
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**userId:** `String` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**provider:** `Optional<String>` — Provider oura/strava etc
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**startDate:** `String` — Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**endDate:** `Optional<String>` — Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.vitals.cholesterolTriglycerides(userId) -> List&amp;lt;ClientFacingCholesterolTimeseries&amp;gt;</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```java
-client.vitals().cholesterolTriglycerides(
-    "user_id",
-    CholesterolTriglyceridesVitalsRequest
-        .builder()
-        .startDate("start_date")
-        .provider("provider")
-        .endDate("end_date")
-        .build()
-);
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**userId:** `String` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**provider:** `Optional<String>` — Provider oura/strava etc
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**startDate:** `String` — Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**endDate:** `Optional<String>` — Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.vitals.cholesterolTotal(userId) -> List&amp;lt;ClientFacingCholesterolTimeseries&amp;gt;</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```java
-client.vitals().cholesterolTotal(
-    "user_id",
-    CholesterolTotalVitalsRequest
-        .builder()
-        .startDate("start_date")
-        .provider("provider")
-        .endDate("end_date")
-        .build()
-);
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**userId:** `String` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**provider:** `Optional<String>` — Provider oura/strava etc
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**startDate:** `String` — Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**endDate:** `Optional<String>` — Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.vitals.cholesterolLdl(userId) -> List&amp;lt;ClientFacingCholesterolTimeseries&amp;gt;</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```java
-client.vitals().cholesterolLdl(
-    "user_id",
-    CholesterolLdlVitalsRequest
-        .builder()
-        .startDate("start_date")
-        .provider("provider")
-        .endDate("end_date")
-        .build()
-);
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**userId:** `String` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**provider:** `Optional<String>` — Provider oura/strava etc
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**startDate:** `String` — Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**endDate:** `Optional<String>` — Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.vitals.cholesterolHdl(userId) -> List&amp;lt;ClientFacingCholesterolTimeseries&amp;gt;</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```java
-client.vitals().cholesterolHdl(
-    "user_id",
-    CholesterolHdlVitalsRequest
-        .builder()
-        .startDate("start_date")
-        .provider("provider")
-        .endDate("end_date")
-        .build()
-);
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**userId:** `String` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**provider:** `Optional<String>` — Provider oura/strava etc
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**startDate:** `String` — Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**endDate:** `Optional<String>` — Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.vitals.cholesterol(userId) -> List&amp;lt;ClientFacingCholesterolTimeseries&amp;gt;</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```java
-client.vitals().cholesterol(
-    "user_id",
-    CholesterolVitalsRequest
-        .builder()
-        .startDate("start_date")
-        .provider("provider")
-        .endDate("end_date")
-        .build()
-);
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**userId:** `String` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**provider:** `Optional<String>` — Provider oura/strava etc
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**startDate:** `String` — Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**endDate:** `Optional<String>` — Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.vitals.bodyWeight(userId) -> List&amp;lt;ClientFacingBodyWeightTimeseries&amp;gt;</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```java
-client.vitals().bodyWeight(
-    "user_id",
-    BodyWeightVitalsRequest
-        .builder()
-        .startDate("start_date")
-        .provider("provider")
-        .endDate("end_date")
-        .build()
-);
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**userId:** `String` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**provider:** `Optional<String>` — Provider oura/strava etc
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**startDate:** `String` — Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**endDate:** `Optional<String>` — Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.vitals.bodyFat(userId) -> List&amp;lt;ClientFacingBodyFatTimeseries&amp;gt;</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```java
-client.vitals().bodyFat(
-    "user_id",
-    BodyFatVitalsRequest
-        .builder()
-        .startDate("start_date")
-        .provider("provider")
-        .endDate("end_date")
-        .build()
-);
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**userId:** `String` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**provider:** `Optional<String>` — Provider oura/strava etc
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**startDate:** `String` — Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**endDate:** `Optional<String>` — Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.vitals.bloodOxygen(userId) -> List&amp;lt;ClientFacingBloodOxygenTimeseries&amp;gt;</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```java
-client.vitals().bloodOxygen(
-    "user_id",
-    BloodOxygenVitalsRequest
-        .builder()
-        .startDate("start_date")
-        .provider("provider")
-        .endDate("end_date")
-        .build()
-);
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**userId:** `String` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**provider:** `Optional<String>` — Provider oura/strava etc
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**startDate:** `String` — Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**endDate:** `Optional<String>` — Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.vitals.electrocardiogramVoltage(userId) -> List&amp;lt;ClientFacingElectrocardiogramVoltageTimeseries&amp;gt;</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```java
-client.vitals().electrocardiogramVoltage(
-    "user_id",
-    ElectrocardiogramVoltageVitalsRequest
-        .builder()
-        .startDate("start_date")
-        .provider("provider")
-        .endDate("end_date")
-        .build()
-);
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**userId:** `String` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**provider:** `Optional<String>` — Provider oura/strava etc
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**startDate:** `String` — Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**endDate:** `Optional<String>` — Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.vitals.bloodPressure(userId) -> List&amp;lt;ClientFacingBloodPressureTimeseries&amp;gt;</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```java
-client.vitals().bloodPressure(
-    "user_id",
-    BloodPressureVitalsRequest
-        .builder()
-        .startDate("start_date")
-        .provider("provider")
-        .endDate("end_date")
-        .build()
-);
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**userId:** `String` 
     
 </dd>
 </dl>
@@ -11385,6 +9351,83 @@ client.labTests().getLabs();
 </dl>
 </details>
 
+<details><summary><code>client.labTests.estimateOrderSetPricing(request) -> EstimateOrderSetPricingResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.labTests().estimateOrderSetPricing(
+    EstimateOrderSetPricingBody
+        .builder()
+        .modality(LabTestCollectionMethod.TESTKIT)
+        .usState("us_state")
+        .orderSets(
+            Arrays.asList(
+                OrderSetRequest
+                    .builder()
+                    .build()
+            )
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**orderSets:** `List<OrderSetRequest>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**modality:** `LabTestCollectionMethod` — ℹ️ This enum is non-exhaustive.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**usState:** `String` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**billing:** `Optional<Billing>` — ℹ️ This enum is non-exhaustive.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.labTests.getPaginated() -> LabTestResourcesResponse</code></summary>
 <dl>
 <dd>
@@ -13195,6 +11238,65 @@ client.labTests().getPscAppointment(
 </dl>
 </details>
 
+<details><summary><code>client.labTests.getOrderTracking(orderId) -> OrderTracking</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get current estimates and immutable ETA update history for an order.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.labTests().getOrderTracking(
+    "order_id",
+    GetOrderTrackingLabTestsRequest
+        .builder()
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**orderId:** `String` — Your Order ID.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.labTests.getOrderCollectionInstructionPdf(orderId) -> InputStream</code></summary>
 <dl>
 <dd>
@@ -13472,6 +11574,9 @@ client.labTests().updateOrder(
     "order_id",
     UpdateOrderBody
         .builder()
+        .activateBy(
+            Nullable.ofNull()
+        )
         .build()
 );
 ```
@@ -15168,6 +13273,22 @@ client.testkit().createOrder(
 <dl>
 <dd>
 
+**idempotencyKey:** `Optional<String>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**idempotencyError:** `Optional<String>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **userId:** `String` 
     
 </dd>
@@ -15634,6 +13755,438 @@ client.labReport().parserGetJob(
 <dd>
 
 **jobId:** `String` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Checkout
+<details><summary><code>client.checkout.createCheckoutSession(request) -> CheckoutSession</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a checkout session for a quote.
+
+Retries carrying the same X-Idempotency-Key attach to the existing session
+and return its identifiers; omitting the key deliberately creates a fresh
+attempt. The session expires at the quote's expiry or 24 hours after
+creation, whichever comes first.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.checkout().createCheckoutSession(
+    CreateCheckoutSessionBody
+        .builder()
+        .quoteId("quote_id")
+        .userId("user_id")
+        .payment(
+            CheckoutSessionPayment
+                .builder()
+                .method(CheckoutSessionPaymentMethod.CHECKOUT_SESSION)
+                .build()
+        )
+        .patientDetails(
+            PatientDetailsWithValidation
+                .builder()
+                .firstName("first_name")
+                .lastName("last_name")
+                .dob("dob")
+                .gender(Gender.FEMALE)
+                .phoneNumber("phone_number")
+                .email("email")
+                .build()
+        )
+        .patientAddress(
+            PatientAddressWithValidation
+                .builder()
+                .firstLine("first_line")
+                .city("city")
+                .state("state")
+                .zip("zip")
+                .country("country")
+                .build()
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**idempotencyKey:** `Optional<String>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**quoteId:** `String` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**userId:** `String` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**payment:** `CheckoutSessionPayment` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**patientDetails:** `PatientDetailsWithValidation` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**patientAddress:** `PatientAddressWithValidation` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.checkout.getCheckoutSession(checkoutSessionId) -> CheckoutSession</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get the checkout session snapshot.
+
+In-flight sessions reflect live workflow state; terminal sessions are
+served from the persisted snapshot. A read arriving moments after session
+creation can 404 until the workflow's first persistence write commits.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.checkout().getCheckoutSession(
+    "checkout_session_id",
+    GetCheckoutSessionCheckoutRequest
+        .builder()
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**checkoutSessionId:** `String` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.checkout.confirmCheckoutSession(checkoutSessionId) -> CheckoutSession</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Confirm the checkout session after completing payment.
+
+In-flight sessions verify payment against the channel (Stripe) and report
+order progress; terminal sessions return the persisted snapshot untouched.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.checkout().confirmCheckoutSession(
+    "checkout_session_id",
+    ConfirmCheckoutSessionCheckoutRequest
+        .builder()
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**checkoutSessionId:** `String` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.checkout.createQuote(request) -> CheckoutQuote</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.checkout().createQuote(
+    CreateCheckoutQuoteBody
+        .builder()
+        .orderSet(
+            OrderSetRequest
+                .builder()
+                .build()
+        )
+        .modality(LabTestCollectionMethod.TESTKIT)
+        .priority(true)
+        .usState("us_state")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**orderSet:** `OrderSetRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**modality:** `LabTestCollectionMethod` — ℹ️ This enum is non-exhaustive.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**priority:** `Boolean` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**usState:** `String` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.checkout.refineQuote(quoteId, request) -> CheckoutQuote</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.checkout().refineQuote(
+    "quote_id",
+    RefineCheckoutQuoteBody
+        .builder()
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**quoteId:** `String` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**priority:** `Optional<Boolean>` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.checkout.getQuote(quoteId) -> CheckoutQuote</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.checkout().getQuote(
+    "quote_id",
+    GetQuoteCheckoutRequest
+        .builder()
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**quoteId:** `String` 
     
 </dd>
 </dl>

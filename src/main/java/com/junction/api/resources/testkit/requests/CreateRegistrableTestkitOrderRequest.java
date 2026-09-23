@@ -25,6 +25,10 @@ import org.jetbrains.annotations.NotNull;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = CreateRegistrableTestkitOrderRequest.Builder.class)
 public final class CreateRegistrableTestkitOrderRequest {
+    private final Optional<String> idempotencyKey;
+
+    private final Optional<String> idempotencyError;
+
     private final String userId;
 
     private final String labTestId;
@@ -38,18 +42,38 @@ public final class CreateRegistrableTestkitOrderRequest {
     private final Map<String, Object> additionalProperties;
 
     private CreateRegistrableTestkitOrderRequest(
+            Optional<String> idempotencyKey,
+            Optional<String> idempotencyError,
             String userId,
             String labTestId,
             ShippingAddressWithValidation shippingDetails,
             Optional<String> passthrough,
             Optional<String> labAccountId,
             Map<String, Object> additionalProperties) {
+        this.idempotencyKey = idempotencyKey;
+        this.idempotencyError = idempotencyError;
         this.userId = userId;
         this.labTestId = labTestId;
         this.shippingDetails = shippingDetails;
         this.passthrough = passthrough;
         this.labAccountId = labAccountId;
         this.additionalProperties = additionalProperties;
+    }
+
+    @JsonIgnore
+    public Optional<String> getIdempotencyKey() {
+        if (idempotencyKey == null) {
+            return Optional.empty();
+        }
+        return idempotencyKey;
+    }
+
+    @JsonIgnore
+    public Optional<String> getIdempotencyError() {
+        if (idempotencyError == null) {
+            return Optional.empty();
+        }
+        return idempotencyError;
     }
 
     @JsonProperty("user_id")
@@ -108,7 +132,9 @@ public final class CreateRegistrableTestkitOrderRequest {
     }
 
     private boolean equalTo(CreateRegistrableTestkitOrderRequest other) {
-        return userId.equals(other.userId)
+        return idempotencyKey.equals(other.idempotencyKey)
+                && idempotencyError.equals(other.idempotencyError)
+                && userId.equals(other.userId)
                 && labTestId.equals(other.labTestId)
                 && shippingDetails.equals(other.shippingDetails)
                 && passthrough.equals(other.passthrough)
@@ -117,7 +143,14 @@ public final class CreateRegistrableTestkitOrderRequest {
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.userId, this.labTestId, this.shippingDetails, this.passthrough, this.labAccountId);
+        return Objects.hash(
+                this.idempotencyKey,
+                this.idempotencyError,
+                this.userId,
+                this.labTestId,
+                this.shippingDetails,
+                this.passthrough,
+                this.labAccountId);
     }
 
     @java.lang.Override
@@ -150,6 +183,18 @@ public final class CreateRegistrableTestkitOrderRequest {
 
         _FinalStage additionalProperties(Map<String, Object> additionalProperties);
 
+        _FinalStage idempotencyKey(Optional<String> idempotencyKey);
+
+        _FinalStage idempotencyKey(String idempotencyKey);
+
+        _FinalStage idempotencyKey(Nullable<String> idempotencyKey);
+
+        _FinalStage idempotencyError(Optional<String> idempotencyError);
+
+        _FinalStage idempotencyError(String idempotencyError);
+
+        _FinalStage idempotencyError(Nullable<String> idempotencyError);
+
         _FinalStage passthrough(Optional<String> passthrough);
 
         _FinalStage passthrough(String passthrough);
@@ -175,6 +220,10 @@ public final class CreateRegistrableTestkitOrderRequest {
 
         private Optional<String> passthrough = Optional.empty();
 
+        private Optional<String> idempotencyError = Optional.empty();
+
+        private Optional<String> idempotencyKey = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -182,6 +231,8 @@ public final class CreateRegistrableTestkitOrderRequest {
 
         @java.lang.Override
         public Builder from(CreateRegistrableTestkitOrderRequest other) {
+            idempotencyKey(other.getIdempotencyKey());
+            idempotencyError(other.getIdempotencyError());
             userId(other.getUserId());
             labTestId(other.getLabTestId());
             shippingDetails(other.getShippingDetails());
@@ -262,9 +313,64 @@ public final class CreateRegistrableTestkitOrderRequest {
         }
 
         @java.lang.Override
+        public _FinalStage idempotencyError(Nullable<String> idempotencyError) {
+            if (idempotencyError.isNull()) {
+                this.idempotencyError = null;
+            } else if (idempotencyError.isEmpty()) {
+                this.idempotencyError = Optional.empty();
+            } else {
+                this.idempotencyError = Optional.of(idempotencyError.get());
+            }
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage idempotencyError(String idempotencyError) {
+            this.idempotencyError = Optional.ofNullable(idempotencyError);
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage idempotencyError(Optional<String> idempotencyError) {
+            this.idempotencyError = idempotencyError;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage idempotencyKey(Nullable<String> idempotencyKey) {
+            if (idempotencyKey.isNull()) {
+                this.idempotencyKey = null;
+            } else if (idempotencyKey.isEmpty()) {
+                this.idempotencyKey = Optional.empty();
+            } else {
+                this.idempotencyKey = Optional.of(idempotencyKey.get());
+            }
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage idempotencyKey(String idempotencyKey) {
+            this.idempotencyKey = Optional.ofNullable(idempotencyKey);
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage idempotencyKey(Optional<String> idempotencyKey) {
+            this.idempotencyKey = idempotencyKey;
+            return this;
+        }
+
+        @java.lang.Override
         public CreateRegistrableTestkitOrderRequest build() {
             return new CreateRegistrableTestkitOrderRequest(
-                    userId, labTestId, shippingDetails, passthrough, labAccountId, additionalProperties);
+                    idempotencyKey,
+                    idempotencyError,
+                    userId,
+                    labTestId,
+                    shippingDetails,
+                    passthrough,
+                    labAccountId,
+                    additionalProperties);
         }
 
         @java.lang.Override

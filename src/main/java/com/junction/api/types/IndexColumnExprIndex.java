@@ -14,6 +14,8 @@ public final class IndexColumnExprIndex {
     public static final IndexColumnExprIndex DERIVED_READINESS =
             new IndexColumnExprIndex(Value.DERIVED_READINESS, "derived_readiness");
 
+    public static final IndexColumnExprIndex RELIABILITY = new IndexColumnExprIndex(Value.RELIABILITY, "reliability");
+
     public static final IndexColumnExprIndex ACTIVITY = new IndexColumnExprIndex(Value.ACTIVITY, "activity");
 
     public static final IndexColumnExprIndex MENSTRUAL_CYCLE =
@@ -65,6 +67,8 @@ public final class IndexColumnExprIndex {
                 return visitor.visitMeal();
             case DERIVED_READINESS:
                 return visitor.visitDerivedReadiness();
+            case RELIABILITY:
+                return visitor.visitReliability();
             case ACTIVITY:
                 return visitor.visitActivity();
             case MENSTRUAL_CYCLE:
@@ -92,6 +96,8 @@ public final class IndexColumnExprIndex {
                 return MEAL;
             case "derived_readiness":
                 return DERIVED_READINESS;
+            case "reliability":
+                return RELIABILITY;
             case "activity":
                 return ACTIVITY;
             case "menstrual_cycle":
@@ -114,6 +120,8 @@ public final class IndexColumnExprIndex {
 
         DERIVED_READINESS,
 
+        RELIABILITY,
+
         ACTIVITY,
 
         WORKOUT,
@@ -135,6 +143,8 @@ public final class IndexColumnExprIndex {
         T visitSleep();
 
         T visitDerivedReadiness();
+
+        T visitReliability();
 
         T visitActivity();
 

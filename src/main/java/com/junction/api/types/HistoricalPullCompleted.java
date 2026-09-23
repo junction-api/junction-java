@@ -58,11 +58,6 @@ public final class HistoricalPullCompleted {
         return endDate;
     }
 
-    @JsonProperty("is_final")
-    public Boolean getIsFinal() {
-        return true;
-    }
-
     @JsonProperty("provider")
     public String getProvider() {
         return provider;

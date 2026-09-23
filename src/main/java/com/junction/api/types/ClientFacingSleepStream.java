@@ -28,8 +28,6 @@ public final class ClientFacingSleepStream {
 
     private final Optional<List<ClientFacingHeartRateTimeseries>> heartrate;
 
-    private final Optional<List<ClientFacingHypnogramTimeseries>> hypnogram;
-
     private final Optional<List<ClientFacingRespiratoryRateTimeseries>> respiratoryRate;
 
     private final Map<String, Object> additionalProperties;
@@ -37,12 +35,10 @@ public final class ClientFacingSleepStream {
     private ClientFacingSleepStream(
             Optional<List<ClientFacingHrvTimeseries>> hrv,
             Optional<List<ClientFacingHeartRateTimeseries>> heartrate,
-            Optional<List<ClientFacingHypnogramTimeseries>> hypnogram,
             Optional<List<ClientFacingRespiratoryRateTimeseries>> respiratoryRate,
             Map<String, Object> additionalProperties) {
         this.hrv = hrv;
         this.heartrate = heartrate;
-        this.hypnogram = hypnogram;
         this.respiratoryRate = respiratoryRate;
         this.additionalProperties = additionalProperties;
     }
@@ -61,14 +57,6 @@ public final class ClientFacingSleepStream {
             return Optional.empty();
         }
         return heartrate;
-    }
-
-    @JsonIgnore
-    public Optional<List<ClientFacingHypnogramTimeseries>> getHypnogram() {
-        if (hypnogram == null) {
-            return Optional.empty();
-        }
-        return hypnogram;
     }
 
     @JsonIgnore
@@ -92,12 +80,6 @@ public final class ClientFacingSleepStream {
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("hypnogram")
-    private Optional<List<ClientFacingHypnogramTimeseries>> _getHypnogram() {
-        return hypnogram;
-    }
-
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("respiratory_rate")
     private Optional<List<ClientFacingRespiratoryRateTimeseries>> _getRespiratoryRate() {
         return respiratoryRate;
@@ -117,13 +99,12 @@ public final class ClientFacingSleepStream {
     private boolean equalTo(ClientFacingSleepStream other) {
         return hrv.equals(other.hrv)
                 && heartrate.equals(other.heartrate)
-                && hypnogram.equals(other.hypnogram)
                 && respiratoryRate.equals(other.respiratoryRate);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.hrv, this.heartrate, this.hypnogram, this.respiratoryRate);
+        return Objects.hash(this.hrv, this.heartrate, this.respiratoryRate);
     }
 
     @java.lang.Override
@@ -141,8 +122,6 @@ public final class ClientFacingSleepStream {
 
         private Optional<List<ClientFacingHeartRateTimeseries>> heartrate = Optional.empty();
 
-        private Optional<List<ClientFacingHypnogramTimeseries>> hypnogram = Optional.empty();
-
         private Optional<List<ClientFacingRespiratoryRateTimeseries>> respiratoryRate = Optional.empty();
 
         @JsonAnySetter
@@ -153,7 +132,6 @@ public final class ClientFacingSleepStream {
         public Builder from(ClientFacingSleepStream other) {
             hrv(other.getHrv());
             heartrate(other.getHeartrate());
-            hypnogram(other.getHypnogram());
             respiratoryRate(other.getRespiratoryRate());
             return this;
         }
@@ -202,28 +180,6 @@ public final class ClientFacingSleepStream {
             return this;
         }
 
-        @JsonSetter(value = "hypnogram", nulls = Nulls.SKIP)
-        public Builder hypnogram(Optional<List<ClientFacingHypnogramTimeseries>> hypnogram) {
-            this.hypnogram = hypnogram;
-            return this;
-        }
-
-        public Builder hypnogram(List<ClientFacingHypnogramTimeseries> hypnogram) {
-            this.hypnogram = Optional.ofNullable(hypnogram);
-            return this;
-        }
-
-        public Builder hypnogram(Nullable<List<ClientFacingHypnogramTimeseries>> hypnogram) {
-            if (hypnogram.isNull()) {
-                this.hypnogram = null;
-            } else if (hypnogram.isEmpty()) {
-                this.hypnogram = Optional.empty();
-            } else {
-                this.hypnogram = Optional.of(hypnogram.get());
-            }
-            return this;
-        }
-
         @JsonSetter(value = "respiratory_rate", nulls = Nulls.SKIP)
         public Builder respiratoryRate(Optional<List<ClientFacingRespiratoryRateTimeseries>> respiratoryRate) {
             this.respiratoryRate = respiratoryRate;
@@ -247,7 +203,7 @@ public final class ClientFacingSleepStream {
         }
 
         public ClientFacingSleepStream build() {
-            return new ClientFacingSleepStream(hrv, heartrate, hypnogram, respiratoryRate, additionalProperties);
+            return new ClientFacingSleepStream(hrv, heartrate, respiratoryRate, additionalProperties);
         }
 
         public Builder additionalProperty(String key, Object value) {

@@ -7,8 +7,14 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class OrderStatusDetail {
-    public static final OrderStatusDetail SAMPLE_HEMOLYZED =
-            new OrderStatusDetail(Value.SAMPLE_HEMOLYZED, "sample_hemolyzed");
+    public static final OrderStatusDetail SAMPLE_DAMAGED_IN_TRANSIT =
+            new OrderStatusDetail(Value.SAMPLE_DAMAGED_IN_TRANSIT, "sample_damaged_in_transit");
+
+    public static final OrderStatusDetail SAMPLE_NOT_PROVIDED =
+            new OrderStatusDetail(Value.SAMPLE_NOT_PROVIDED, "sample_not_provided");
+
+    public static final OrderStatusDetail COLLECTION_DEVICE_EXPIRED =
+            new OrderStatusDetail(Value.COLLECTION_DEVICE_EXPIRED, "collection_device_expired");
 
     public static final OrderStatusDetail DEMOGRAPHIC_INFORMATION_UNSPECIFIED =
             new OrderStatusDetail(Value.DEMOGRAPHIC_INFORMATION_UNSPECIFIED, "demographic_information_unspecified");
@@ -19,8 +25,8 @@ public final class OrderStatusDetail {
     public static final OrderStatusDetail SAMPLE_IMPROPER_COLLECTION =
             new OrderStatusDetail(Value.SAMPLE_IMPROPER_COLLECTION, "sample_improper_collection");
 
-    public static final OrderStatusDetail DATE_OF_COLLECTION_UNSPECIFIED =
-            new OrderStatusDetail(Value.DATE_OF_COLLECTION_UNSPECIFIED, "date_of_collection_unspecified");
+    public static final OrderStatusDetail SAMPLE_INTEGRITY_COMPROMISED =
+            new OrderStatusDetail(Value.SAMPLE_INTEGRITY_COMPROMISED, "sample_integrity_compromised");
 
     public static final OrderStatusDetail DEMOGRAPHIC_INFORMATION_MISMATCH =
             new OrderStatusDetail(Value.DEMOGRAPHIC_INFORMATION_MISMATCH, "demographic_information_mismatch");
@@ -30,6 +36,27 @@ public final class OrderStatusDetail {
 
     public static final OrderStatusDetail SAMPLE_QUANTITY_NOT_SUFFICIENT =
             new OrderStatusDetail(Value.SAMPLE_QUANTITY_NOT_SUFFICIENT, "sample_quantity_not_sufficient");
+
+    public static final OrderStatusDetail COLLECTION_SITE_UNRECOGNISED =
+            new OrderStatusDetail(Value.COLLECTION_SITE_UNRECOGNISED, "collection_site_unrecognised");
+
+    public static final OrderStatusDetail SAMPLE_HEMOLYZED =
+            new OrderStatusDetail(Value.SAMPLE_HEMOLYZED, "sample_hemolyzed");
+
+    public static final OrderStatusDetail REJECTED_ON_REQUEST =
+            new OrderStatusDetail(Value.REJECTED_ON_REQUEST, "rejected_on_request");
+
+    public static final OrderStatusDetail LAB_NOT_CERTIFIED_FOR_STATE =
+            new OrderStatusDetail(Value.LAB_NOT_CERTIFIED_FOR_STATE, "lab_not_certified_for_state");
+
+    public static final OrderStatusDetail DATE_OF_COLLECTION_UNSPECIFIED =
+            new OrderStatusDetail(Value.DATE_OF_COLLECTION_UNSPECIFIED, "date_of_collection_unspecified");
+
+    public static final OrderStatusDetail CONSENT_MISSING =
+            new OrderStatusDetail(Value.CONSENT_MISSING, "consent_missing");
+
+    public static final OrderStatusDetail KIT_NOT_REGISTERED =
+            new OrderStatusDetail(Value.KIT_NOT_REGISTERED, "kit_not_registered");
 
     public static final OrderStatusDetail SAMPLE_CONTAMINATED =
             new OrderStatusDetail(Value.SAMPLE_CONTAMINATED, "sample_contaminated");
@@ -66,22 +93,40 @@ public final class OrderStatusDetail {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case SAMPLE_HEMOLYZED:
-                return visitor.visitSampleHemolyzed();
+            case SAMPLE_DAMAGED_IN_TRANSIT:
+                return visitor.visitSampleDamagedInTransit();
+            case SAMPLE_NOT_PROVIDED:
+                return visitor.visitSampleNotProvided();
+            case COLLECTION_DEVICE_EXPIRED:
+                return visitor.visitCollectionDeviceExpired();
             case DEMOGRAPHIC_INFORMATION_UNSPECIFIED:
                 return visitor.visitDemographicInformationUnspecified();
             case FULFILLMENT_ERROR:
                 return visitor.visitFulfillmentError();
             case SAMPLE_IMPROPER_COLLECTION:
                 return visitor.visitSampleImproperCollection();
-            case DATE_OF_COLLECTION_UNSPECIFIED:
-                return visitor.visitDateOfCollectionUnspecified();
+            case SAMPLE_INTEGRITY_COMPROMISED:
+                return visitor.visitSampleIntegrityCompromised();
             case DEMOGRAPHIC_INFORMATION_MISMATCH:
                 return visitor.visitDemographicInformationMismatch();
             case SAMPLE_STABILITY_EXCEEDED:
                 return visitor.visitSampleStabilityExceeded();
             case SAMPLE_QUANTITY_NOT_SUFFICIENT:
                 return visitor.visitSampleQuantityNotSufficient();
+            case COLLECTION_SITE_UNRECOGNISED:
+                return visitor.visitCollectionSiteUnrecognised();
+            case SAMPLE_HEMOLYZED:
+                return visitor.visitSampleHemolyzed();
+            case REJECTED_ON_REQUEST:
+                return visitor.visitRejectedOnRequest();
+            case LAB_NOT_CERTIFIED_FOR_STATE:
+                return visitor.visitLabNotCertifiedForState();
+            case DATE_OF_COLLECTION_UNSPECIFIED:
+                return visitor.visitDateOfCollectionUnspecified();
+            case CONSENT_MISSING:
+                return visitor.visitConsentMissing();
+            case KIT_NOT_REGISTERED:
+                return visitor.visitKitNotRegistered();
             case SAMPLE_CONTAMINATED:
                 return visitor.visitSampleContaminated();
             case UNKNOWN:
@@ -93,22 +138,40 @@ public final class OrderStatusDetail {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static OrderStatusDetail valueOf(String value) {
         switch (value) {
-            case "sample_hemolyzed":
-                return SAMPLE_HEMOLYZED;
+            case "sample_damaged_in_transit":
+                return SAMPLE_DAMAGED_IN_TRANSIT;
+            case "sample_not_provided":
+                return SAMPLE_NOT_PROVIDED;
+            case "collection_device_expired":
+                return COLLECTION_DEVICE_EXPIRED;
             case "demographic_information_unspecified":
                 return DEMOGRAPHIC_INFORMATION_UNSPECIFIED;
             case "fulfillment_error":
                 return FULFILLMENT_ERROR;
             case "sample_improper_collection":
                 return SAMPLE_IMPROPER_COLLECTION;
-            case "date_of_collection_unspecified":
-                return DATE_OF_COLLECTION_UNSPECIFIED;
+            case "sample_integrity_compromised":
+                return SAMPLE_INTEGRITY_COMPROMISED;
             case "demographic_information_mismatch":
                 return DEMOGRAPHIC_INFORMATION_MISMATCH;
             case "sample_stability_exceeded":
                 return SAMPLE_STABILITY_EXCEEDED;
             case "sample_quantity_not_sufficient":
                 return SAMPLE_QUANTITY_NOT_SUFFICIENT;
+            case "collection_site_unrecognised":
+                return COLLECTION_SITE_UNRECOGNISED;
+            case "sample_hemolyzed":
+                return SAMPLE_HEMOLYZED;
+            case "rejected_on_request":
+                return REJECTED_ON_REQUEST;
+            case "lab_not_certified_for_state":
+                return LAB_NOT_CERTIFIED_FOR_STATE;
+            case "date_of_collection_unspecified":
+                return DATE_OF_COLLECTION_UNSPECIFIED;
+            case "consent_missing":
+                return CONSENT_MISSING;
+            case "kit_not_registered":
+                return KIT_NOT_REGISTERED;
             case "sample_contaminated":
                 return SAMPLE_CONTAMINATED;
             default:
@@ -135,6 +198,24 @@ public final class OrderStatusDetail {
 
         SAMPLE_IMPROPER_COLLECTION,
 
+        SAMPLE_DAMAGED_IN_TRANSIT,
+
+        SAMPLE_INTEGRITY_COMPROMISED,
+
+        SAMPLE_NOT_PROVIDED,
+
+        CONSENT_MISSING,
+
+        LAB_NOT_CERTIFIED_FOR_STATE,
+
+        COLLECTION_DEVICE_EXPIRED,
+
+        KIT_NOT_REGISTERED,
+
+        COLLECTION_SITE_UNRECOGNISED,
+
+        REJECTED_ON_REQUEST,
+
         UNKNOWN
     }
 
@@ -156,6 +237,24 @@ public final class OrderStatusDetail {
         T visitSampleHemolyzed();
 
         T visitSampleImproperCollection();
+
+        T visitSampleDamagedInTransit();
+
+        T visitSampleIntegrityCompromised();
+
+        T visitSampleNotProvided();
+
+        T visitConsentMissing();
+
+        T visitLabNotCertifiedForState();
+
+        T visitCollectionDeviceExpired();
+
+        T visitKitNotRegistered();
+
+        T visitCollectionSiteUnrecognised();
+
+        T visitRejectedOnRequest();
 
         T visitUnknown(String unknownType);
     }
