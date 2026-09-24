@@ -6,6 +6,7 @@
 * **Order pricing and tracking** — added sync and async lab-test methods for estimating order-set pricing and retrieving order tracking, with pricing and tracking models and an order-tracking webhook model.
 * **Test-kit idempotency** — added optional idempotency controls when creating a test-kit order.
 * **Result and status details** — added stale-result indicators and expanded order-status values.
+* **Horizon AI device reliability** — added reliability columns for query selection, grouping, and aggregate expressions.
 
 ### Changed
 
@@ -16,10 +17,6 @@
 * **Legacy timeseries methods** — removed the non-grouped `vitals` methods (including `steps()` and `heartrate()`) and their request classes. Use the corresponding `*Grouped()` methods and handle their paginated grouped responses.
 * **Hypnogram timeseries** — removed `hypnogram()`, `hypnogramGrouped()`, their models, and the sleep-stream hypnogram field. Use sleep-cycle summaries and events.
 * **Deprecated event fields** — removed `ClientFacingSource.name`, `logo`, and `slug`; `ProviderConnectionCreated.source`; and `HistoricalPullCompleted.isFinal`. Use source context, `ProviderConnectionCreated.provider`, and the completed event itself.
-
-### Beta
-
-* **Horizon AI device reliability** — added reliability columns for query selection, grouping, and aggregate expressions.
 
 ## 1.3.0 - 2026-08-14
 
