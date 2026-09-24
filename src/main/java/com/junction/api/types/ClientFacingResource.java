@@ -98,8 +98,6 @@ public final class ClientFacingResource {
     public static final ClientFacingResource HEART_RATE_ALERT =
             new ClientFacingResource(Value.HEART_RATE_ALERT, "heart_rate_alert");
 
-    public static final ClientFacingResource HYPNOGRAM = new ClientFacingResource(Value.HYPNOGRAM, "hypnogram");
-
     public static final ClientFacingResource CALORIES_BASAL =
             new ClientFacingResource(Value.CALORIES_BASAL, "calories_basal");
 
@@ -289,8 +287,6 @@ public final class ClientFacingResource {
                 return visitor.visitStressLevel();
             case HEART_RATE_ALERT:
                 return visitor.visitHeartRateAlert();
-            case HYPNOGRAM:
-                return visitor.visitHypnogram();
             case CALORIES_BASAL:
                 return visitor.visitCaloriesBasal();
             case FALL:
@@ -438,8 +434,6 @@ public final class ClientFacingResource {
                 return STRESS_LEVEL;
             case "heart_rate_alert":
                 return HEART_RATE_ALERT;
-            case "hypnogram":
-                return HYPNOGRAM;
             case "calories_basal":
                 return CALORIES_BASAL;
             case "fall":
@@ -650,8 +644,6 @@ public final class ClientFacingResource {
 
         SLEEP_STREAM,
 
-        HYPNOGRAM,
-
         UNKNOWN
     }
 
@@ -793,8 +785,6 @@ public final class ClientFacingResource {
         T visitNote();
 
         T visitSleepStream();
-
-        T visitHypnogram();
 
         T visitUnknown(String unknownType);
     }

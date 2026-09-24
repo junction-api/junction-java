@@ -70,8 +70,6 @@ public final class TimeseriesResource {
 
     public static final TimeseriesResource HRV = new TimeseriesResource(Value.HRV, "hrv");
 
-    public static final TimeseriesResource HYPNOGRAM = new TimeseriesResource(Value.HYPNOGRAM, "hypnogram");
-
     public static final TimeseriesResource STRESS_LEVEL = new TimeseriesResource(Value.STRESS_LEVEL, "stress_level");
 
     public static final TimeseriesResource HEART_RATE_ALERT =
@@ -230,8 +228,6 @@ public final class TimeseriesResource {
                 return visitor.visitInsulinInjection();
             case HRV:
                 return visitor.visitHrv();
-            case HYPNOGRAM:
-                return visitor.visitHypnogram();
             case STRESS_LEVEL:
                 return visitor.visitStressLevel();
             case HEART_RATE_ALERT:
@@ -349,8 +345,6 @@ public final class TimeseriesResource {
                 return INSULIN_INJECTION;
             case "hrv":
                 return HRV;
-            case "hypnogram":
-                return HYPNOGRAM;
             case "stress_level":
                 return STRESS_LEVEL;
             case "heart_rate_alert":
@@ -452,8 +446,6 @@ public final class TimeseriesResource {
         HEARTRATE,
 
         HRV,
-
-        HYPNOGRAM,
 
         IGE,
 
@@ -566,8 +558,6 @@ public final class TimeseriesResource {
         T visitHeartrate();
 
         T visitHrv();
-
-        T visitHypnogram();
 
         T visitIge();
 

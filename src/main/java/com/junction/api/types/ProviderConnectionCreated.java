@@ -27,8 +27,6 @@ import org.jetbrains.annotations.NotNull;
 public final class ProviderConnectionCreated {
     private final String userId;
 
-    private final ClientFacingProvider source;
-
     private final ClientFacingProvider provider;
 
     private final Optional<String> externalUserId;
@@ -39,13 +37,11 @@ public final class ProviderConnectionCreated {
 
     private ProviderConnectionCreated(
             String userId,
-            ClientFacingProvider source,
             ClientFacingProvider provider,
             Optional<String> externalUserId,
             Map<String, ResourceAvailability> resourceAvailability,
             Map<String, Object> additionalProperties) {
         this.userId = userId;
-        this.source = source;
         this.provider = provider;
         this.externalUserId = externalUserId;
         this.resourceAvailability = resourceAvailability;
@@ -55,14 +51,6 @@ public final class ProviderConnectionCreated {
     @JsonProperty("user_id")
     public String getUserId() {
         return userId;
-    }
-
-    /**
-     * @return Deprecated. Use <code>provider</code> instead. Subject to removal after 1 Jan 2024.
-     */
-    @JsonProperty("source")
-    public ClientFacingProvider getSource() {
-        return source;
     }
 
     @JsonProperty("provider")
@@ -111,7 +99,6 @@ public final class ProviderConnectionCreated {
 
     private boolean equalTo(ProviderConnectionCreated other) {
         return userId.equals(other.userId)
-                && source.equals(other.source)
                 && provider.equals(other.provider)
                 && externalUserId.equals(other.externalUserId)
                 && resourceAvailability.equals(other.resourceAvailability);
@@ -119,7 +106,7 @@ public final class ProviderConnectionCreated {
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.userId, this.source, this.provider, this.externalUserId, this.resourceAvailability);
+        return Objects.hash(this.userId, this.provider, this.externalUserId, this.resourceAvailability);
     }
 
     @java.lang.Override
@@ -132,16 +119,9 @@ public final class ProviderConnectionCreated {
     }
 
     public interface UserIdStage {
-        SourceStage userId(@NotNull String userId);
+        ProviderStage userId(@NotNull String userId);
 
         Builder from(ProviderConnectionCreated other);
-    }
-
-    public interface SourceStage {
-        /**
-         * <p>Deprecated. Use <code>provider</code> instead. Subject to removal after 1 Jan 2024.</p>
-         */
-        ProviderStage source(@NotNull ClientFacingProvider source);
     }
 
     public interface ProviderStage {
@@ -178,10 +158,8 @@ public final class ProviderConnectionCreated {
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public static final class Builder implements UserIdStage, SourceStage, ProviderStage, _FinalStage {
+    public static final class Builder implements UserIdStage, ProviderStage, _FinalStage {
         private String userId;
-
-        private ClientFacingProvider source;
 
         private ClientFacingProvider provider;
 
@@ -197,7 +175,6 @@ public final class ProviderConnectionCreated {
         @java.lang.Override
         public Builder from(ProviderConnectionCreated other) {
             userId(other.getUserId());
-            source(other.getSource());
             provider(other.getProvider());
             externalUserId(other.getExternalUserId());
             resourceAvailability(other.getResourceAvailability());
@@ -206,19 +183,8 @@ public final class ProviderConnectionCreated {
 
         @java.lang.Override
         @JsonSetter("user_id")
-        public SourceStage userId(@NotNull String userId) {
+        public ProviderStage userId(@NotNull String userId) {
             this.userId = Objects.requireNonNull(userId, "userId must not be null");
-            return this;
-        }
-
-        /**
-         * <p>Deprecated. Use <code>provider</code> instead. Subject to removal after 1 Jan 2024.</p>
-         * @return Reference to {@code this} so that method calls can be chained together.
-         */
-        @java.lang.Override
-        @JsonSetter("source")
-        public ProviderStage source(@NotNull ClientFacingProvider source) {
-            this.source = Objects.requireNonNull(source, "source must not be null");
             return this;
         }
 
@@ -310,7 +276,7 @@ public final class ProviderConnectionCreated {
         @java.lang.Override
         public ProviderConnectionCreated build() {
             return new ProviderConnectionCreated(
-                    userId, source, provider, externalUserId, resourceAvailability, additionalProperties);
+                    userId, provider, externalUserId, resourceAvailability, additionalProperties);
         }
 
         @java.lang.Override

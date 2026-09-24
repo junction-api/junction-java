@@ -25,6 +25,7 @@ import com.junction.api.resources.labtests.requests.CancelOrderLabTestsRequest;
 import com.junction.api.resources.labtests.requests.CreateLabTestRequest;
 import com.junction.api.resources.labtests.requests.CreateOrderRequestCompatible;
 import com.junction.api.resources.labtests.requests.CreateUnmatchedResultTestBody;
+import com.junction.api.resources.labtests.requests.EstimateOrderSetPricingBody;
 import com.junction.api.resources.labtests.requests.GetAreaInfoLabTestsRequest;
 import com.junction.api.resources.labtests.requests.GetByIdLabTestsRequest;
 import com.junction.api.resources.labtests.requests.GetLabTestCollectionInstructionPdfLabTestsRequest;
@@ -39,6 +40,7 @@ import com.junction.api.resources.labtests.requests.GetOrderCollectionInstructio
 import com.junction.api.resources.labtests.requests.GetOrderLabTestsRequest;
 import com.junction.api.resources.labtests.requests.GetOrderPscInfoLabTestsRequest;
 import com.junction.api.resources.labtests.requests.GetOrderRequistionPdfLabTestsRequest;
+import com.junction.api.resources.labtests.requests.GetOrderTrackingLabTestsRequest;
 import com.junction.api.resources.labtests.requests.GetOrdersLabTestsRequest;
 import com.junction.api.resources.labtests.requests.GetPaginatedLabTestsRequest;
 import com.junction.api.resources.labtests.requests.GetPhlebotomyAppointmentAvailabilityLabTestsRequest;
@@ -73,6 +75,7 @@ import com.junction.api.types.ClientFacingLabTest;
 import com.junction.api.types.ClientFacingMarker;
 import com.junction.api.types.ClientFacingOrder;
 import com.junction.api.types.CreateUnmatchedResultTestResponse;
+import com.junction.api.types.EstimateOrderSetPricingResponse;
 import com.junction.api.types.GetMarkersResponse;
 import com.junction.api.types.GetOrdersResponse;
 import com.junction.api.types.GetUnmatchedResultResponse;
@@ -85,6 +88,7 @@ import com.junction.api.types.ListUnmatchedResultResponse;
 import com.junction.api.types.ListUnmatchedResultTestCasesResponse;
 import com.junction.api.types.NotFoundErrorBody;
 import com.junction.api.types.OrderSetRequest;
+import com.junction.api.types.OrderTracking;
 import com.junction.api.types.PostOrderResponse;
 import com.junction.api.types.PscInfo;
 import com.junction.api.types.UnmatchedResult;
@@ -883,6 +887,74 @@ public class RawLabTestsClient {
                         ObjectMappers.JSON_MAPPER.readValue(
                                 responseBodyString, new TypeReference<List<ClientFacingLab>>() {}),
                         response);
+            }
+            Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
+            throw new ApiError("Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (JsonProcessingException e) {
+            throw new JunctionException("Failed to deserialize response: " + e.getMessage(), e);
+        } catch (IOException e) {
+            throw new JunctionException("Network error executing HTTP request", e);
+        }
+    }
+
+    public JunctionHttpResponse<EstimateOrderSetPricingResponse> estimateOrderSetPricing(
+            EstimateOrderSetPricingBody request) {
+        return estimateOrderSetPricing(request, null);
+    }
+
+    public JunctionHttpResponse<EstimateOrderSetPricingResponse> estimateOrderSetPricing(
+            EstimateOrderSetPricingBody request, RequestOptions requestOptions) {
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+                .newBuilder()
+                .addPathSegments("v3/lab_test/estimate_order_set_pricing");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
+        RequestBody body;
+        try {
+            body = RequestBody.create(
+                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
+        } catch (JsonProcessingException e) {
+            throw new JunctionException("Failed to serialize request", e);
+        }
+        Request okhttpRequest = new Request.Builder()
+                .url(httpUrl.build())
+                .method("POST", body)
+                .headers(Headers.of(clientOptions.headers(requestOptions)))
+                .addHeader("Content-Type", "application/json")
+                .addHeader("Accept", "application/json")
+                .build();
+        OkHttpClient client = clientOptions.httpClient();
+        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
+            client = clientOptions.httpClientWithTimeout(requestOptions);
+        }
+        if (requestOptions != null && requestOptions.getMaxRetries().isPresent()) {
+            okhttpRequest = okhttpRequest
+                    .newBuilder()
+                    .tag(
+                            RetryInterceptor.MaxRetriesOverride.class,
+                            new RetryInterceptor.MaxRetriesOverride(
+                                    requestOptions.getMaxRetries().get()))
+                    .build();
+        }
+        try (Response response = client.newCall(okhttpRequest).execute()) {
+            ResponseBody responseBody = response.body();
+            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
+            if (response.isSuccessful()) {
+                return new JunctionHttpResponse<>(
+                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, EstimateOrderSetPricingResponse.class),
+                        response);
+            }
+            try {
+                if (response.code() == 422) {
+                    throw new UnprocessableEntityError(
+                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, HttpValidationError.class),
+                            response);
+                }
+            } catch (JsonProcessingException ignored) {
+                // unable to map error response, throwing generic error
             }
             Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
             throw new ApiError("Error with status code " + response.code(), response.code(), errorBody, response);
@@ -2821,6 +2893,89 @@ public class RawLabTestsClient {
                 return new JunctionHttpResponse<>(
                         ObjectMappers.JSON_MAPPER.readValue(responseBodyString, ClientFacingAppointment.class),
                         response);
+            }
+            try {
+                if (response.code() == 422) {
+                    throw new UnprocessableEntityError(
+                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, HttpValidationError.class),
+                            response);
+                }
+            } catch (JsonProcessingException ignored) {
+                // unable to map error response, throwing generic error
+            }
+            Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
+            throw new ApiError("Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (JsonProcessingException e) {
+            throw new JunctionException("Failed to deserialize response: " + e.getMessage(), e);
+        } catch (IOException e) {
+            throw new JunctionException("Network error executing HTTP request", e);
+        }
+    }
+
+    /**
+     * Get current estimates and immutable ETA update history for an order.
+     */
+    public JunctionHttpResponse<OrderTracking> getOrderTracking(String orderId) {
+        return getOrderTracking(
+                orderId, GetOrderTrackingLabTestsRequest.builder().build());
+    }
+
+    /**
+     * Get current estimates and immutable ETA update history for an order.
+     */
+    public JunctionHttpResponse<OrderTracking> getOrderTracking(String orderId, RequestOptions requestOptions) {
+        return getOrderTracking(
+                orderId, GetOrderTrackingLabTestsRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Get current estimates and immutable ETA update history for an order.
+     */
+    public JunctionHttpResponse<OrderTracking> getOrderTracking(
+            String orderId, GetOrderTrackingLabTestsRequest request) {
+        return getOrderTracking(orderId, request, null);
+    }
+
+    /**
+     * Get current estimates and immutable ETA update history for an order.
+     */
+    public JunctionHttpResponse<OrderTracking> getOrderTracking(
+            String orderId, GetOrderTrackingLabTestsRequest request, RequestOptions requestOptions) {
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+                .newBuilder()
+                .addPathSegments("v3/order")
+                .addPathSegment(orderId)
+                .addPathSegments("tracking");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
+        Request.Builder _requestBuilder = new Request.Builder()
+                .url(httpUrl.build())
+                .method("GET", null)
+                .headers(Headers.of(clientOptions.headers(requestOptions)))
+                .addHeader("Accept", "application/json");
+        Request okhttpRequest = _requestBuilder.build();
+        OkHttpClient client = clientOptions.httpClient();
+        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
+            client = clientOptions.httpClientWithTimeout(requestOptions);
+        }
+        if (requestOptions != null && requestOptions.getMaxRetries().isPresent()) {
+            okhttpRequest = okhttpRequest
+                    .newBuilder()
+                    .tag(
+                            RetryInterceptor.MaxRetriesOverride.class,
+                            new RetryInterceptor.MaxRetriesOverride(
+                                    requestOptions.getMaxRetries().get()))
+                    .build();
+        }
+        try (Response response = client.newCall(okhttpRequest).execute()) {
+            ResponseBody responseBody = response.body();
+            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
+            if (response.isSuccessful()) {
+                return new JunctionHttpResponse<>(
+                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, OrderTracking.class), response);
             }
             try {
                 if (response.code() == 422) {

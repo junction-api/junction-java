@@ -8,6 +8,7 @@ import com.junction.api.core.Suppliers;
 import com.junction.api.resources.activity.AsyncActivityClient;
 import com.junction.api.resources.aggregate.AsyncAggregateClient;
 import com.junction.api.resources.body.AsyncBodyClient;
+import com.junction.api.resources.checkout.AsyncCheckoutClient;
 import com.junction.api.resources.compendium.AsyncCompendiumClient;
 import com.junction.api.resources.devices.AsyncDevicesClient;
 import com.junction.api.resources.electrocardiogram.AsyncElectrocardiogramClient;
@@ -86,6 +87,8 @@ public class AsyncJunction {
 
     protected final Supplier<AsyncLabReportClient> labReportClient;
 
+    protected final Supplier<AsyncCheckoutClient> checkoutClient;
+
     protected final Supplier<AsyncAggregateClient> aggregateClient;
 
     public AsyncJunction(ClientOptions clientOptions) {
@@ -115,6 +118,7 @@ public class AsyncJunction {
         this.insuranceClient = Suppliers.memoize(() -> new AsyncInsuranceClient(clientOptions));
         this.payorClient = Suppliers.memoize(() -> new AsyncPayorClient(clientOptions));
         this.labReportClient = Suppliers.memoize(() -> new AsyncLabReportClient(clientOptions));
+        this.checkoutClient = Suppliers.memoize(() -> new AsyncCheckoutClient(clientOptions));
         this.aggregateClient = Suppliers.memoize(() -> new AsyncAggregateClient(clientOptions));
     }
 
@@ -216,6 +220,10 @@ public class AsyncJunction {
 
     public AsyncLabReportClient labReport() {
         return this.labReportClient.get();
+    }
+
+    public AsyncCheckoutClient checkout() {
+        return this.checkoutClient.get();
     }
 
     public AsyncAggregateClient aggregate() {

@@ -13,6 +13,7 @@ import com.junction.api.resources.labtests.requests.CancelOrderLabTestsRequest;
 import com.junction.api.resources.labtests.requests.CreateLabTestRequest;
 import com.junction.api.resources.labtests.requests.CreateOrderRequestCompatible;
 import com.junction.api.resources.labtests.requests.CreateUnmatchedResultTestBody;
+import com.junction.api.resources.labtests.requests.EstimateOrderSetPricingBody;
 import com.junction.api.resources.labtests.requests.GetAreaInfoLabTestsRequest;
 import com.junction.api.resources.labtests.requests.GetByIdLabTestsRequest;
 import com.junction.api.resources.labtests.requests.GetLabTestCollectionInstructionPdfLabTestsRequest;
@@ -27,6 +28,7 @@ import com.junction.api.resources.labtests.requests.GetOrderCollectionInstructio
 import com.junction.api.resources.labtests.requests.GetOrderLabTestsRequest;
 import com.junction.api.resources.labtests.requests.GetOrderPscInfoLabTestsRequest;
 import com.junction.api.resources.labtests.requests.GetOrderRequistionPdfLabTestsRequest;
+import com.junction.api.resources.labtests.requests.GetOrderTrackingLabTestsRequest;
 import com.junction.api.resources.labtests.requests.GetOrdersLabTestsRequest;
 import com.junction.api.resources.labtests.requests.GetPaginatedLabTestsRequest;
 import com.junction.api.resources.labtests.requests.GetPhlebotomyAppointmentAvailabilityLabTestsRequest;
@@ -61,6 +63,7 @@ import com.junction.api.types.ClientFacingLabTest;
 import com.junction.api.types.ClientFacingMarker;
 import com.junction.api.types.ClientFacingOrder;
 import com.junction.api.types.CreateUnmatchedResultTestResponse;
+import com.junction.api.types.EstimateOrderSetPricingResponse;
 import com.junction.api.types.GetMarkersResponse;
 import com.junction.api.types.GetOrdersResponse;
 import com.junction.api.types.GetUnmatchedResultResponse;
@@ -71,6 +74,7 @@ import com.junction.api.types.LabTestResourcesResponse;
 import com.junction.api.types.ListUnmatchedResultResponse;
 import com.junction.api.types.ListUnmatchedResultTestCasesResponse;
 import com.junction.api.types.OrderSetRequest;
+import com.junction.api.types.OrderTracking;
 import com.junction.api.types.PostOrderResponse;
 import com.junction.api.types.PscInfo;
 import com.junction.api.types.UnmatchedResult;
@@ -310,6 +314,16 @@ public class AsyncLabTestsClient {
      */
     public CompletableFuture<List<ClientFacingLab>> getLabs(RequestOptions requestOptions) {
         return this.rawClient.getLabs(requestOptions).thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<EstimateOrderSetPricingResponse> estimateOrderSetPricing(
+            EstimateOrderSetPricingBody request) {
+        return this.rawClient.estimateOrderSetPricing(request).thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<EstimateOrderSetPricingResponse> estimateOrderSetPricing(
+            EstimateOrderSetPricingBody request, RequestOptions requestOptions) {
+        return this.rawClient.estimateOrderSetPricing(request, requestOptions).thenApply(response -> response.body());
     }
 
     /**
@@ -820,6 +834,35 @@ public class AsyncLabTestsClient {
         return this.rawClient
                 .getPscAppointment(orderId, request, requestOptions)
                 .thenApply(response -> response.body());
+    }
+
+    /**
+     * Get current estimates and immutable ETA update history for an order.
+     */
+    public CompletableFuture<OrderTracking> getOrderTracking(String orderId) {
+        return this.rawClient.getOrderTracking(orderId).thenApply(response -> response.body());
+    }
+
+    /**
+     * Get current estimates and immutable ETA update history for an order.
+     */
+    public CompletableFuture<OrderTracking> getOrderTracking(String orderId, RequestOptions requestOptions) {
+        return this.rawClient.getOrderTracking(orderId, requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Get current estimates and immutable ETA update history for an order.
+     */
+    public CompletableFuture<OrderTracking> getOrderTracking(String orderId, GetOrderTrackingLabTestsRequest request) {
+        return this.rawClient.getOrderTracking(orderId, request).thenApply(response -> response.body());
+    }
+
+    /**
+     * Get current estimates and immutable ETA update history for an order.
+     */
+    public CompletableFuture<OrderTracking> getOrderTracking(
+            String orderId, GetOrderTrackingLabTestsRequest request, RequestOptions requestOptions) {
+        return this.rawClient.getOrderTracking(orderId, request, requestOptions).thenApply(response -> response.body());
     }
 
     /**

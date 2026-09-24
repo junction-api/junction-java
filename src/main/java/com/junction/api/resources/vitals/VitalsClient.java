@@ -8,104 +8,53 @@ import com.junction.api.core.RequestOptions;
 import com.junction.api.resources.vitals.requests.AfibBurdenGroupedVitalsRequest;
 import com.junction.api.resources.vitals.requests.BasalBodyTemperatureGroupedVitalsRequest;
 import com.junction.api.resources.vitals.requests.BloodOxygenGroupedVitalsRequest;
-import com.junction.api.resources.vitals.requests.BloodOxygenVitalsRequest;
 import com.junction.api.resources.vitals.requests.BloodPressureGroupedVitalsRequest;
-import com.junction.api.resources.vitals.requests.BloodPressureVitalsRequest;
 import com.junction.api.resources.vitals.requests.BodyFatGroupedVitalsRequest;
-import com.junction.api.resources.vitals.requests.BodyFatVitalsRequest;
 import com.junction.api.resources.vitals.requests.BodyMassIndexGroupedVitalsRequest;
 import com.junction.api.resources.vitals.requests.BodyTemperatureDeltaGroupedVitalsRequest;
 import com.junction.api.resources.vitals.requests.BodyTemperatureGroupedVitalsRequest;
 import com.junction.api.resources.vitals.requests.BodyWeightGroupedVitalsRequest;
-import com.junction.api.resources.vitals.requests.BodyWeightVitalsRequest;
 import com.junction.api.resources.vitals.requests.CaffeineGroupedVitalsRequest;
-import com.junction.api.resources.vitals.requests.CaffeineVitalsRequest;
 import com.junction.api.resources.vitals.requests.CaloriesActiveGroupedVitalsRequest;
-import com.junction.api.resources.vitals.requests.CaloriesActiveVitalsRequest;
 import com.junction.api.resources.vitals.requests.CaloriesBasalGroupedVitalsRequest;
-import com.junction.api.resources.vitals.requests.CaloriesBasalVitalsRequest;
 import com.junction.api.resources.vitals.requests.CarbohydratesGroupedVitalsRequest;
 import com.junction.api.resources.vitals.requests.CholesterolGroupedVitalsRequest;
-import com.junction.api.resources.vitals.requests.CholesterolHdlVitalsRequest;
-import com.junction.api.resources.vitals.requests.CholesterolLdlVitalsRequest;
-import com.junction.api.resources.vitals.requests.CholesterolTotalVitalsRequest;
-import com.junction.api.resources.vitals.requests.CholesterolTriglyceridesVitalsRequest;
-import com.junction.api.resources.vitals.requests.CholesterolVitalsRequest;
 import com.junction.api.resources.vitals.requests.DaylightExposureGroupedVitalsRequest;
 import com.junction.api.resources.vitals.requests.DistanceGroupedVitalsRequest;
-import com.junction.api.resources.vitals.requests.DistanceVitalsRequest;
 import com.junction.api.resources.vitals.requests.ElectrocardiogramVoltageGroupedVitalsRequest;
-import com.junction.api.resources.vitals.requests.ElectrocardiogramVoltageVitalsRequest;
 import com.junction.api.resources.vitals.requests.FallGroupedVitalsRequest;
 import com.junction.api.resources.vitals.requests.FloorsClimbedGroupedVitalsRequest;
-import com.junction.api.resources.vitals.requests.FloorsClimbedVitalsRequest;
 import com.junction.api.resources.vitals.requests.ForcedExpiratoryVolume1GroupedVitalsRequest;
 import com.junction.api.resources.vitals.requests.ForcedVitalCapacityGroupedVitalsRequest;
 import com.junction.api.resources.vitals.requests.GlucoseGroupedVitalsRequest;
-import com.junction.api.resources.vitals.requests.GlucoseVitalsRequest;
 import com.junction.api.resources.vitals.requests.HandwashingGroupedVitalsRequest;
 import com.junction.api.resources.vitals.requests.HeartRateAlertGroupedVitalsRequest;
 import com.junction.api.resources.vitals.requests.HeartRateRecoveryOneMinuteGroupedVitalsRequest;
 import com.junction.api.resources.vitals.requests.HeartrateGroupedVitalsRequest;
-import com.junction.api.resources.vitals.requests.HeartrateVitalsRequest;
 import com.junction.api.resources.vitals.requests.HrvGroupedVitalsRequest;
-import com.junction.api.resources.vitals.requests.HrvVitalsRequest;
-import com.junction.api.resources.vitals.requests.HypnogramGroupedVitalsRequest;
-import com.junction.api.resources.vitals.requests.HypnogramVitalsRequest;
 import com.junction.api.resources.vitals.requests.IgeGroupedVitalsRequest;
-import com.junction.api.resources.vitals.requests.IgeVitalsRequest;
 import com.junction.api.resources.vitals.requests.IggGroupedVitalsRequest;
-import com.junction.api.resources.vitals.requests.IggVitalsRequest;
 import com.junction.api.resources.vitals.requests.InhalerUsageGroupedVitalsRequest;
 import com.junction.api.resources.vitals.requests.InsulinInjectionGroupedVitalsRequest;
 import com.junction.api.resources.vitals.requests.LeanBodyMassGroupedVitalsRequest;
 import com.junction.api.resources.vitals.requests.MindfulnessMinutesGroupedVitalsRequest;
-import com.junction.api.resources.vitals.requests.MindfulnessMinutesVitalsRequest;
 import com.junction.api.resources.vitals.requests.NoteGroupedVitalsRequest;
 import com.junction.api.resources.vitals.requests.PeakExpiratoryFlowRateGroupedVitalsRequest;
 import com.junction.api.resources.vitals.requests.RespiratoryRateGroupedVitalsRequest;
-import com.junction.api.resources.vitals.requests.RespiratoryRateVitalsRequest;
 import com.junction.api.resources.vitals.requests.SleepApneaAlertGroupedVitalsRequest;
 import com.junction.api.resources.vitals.requests.SleepBreathingDisturbanceGroupedVitalsRequest;
 import com.junction.api.resources.vitals.requests.StandDurationGroupedVitalsRequest;
 import com.junction.api.resources.vitals.requests.StandHourGroupedVitalsRequest;
 import com.junction.api.resources.vitals.requests.StepsGroupedVitalsRequest;
-import com.junction.api.resources.vitals.requests.StepsVitalsRequest;
 import com.junction.api.resources.vitals.requests.StressLevelGroupedVitalsRequest;
-import com.junction.api.resources.vitals.requests.StressLevelVitalsRequest;
 import com.junction.api.resources.vitals.requests.UvExposureGroupedVitalsRequest;
 import com.junction.api.resources.vitals.requests.Vo2MaxGroupedVitalsRequest;
-import com.junction.api.resources.vitals.requests.Vo2MaxVitalsRequest;
 import com.junction.api.resources.vitals.requests.WaistCircumferenceGroupedVitalsRequest;
 import com.junction.api.resources.vitals.requests.WaterGroupedVitalsRequest;
-import com.junction.api.resources.vitals.requests.WaterVitalsRequest;
 import com.junction.api.resources.vitals.requests.WheelchairPushGroupedVitalsRequest;
 import com.junction.api.resources.vitals.requests.WorkoutDistanceGroupedVitalsRequest;
 import com.junction.api.resources.vitals.requests.WorkoutDurationGroupedVitalsRequest;
 import com.junction.api.resources.vitals.requests.WorkoutSwimmingStrokeGroupedVitalsRequest;
-import com.junction.api.types.ClientFacingBloodOxygenTimeseries;
-import com.junction.api.types.ClientFacingBloodPressureTimeseries;
-import com.junction.api.types.ClientFacingBodyFatTimeseries;
-import com.junction.api.types.ClientFacingBodyWeightTimeseries;
-import com.junction.api.types.ClientFacingCaffeineTimeseries;
-import com.junction.api.types.ClientFacingCaloriesActiveTimeseries;
-import com.junction.api.types.ClientFacingCaloriesBasalTimeseries;
-import com.junction.api.types.ClientFacingCholesterolTimeseries;
-import com.junction.api.types.ClientFacingDistanceTimeseries;
-import com.junction.api.types.ClientFacingElectrocardiogramVoltageTimeseries;
-import com.junction.api.types.ClientFacingFloorsClimbedTimeseries;
-import com.junction.api.types.ClientFacingGlucoseTimeseries;
-import com.junction.api.types.ClientFacingHeartRateTimeseries;
-import com.junction.api.types.ClientFacingHrvTimeseries;
-import com.junction.api.types.ClientFacingHypnogramTimeseries;
-import com.junction.api.types.ClientFacingIgeTimeseries;
-import com.junction.api.types.ClientFacingIggTimeseries;
-import com.junction.api.types.ClientFacingMindfulnessMinutesTimeseries;
-import com.junction.api.types.ClientFacingRespiratoryRateTimeseries;
-import com.junction.api.types.ClientFacingStepsTimeseries;
-import com.junction.api.types.ClientFacingStressLevelTimeseries;
-import com.junction.api.types.ClientFacingVo2MaxTimeseries;
-import com.junction.api.types.ClientFacingWaterTimeseries;
 import com.junction.api.types.GroupedAFibBurdenResponse;
 import com.junction.api.types.GroupedBasalBodyTemperatureResponse;
 import com.junction.api.types.GroupedBloodOxygenResponse;
@@ -133,7 +82,6 @@ import com.junction.api.types.GroupedHeartRateAlertResponse;
 import com.junction.api.types.GroupedHeartRateRecoveryOneMinuteResponse;
 import com.junction.api.types.GroupedHeartRateResponse;
 import com.junction.api.types.GroupedHrvResponse;
-import com.junction.api.types.GroupedHypnogramResponse;
 import com.junction.api.types.GroupedIgeResponse;
 import com.junction.api.types.GroupedIggResponse;
 import com.junction.api.types.GroupedInhalerUsageResponse;
@@ -157,7 +105,6 @@ import com.junction.api.types.GroupedWheelchairPushResponse;
 import com.junction.api.types.GroupedWorkoutDistanceResponse;
 import com.junction.api.types.GroupedWorkoutDurationResponse;
 import com.junction.api.types.GroupedWorkoutSwimmingStrokeResponse;
-import java.util.List;
 
 public class VitalsClient {
     protected final ClientOptions clientOptions;
@@ -588,15 +535,6 @@ public class VitalsClient {
         return this.rawClient.iggGrouped(userId, request, requestOptions).body();
     }
 
-    public GroupedHypnogramResponse hypnogramGrouped(String userId, HypnogramGroupedVitalsRequest request) {
-        return this.rawClient.hypnogramGrouped(userId, request).body();
-    }
-
-    public GroupedHypnogramResponse hypnogramGrouped(
-            String userId, HypnogramGroupedVitalsRequest request, RequestOptions requestOptions) {
-        return this.rawClient.hypnogramGrouped(userId, request, requestOptions).body();
-    }
-
     public GroupedHrvResponse hrvGrouped(String userId, HrvGroupedVitalsRequest request) {
         return this.rawClient.hrvGrouped(userId, request).body();
     }
@@ -720,257 +658,5 @@ public class VitalsClient {
         return this.rawClient
                 .bloodPressureGrouped(userId, request, requestOptions)
                 .body();
-    }
-
-    public List<ClientFacingVo2MaxTimeseries> vo2Max(String userId, Vo2MaxVitalsRequest request) {
-        return this.rawClient.vo2Max(userId, request).body();
-    }
-
-    public List<ClientFacingVo2MaxTimeseries> vo2Max(
-            String userId, Vo2MaxVitalsRequest request, RequestOptions requestOptions) {
-        return this.rawClient.vo2Max(userId, request, requestOptions).body();
-    }
-
-    public List<ClientFacingStressLevelTimeseries> stressLevel(String userId, StressLevelVitalsRequest request) {
-        return this.rawClient.stressLevel(userId, request).body();
-    }
-
-    public List<ClientFacingStressLevelTimeseries> stressLevel(
-            String userId, StressLevelVitalsRequest request, RequestOptions requestOptions) {
-        return this.rawClient.stressLevel(userId, request, requestOptions).body();
-    }
-
-    public List<ClientFacingMindfulnessMinutesTimeseries> mindfulnessMinutes(
-            String userId, MindfulnessMinutesVitalsRequest request) {
-        return this.rawClient.mindfulnessMinutes(userId, request).body();
-    }
-
-    public List<ClientFacingMindfulnessMinutesTimeseries> mindfulnessMinutes(
-            String userId, MindfulnessMinutesVitalsRequest request, RequestOptions requestOptions) {
-        return this.rawClient
-                .mindfulnessMinutes(userId, request, requestOptions)
-                .body();
-    }
-
-    public List<ClientFacingCaffeineTimeseries> caffeine(String userId, CaffeineVitalsRequest request) {
-        return this.rawClient.caffeine(userId, request).body();
-    }
-
-    public List<ClientFacingCaffeineTimeseries> caffeine(
-            String userId, CaffeineVitalsRequest request, RequestOptions requestOptions) {
-        return this.rawClient.caffeine(userId, request, requestOptions).body();
-    }
-
-    public List<ClientFacingWaterTimeseries> water(String userId, WaterVitalsRequest request) {
-        return this.rawClient.water(userId, request).body();
-    }
-
-    public List<ClientFacingWaterTimeseries> water(
-            String userId, WaterVitalsRequest request, RequestOptions requestOptions) {
-        return this.rawClient.water(userId, request, requestOptions).body();
-    }
-
-    public List<ClientFacingStepsTimeseries> steps(String userId, StepsVitalsRequest request) {
-        return this.rawClient.steps(userId, request).body();
-    }
-
-    public List<ClientFacingStepsTimeseries> steps(
-            String userId, StepsVitalsRequest request, RequestOptions requestOptions) {
-        return this.rawClient.steps(userId, request, requestOptions).body();
-    }
-
-    public List<ClientFacingFloorsClimbedTimeseries> floorsClimbed(String userId, FloorsClimbedVitalsRequest request) {
-        return this.rawClient.floorsClimbed(userId, request).body();
-    }
-
-    public List<ClientFacingFloorsClimbedTimeseries> floorsClimbed(
-            String userId, FloorsClimbedVitalsRequest request, RequestOptions requestOptions) {
-        return this.rawClient.floorsClimbed(userId, request, requestOptions).body();
-    }
-
-    public List<ClientFacingDistanceTimeseries> distance(String userId, DistanceVitalsRequest request) {
-        return this.rawClient.distance(userId, request).body();
-    }
-
-    public List<ClientFacingDistanceTimeseries> distance(
-            String userId, DistanceVitalsRequest request, RequestOptions requestOptions) {
-        return this.rawClient.distance(userId, request, requestOptions).body();
-    }
-
-    public List<ClientFacingCaloriesBasalTimeseries> caloriesBasal(String userId, CaloriesBasalVitalsRequest request) {
-        return this.rawClient.caloriesBasal(userId, request).body();
-    }
-
-    public List<ClientFacingCaloriesBasalTimeseries> caloriesBasal(
-            String userId, CaloriesBasalVitalsRequest request, RequestOptions requestOptions) {
-        return this.rawClient.caloriesBasal(userId, request, requestOptions).body();
-    }
-
-    public List<ClientFacingCaloriesActiveTimeseries> caloriesActive(
-            String userId, CaloriesActiveVitalsRequest request) {
-        return this.rawClient.caloriesActive(userId, request).body();
-    }
-
-    public List<ClientFacingCaloriesActiveTimeseries> caloriesActive(
-            String userId, CaloriesActiveVitalsRequest request, RequestOptions requestOptions) {
-        return this.rawClient.caloriesActive(userId, request, requestOptions).body();
-    }
-
-    public List<ClientFacingRespiratoryRateTimeseries> respiratoryRate(
-            String userId, RespiratoryRateVitalsRequest request) {
-        return this.rawClient.respiratoryRate(userId, request).body();
-    }
-
-    public List<ClientFacingRespiratoryRateTimeseries> respiratoryRate(
-            String userId, RespiratoryRateVitalsRequest request, RequestOptions requestOptions) {
-        return this.rawClient.respiratoryRate(userId, request, requestOptions).body();
-    }
-
-    public List<ClientFacingIgeTimeseries> ige(String userId, IgeVitalsRequest request) {
-        return this.rawClient.ige(userId, request).body();
-    }
-
-    public List<ClientFacingIgeTimeseries> ige(String userId, IgeVitalsRequest request, RequestOptions requestOptions) {
-        return this.rawClient.ige(userId, request, requestOptions).body();
-    }
-
-    public List<ClientFacingIggTimeseries> igg(String userId, IggVitalsRequest request) {
-        return this.rawClient.igg(userId, request).body();
-    }
-
-    public List<ClientFacingIggTimeseries> igg(String userId, IggVitalsRequest request, RequestOptions requestOptions) {
-        return this.rawClient.igg(userId, request, requestOptions).body();
-    }
-
-    public List<ClientFacingHypnogramTimeseries> hypnogram(String userId, HypnogramVitalsRequest request) {
-        return this.rawClient.hypnogram(userId, request).body();
-    }
-
-    public List<ClientFacingHypnogramTimeseries> hypnogram(
-            String userId, HypnogramVitalsRequest request, RequestOptions requestOptions) {
-        return this.rawClient.hypnogram(userId, request, requestOptions).body();
-    }
-
-    public List<ClientFacingHrvTimeseries> hrv(String userId, HrvVitalsRequest request) {
-        return this.rawClient.hrv(userId, request).body();
-    }
-
-    public List<ClientFacingHrvTimeseries> hrv(String userId, HrvVitalsRequest request, RequestOptions requestOptions) {
-        return this.rawClient.hrv(userId, request, requestOptions).body();
-    }
-
-    public List<ClientFacingHeartRateTimeseries> heartrate(String userId, HeartrateVitalsRequest request) {
-        return this.rawClient.heartrate(userId, request).body();
-    }
-
-    public List<ClientFacingHeartRateTimeseries> heartrate(
-            String userId, HeartrateVitalsRequest request, RequestOptions requestOptions) {
-        return this.rawClient.heartrate(userId, request, requestOptions).body();
-    }
-
-    public List<ClientFacingGlucoseTimeseries> glucose(String userId, GlucoseVitalsRequest request) {
-        return this.rawClient.glucose(userId, request).body();
-    }
-
-    public List<ClientFacingGlucoseTimeseries> glucose(
-            String userId, GlucoseVitalsRequest request, RequestOptions requestOptions) {
-        return this.rawClient.glucose(userId, request, requestOptions).body();
-    }
-
-    public List<ClientFacingCholesterolTimeseries> cholesterolTriglycerides(
-            String userId, CholesterolTriglyceridesVitalsRequest request) {
-        return this.rawClient.cholesterolTriglycerides(userId, request).body();
-    }
-
-    public List<ClientFacingCholesterolTimeseries> cholesterolTriglycerides(
-            String userId, CholesterolTriglyceridesVitalsRequest request, RequestOptions requestOptions) {
-        return this.rawClient
-                .cholesterolTriglycerides(userId, request, requestOptions)
-                .body();
-    }
-
-    public List<ClientFacingCholesterolTimeseries> cholesterolTotal(
-            String userId, CholesterolTotalVitalsRequest request) {
-        return this.rawClient.cholesterolTotal(userId, request).body();
-    }
-
-    public List<ClientFacingCholesterolTimeseries> cholesterolTotal(
-            String userId, CholesterolTotalVitalsRequest request, RequestOptions requestOptions) {
-        return this.rawClient.cholesterolTotal(userId, request, requestOptions).body();
-    }
-
-    public List<ClientFacingCholesterolTimeseries> cholesterolLdl(String userId, CholesterolLdlVitalsRequest request) {
-        return this.rawClient.cholesterolLdl(userId, request).body();
-    }
-
-    public List<ClientFacingCholesterolTimeseries> cholesterolLdl(
-            String userId, CholesterolLdlVitalsRequest request, RequestOptions requestOptions) {
-        return this.rawClient.cholesterolLdl(userId, request, requestOptions).body();
-    }
-
-    public List<ClientFacingCholesterolTimeseries> cholesterolHdl(String userId, CholesterolHdlVitalsRequest request) {
-        return this.rawClient.cholesterolHdl(userId, request).body();
-    }
-
-    public List<ClientFacingCholesterolTimeseries> cholesterolHdl(
-            String userId, CholesterolHdlVitalsRequest request, RequestOptions requestOptions) {
-        return this.rawClient.cholesterolHdl(userId, request, requestOptions).body();
-    }
-
-    public List<ClientFacingCholesterolTimeseries> cholesterol(String userId, CholesterolVitalsRequest request) {
-        return this.rawClient.cholesterol(userId, request).body();
-    }
-
-    public List<ClientFacingCholesterolTimeseries> cholesterol(
-            String userId, CholesterolVitalsRequest request, RequestOptions requestOptions) {
-        return this.rawClient.cholesterol(userId, request, requestOptions).body();
-    }
-
-    public List<ClientFacingBodyWeightTimeseries> bodyWeight(String userId, BodyWeightVitalsRequest request) {
-        return this.rawClient.bodyWeight(userId, request).body();
-    }
-
-    public List<ClientFacingBodyWeightTimeseries> bodyWeight(
-            String userId, BodyWeightVitalsRequest request, RequestOptions requestOptions) {
-        return this.rawClient.bodyWeight(userId, request, requestOptions).body();
-    }
-
-    public List<ClientFacingBodyFatTimeseries> bodyFat(String userId, BodyFatVitalsRequest request) {
-        return this.rawClient.bodyFat(userId, request).body();
-    }
-
-    public List<ClientFacingBodyFatTimeseries> bodyFat(
-            String userId, BodyFatVitalsRequest request, RequestOptions requestOptions) {
-        return this.rawClient.bodyFat(userId, request, requestOptions).body();
-    }
-
-    public List<ClientFacingBloodOxygenTimeseries> bloodOxygen(String userId, BloodOxygenVitalsRequest request) {
-        return this.rawClient.bloodOxygen(userId, request).body();
-    }
-
-    public List<ClientFacingBloodOxygenTimeseries> bloodOxygen(
-            String userId, BloodOxygenVitalsRequest request, RequestOptions requestOptions) {
-        return this.rawClient.bloodOxygen(userId, request, requestOptions).body();
-    }
-
-    public List<ClientFacingElectrocardiogramVoltageTimeseries> electrocardiogramVoltage(
-            String userId, ElectrocardiogramVoltageVitalsRequest request) {
-        return this.rawClient.electrocardiogramVoltage(userId, request).body();
-    }
-
-    public List<ClientFacingElectrocardiogramVoltageTimeseries> electrocardiogramVoltage(
-            String userId, ElectrocardiogramVoltageVitalsRequest request, RequestOptions requestOptions) {
-        return this.rawClient
-                .electrocardiogramVoltage(userId, request, requestOptions)
-                .body();
-    }
-
-    public List<ClientFacingBloodPressureTimeseries> bloodPressure(String userId, BloodPressureVitalsRequest request) {
-        return this.rawClient.bloodPressure(userId, request).body();
-    }
-
-    public List<ClientFacingBloodPressureTimeseries> bloodPressure(
-            String userId, BloodPressureVitalsRequest request, RequestOptions requestOptions) {
-        return this.rawClient.bloodPressure(userId, request, requestOptions).body();
     }
 }

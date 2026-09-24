@@ -37,42 +37,44 @@ public final class UnnestExprUnnest {
         } else if (this.type == 1) {
             return visitor.visit((DerivedReadinessColumnExpr) this.value);
         } else if (this.type == 2) {
-            return visitor.visit((ActivityColumnExpr) this.value);
+            return visitor.visit((ReliabilityColumnExpr) this.value);
         } else if (this.type == 3) {
-            return visitor.visit((WorkoutColumnExpr) this.value);
+            return visitor.visit((ActivityColumnExpr) this.value);
         } else if (this.type == 4) {
-            return visitor.visit((BodyColumnExpr) this.value);
+            return visitor.visit((WorkoutColumnExpr) this.value);
         } else if (this.type == 5) {
-            return visitor.visit((MealColumnExpr) this.value);
+            return visitor.visit((BodyColumnExpr) this.value);
         } else if (this.type == 6) {
-            return visitor.visit((MenstrualCycleColumnExpr) this.value);
+            return visitor.visit((MealColumnExpr) this.value);
         } else if (this.type == 7) {
-            return visitor.visit((ProfileColumnExpr) this.value);
+            return visitor.visit((MenstrualCycleColumnExpr) this.value);
         } else if (this.type == 8) {
-            return visitor.visit((SleepScoreValueMacroExpr) this.value);
+            return visitor.visit((ProfileColumnExpr) this.value);
         } else if (this.type == 9) {
-            return visitor.visit((ChronotypeValueMacroExpr) this.value);
+            return visitor.visit((SleepScoreValueMacroExpr) this.value);
         } else if (this.type == 10) {
-            return visitor.visit((AsleepAtValueMacroExpr) this.value);
+            return visitor.visit((ChronotypeValueMacroExpr) this.value);
         } else if (this.type == 11) {
-            return visitor.visit((AwakeAtValueMacroExpr) this.value);
+            return visitor.visit((AsleepAtValueMacroExpr) this.value);
         } else if (this.type == 12) {
-            return visitor.visit((AwakeningsValueMacroExpr) this.value);
+            return visitor.visit((AwakeAtValueMacroExpr) this.value);
         } else if (this.type == 13) {
-            return visitor.visit((UnrecognizedValueMacroExpr) this.value);
+            return visitor.visit((AwakeningsValueMacroExpr) this.value);
         } else if (this.type == 14) {
-            return visitor.visit((DiscreteTimeseriesExpr) this.value);
+            return visitor.visit((UnrecognizedValueMacroExpr) this.value);
         } else if (this.type == 15) {
-            return visitor.visit((IntervalTimeseriesExpr) this.value);
+            return visitor.visit((DiscreteTimeseriesExpr) this.value);
         } else if (this.type == 16) {
-            return visitor.visit((InsulinInjectionTimeseriesExpr) this.value);
+            return visitor.visit((IntervalTimeseriesExpr) this.value);
         } else if (this.type == 17) {
-            return visitor.visit((BloodPressureTimeseriesExpr) this.value);
+            return visitor.visit((InsulinInjectionTimeseriesExpr) this.value);
         } else if (this.type == 18) {
-            return visitor.visit((TemperatureTimeseriesExpr) this.value);
+            return visitor.visit((BloodPressureTimeseriesExpr) this.value);
         } else if (this.type == 19) {
-            return visitor.visit((WorkoutDurationTimeseriesExpr) this.value);
+            return visitor.visit((TemperatureTimeseriesExpr) this.value);
         } else if (this.type == 20) {
+            return visitor.visit((WorkoutDurationTimeseriesExpr) this.value);
+        } else if (this.type == 21) {
             return visitor.visit((NoteTimeseriesExpr) this.value);
         }
         throw new IllegalStateException("Failed to visit value. This should never happen.");
@@ -106,86 +108,92 @@ public final class UnnestExprUnnest {
         return new UnnestExprUnnest(value, 1);
     }
 
-    public static UnnestExprUnnest of(ActivityColumnExpr value) {
+    public static UnnestExprUnnest of(ReliabilityColumnExpr value) {
         return new UnnestExprUnnest(value, 2);
     }
 
-    public static UnnestExprUnnest of(WorkoutColumnExpr value) {
+    public static UnnestExprUnnest of(ActivityColumnExpr value) {
         return new UnnestExprUnnest(value, 3);
     }
 
-    public static UnnestExprUnnest of(BodyColumnExpr value) {
+    public static UnnestExprUnnest of(WorkoutColumnExpr value) {
         return new UnnestExprUnnest(value, 4);
     }
 
-    public static UnnestExprUnnest of(MealColumnExpr value) {
+    public static UnnestExprUnnest of(BodyColumnExpr value) {
         return new UnnestExprUnnest(value, 5);
     }
 
-    public static UnnestExprUnnest of(MenstrualCycleColumnExpr value) {
+    public static UnnestExprUnnest of(MealColumnExpr value) {
         return new UnnestExprUnnest(value, 6);
     }
 
-    public static UnnestExprUnnest of(ProfileColumnExpr value) {
+    public static UnnestExprUnnest of(MenstrualCycleColumnExpr value) {
         return new UnnestExprUnnest(value, 7);
     }
 
-    public static UnnestExprUnnest of(SleepScoreValueMacroExpr value) {
+    public static UnnestExprUnnest of(ProfileColumnExpr value) {
         return new UnnestExprUnnest(value, 8);
     }
 
-    public static UnnestExprUnnest of(ChronotypeValueMacroExpr value) {
+    public static UnnestExprUnnest of(SleepScoreValueMacroExpr value) {
         return new UnnestExprUnnest(value, 9);
     }
 
-    public static UnnestExprUnnest of(AsleepAtValueMacroExpr value) {
+    public static UnnestExprUnnest of(ChronotypeValueMacroExpr value) {
         return new UnnestExprUnnest(value, 10);
     }
 
-    public static UnnestExprUnnest of(AwakeAtValueMacroExpr value) {
+    public static UnnestExprUnnest of(AsleepAtValueMacroExpr value) {
         return new UnnestExprUnnest(value, 11);
     }
 
-    public static UnnestExprUnnest of(AwakeningsValueMacroExpr value) {
+    public static UnnestExprUnnest of(AwakeAtValueMacroExpr value) {
         return new UnnestExprUnnest(value, 12);
     }
 
-    public static UnnestExprUnnest of(UnrecognizedValueMacroExpr value) {
+    public static UnnestExprUnnest of(AwakeningsValueMacroExpr value) {
         return new UnnestExprUnnest(value, 13);
     }
 
-    public static UnnestExprUnnest of(DiscreteTimeseriesExpr value) {
+    public static UnnestExprUnnest of(UnrecognizedValueMacroExpr value) {
         return new UnnestExprUnnest(value, 14);
     }
 
-    public static UnnestExprUnnest of(IntervalTimeseriesExpr value) {
+    public static UnnestExprUnnest of(DiscreteTimeseriesExpr value) {
         return new UnnestExprUnnest(value, 15);
     }
 
-    public static UnnestExprUnnest of(InsulinInjectionTimeseriesExpr value) {
+    public static UnnestExprUnnest of(IntervalTimeseriesExpr value) {
         return new UnnestExprUnnest(value, 16);
     }
 
-    public static UnnestExprUnnest of(BloodPressureTimeseriesExpr value) {
+    public static UnnestExprUnnest of(InsulinInjectionTimeseriesExpr value) {
         return new UnnestExprUnnest(value, 17);
     }
 
-    public static UnnestExprUnnest of(TemperatureTimeseriesExpr value) {
+    public static UnnestExprUnnest of(BloodPressureTimeseriesExpr value) {
         return new UnnestExprUnnest(value, 18);
     }
 
-    public static UnnestExprUnnest of(WorkoutDurationTimeseriesExpr value) {
+    public static UnnestExprUnnest of(TemperatureTimeseriesExpr value) {
         return new UnnestExprUnnest(value, 19);
     }
 
-    public static UnnestExprUnnest of(NoteTimeseriesExpr value) {
+    public static UnnestExprUnnest of(WorkoutDurationTimeseriesExpr value) {
         return new UnnestExprUnnest(value, 20);
+    }
+
+    public static UnnestExprUnnest of(NoteTimeseriesExpr value) {
+        return new UnnestExprUnnest(value, 21);
     }
 
     public interface Visitor<T> {
         T visit(SleepColumnExpr value);
 
         T visit(DerivedReadinessColumnExpr value);
+
+        T visit(ReliabilityColumnExpr value);
 
         T visit(ActivityColumnExpr value);
 
@@ -243,6 +251,12 @@ public final class UnnestExprUnnest {
             if (value instanceof Map<?, ?> && ((Map<?, ?>) value).containsKey("derived_readiness")) {
                 try {
                     return of(ObjectMappers.JSON_MAPPER.convertValue(value, DerivedReadinessColumnExpr.class));
+                } catch (RuntimeException e) {
+                }
+            }
+            if (value instanceof Map<?, ?> && ((Map<?, ?>) value).containsKey("reliability")) {
+                try {
+                    return of(ObjectMappers.JSON_MAPPER.convertValue(value, ReliabilityColumnExpr.class));
                 } catch (RuntimeException e) {
                 }
             }

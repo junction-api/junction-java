@@ -36,12 +36,6 @@ public final class ClientFacingSource {
 
     private final Optional<String> workoutId;
 
-    private final Optional<String> name;
-
-    private final Optional<String> slug;
-
-    private final Optional<String> logo;
-
     private final Map<String, Object> additionalProperties;
 
     private ClientFacingSource(
@@ -51,9 +45,6 @@ public final class ClientFacingSource {
             Optional<String> deviceId,
             Optional<String> sport,
             Optional<String> workoutId,
-            Optional<String> name,
-            Optional<String> slug,
-            Optional<String> logo,
             Map<String, Object> additionalProperties) {
         this.provider = provider;
         this.type = type;
@@ -61,9 +52,6 @@ public final class ClientFacingSource {
         this.deviceId = deviceId;
         this.sport = sport;
         this.workoutId = workoutId;
-        this.name = name;
-        this.slug = slug;
-        this.logo = logo;
         this.additionalProperties = additionalProperties;
     }
 
@@ -130,30 +118,6 @@ public final class ClientFacingSource {
         return workoutId;
     }
 
-    /**
-     * @return Deprecated. Subject to removal after 1 Jan 2024.
-     */
-    @JsonProperty("name")
-    public Optional<String> getName() {
-        return name;
-    }
-
-    /**
-     * @return Deprecated. Use <code>provider</code> instead. Subject to removal after 1 Jan 2024.
-     */
-    @JsonProperty("slug")
-    public Optional<String> getSlug() {
-        return slug;
-    }
-
-    /**
-     * @return Deprecated. Subject to removal after 1 Jan 2024.
-     */
-    @JsonProperty("logo")
-    public Optional<String> getLogo() {
-        return logo;
-    }
-
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("app_id")
     private Optional<String> _getAppId() {
@@ -195,24 +159,12 @@ public final class ClientFacingSource {
                 && appId.equals(other.appId)
                 && deviceId.equals(other.deviceId)
                 && sport.equals(other.sport)
-                && workoutId.equals(other.workoutId)
-                && name.equals(other.name)
-                && slug.equals(other.slug)
-                && logo.equals(other.logo);
+                && workoutId.equals(other.workoutId);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(
-                this.provider,
-                this.type,
-                this.appId,
-                this.deviceId,
-                this.sport,
-                this.workoutId,
-                this.name,
-                this.slug,
-                this.logo);
+        return Objects.hash(this.provider, this.type, this.appId, this.deviceId, this.sport, this.workoutId);
     }
 
     @java.lang.Override
@@ -285,38 +237,11 @@ public final class ClientFacingSource {
         _FinalStage workoutId(String workoutId);
 
         _FinalStage workoutId(Nullable<String> workoutId);
-
-        /**
-         * <p>Deprecated. Subject to removal after 1 Jan 2024.</p>
-         */
-        _FinalStage name(Optional<String> name);
-
-        _FinalStage name(String name);
-
-        /**
-         * <p>Deprecated. Use <code>provider</code> instead. Subject to removal after 1 Jan 2024.</p>
-         */
-        _FinalStage slug(Optional<String> slug);
-
-        _FinalStage slug(String slug);
-
-        /**
-         * <p>Deprecated. Subject to removal after 1 Jan 2024.</p>
-         */
-        _FinalStage logo(Optional<String> logo);
-
-        _FinalStage logo(String logo);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements ProviderStage, _FinalStage {
         private String provider;
-
-        private Optional<String> logo = Optional.empty();
-
-        private Optional<String> slug = Optional.empty();
-
-        private Optional<String> name = Optional.empty();
 
         private Optional<String> workoutId = Optional.empty();
 
@@ -341,9 +266,6 @@ public final class ClientFacingSource {
             deviceId(other.getDeviceId());
             sport(other.getSport());
             workoutId(other.getWorkoutId());
-            name(other.getName());
-            slug(other.getSlug());
-            logo(other.getLogo());
             return this;
         }
 
@@ -355,66 +277,6 @@ public final class ClientFacingSource {
         @JsonSetter("provider")
         public _FinalStage provider(@NotNull String provider) {
             this.provider = Objects.requireNonNull(provider, "provider must not be null");
-            return this;
-        }
-
-        /**
-         * <p>Deprecated. Subject to removal after 1 Jan 2024.</p>
-         * @return Reference to {@code this} so that method calls can be chained together.
-         */
-        @java.lang.Override
-        public _FinalStage logo(String logo) {
-            this.logo = Optional.ofNullable(logo);
-            return this;
-        }
-
-        /**
-         * <p>Deprecated. Subject to removal after 1 Jan 2024.</p>
-         */
-        @java.lang.Override
-        @JsonSetter(value = "logo", nulls = Nulls.SKIP)
-        public _FinalStage logo(Optional<String> logo) {
-            this.logo = logo;
-            return this;
-        }
-
-        /**
-         * <p>Deprecated. Use <code>provider</code> instead. Subject to removal after 1 Jan 2024.</p>
-         * @return Reference to {@code this} so that method calls can be chained together.
-         */
-        @java.lang.Override
-        public _FinalStage slug(String slug) {
-            this.slug = Optional.ofNullable(slug);
-            return this;
-        }
-
-        /**
-         * <p>Deprecated. Use <code>provider</code> instead. Subject to removal after 1 Jan 2024.</p>
-         */
-        @java.lang.Override
-        @JsonSetter(value = "slug", nulls = Nulls.SKIP)
-        public _FinalStage slug(Optional<String> slug) {
-            this.slug = slug;
-            return this;
-        }
-
-        /**
-         * <p>Deprecated. Subject to removal after 1 Jan 2024.</p>
-         * @return Reference to {@code this} so that method calls can be chained together.
-         */
-        @java.lang.Override
-        public _FinalStage name(String name) {
-            this.name = Optional.ofNullable(name);
-            return this;
-        }
-
-        /**
-         * <p>Deprecated. Subject to removal after 1 Jan 2024.</p>
-         */
-        @java.lang.Override
-        @JsonSetter(value = "name", nulls = Nulls.SKIP)
-        public _FinalStage name(Optional<String> name) {
-            this.name = name;
             return this;
         }
 
@@ -593,8 +455,7 @@ public final class ClientFacingSource {
 
         @java.lang.Override
         public ClientFacingSource build() {
-            return new ClientFacingSource(
-                    provider, type, appId, deviceId, sport, workoutId, name, slug, logo, additionalProperties);
+            return new ClientFacingSource(provider, type, appId, deviceId, sport, workoutId, additionalProperties);
         }
 
         @java.lang.Override
