@@ -1,3 +1,11 @@
+## [2.1.0] - 2026-09-30
+### Added
+- **`LabTestsClient.listPromotions()`** and **`AsyncLabTestsClient.listPromotions()`** — new sync and async methods to retrieve a list of `LabTestPromotion` objects, with optional filtering via `ListPromotionsLabTestsRequest`.
+- **`LabTestsClient.getPromotionSource()`** and **`AsyncLabTestsClient.getPromotionSource()`** — new sync and async methods to retrieve the `LabTestPromotionSource` for a given lab test ID; also exposed on `RawLabTestsClient`.
+- **`LabTestPromotion`** and **`LabTestPromotionSource`** — new model types representing a lab test promotion record and its sandbox source, respectively.
+- **`CheckoutSessionAppointment`** — new type for attaching a PSC appointment slot to a checkout session; exposed via a new optional `appointment` field on `CreateCheckoutSessionBody`.
+- **`CreateLabTestRequest`** — new optional `sourceSandboxLabTestId` field added to the builder.
+
 ## 2.0.0 - 2026-09-24
 
 ### Added
