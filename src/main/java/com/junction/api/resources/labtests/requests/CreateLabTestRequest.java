@@ -43,6 +43,8 @@ public final class CreateLabTestRequest {
 
     private final Optional<Labs> labSlug;
 
+    private final Optional<String> sourceSandboxLabTestId;
+
     private final Map<String, Object> additionalProperties;
 
     private CreateLabTestRequest(
@@ -54,6 +56,7 @@ public final class CreateLabTestRequest {
             Optional<Boolean> fasting,
             Optional<String> labAccountId,
             Optional<Labs> labSlug,
+            Optional<String> sourceSandboxLabTestId,
             Map<String, Object> additionalProperties) {
         this.markerIds = markerIds;
         this.providerIds = providerIds;
@@ -63,6 +66,7 @@ public final class CreateLabTestRequest {
         this.fasting = fasting;
         this.labAccountId = labAccountId;
         this.labSlug = labSlug;
+        this.sourceSandboxLabTestId = sourceSandboxLabTestId;
         this.additionalProperties = additionalProperties;
     }
 
@@ -127,6 +131,14 @@ public final class CreateLabTestRequest {
         return labSlug;
     }
 
+    @JsonIgnore
+    public Optional<String> getSourceSandboxLabTestId() {
+        if (sourceSandboxLabTestId == null) {
+            return Optional.empty();
+        }
+        return sourceSandboxLabTestId;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("marker_ids")
     private Optional<List<Integer>> _getMarkerIds() {
@@ -157,6 +169,12 @@ public final class CreateLabTestRequest {
         return labSlug;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("source_sandbox_lab_test_id")
+    private Optional<String> _getSourceSandboxLabTestId() {
+        return sourceSandboxLabTestId;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -176,7 +194,8 @@ public final class CreateLabTestRequest {
                 && description.equals(other.description)
                 && fasting.equals(other.fasting)
                 && labAccountId.equals(other.labAccountId)
-                && labSlug.equals(other.labSlug);
+                && labSlug.equals(other.labSlug)
+                && sourceSandboxLabTestId.equals(other.sourceSandboxLabTestId);
     }
 
     @java.lang.Override
@@ -189,7 +208,8 @@ public final class CreateLabTestRequest {
                 this.description,
                 this.fasting,
                 this.labAccountId,
-                this.labSlug);
+                this.labSlug,
+                this.sourceSandboxLabTestId);
     }
 
     @java.lang.Override
@@ -257,6 +277,12 @@ public final class CreateLabTestRequest {
         _FinalStage labSlug(Labs labSlug);
 
         _FinalStage labSlug(Nullable<Labs> labSlug);
+
+        _FinalStage sourceSandboxLabTestId(Optional<String> sourceSandboxLabTestId);
+
+        _FinalStage sourceSandboxLabTestId(String sourceSandboxLabTestId);
+
+        _FinalStage sourceSandboxLabTestId(Nullable<String> sourceSandboxLabTestId);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -266,6 +292,8 @@ public final class CreateLabTestRequest {
         private LabTestCollectionMethod method;
 
         private String description;
+
+        private Optional<String> sourceSandboxLabTestId = Optional.empty();
 
         private Optional<Labs> labSlug = Optional.empty();
 
@@ -292,6 +320,7 @@ public final class CreateLabTestRequest {
             fasting(other.getFasting());
             labAccountId(other.getLabAccountId());
             labSlug(other.getLabSlug());
+            sourceSandboxLabTestId(other.getSourceSandboxLabTestId());
             return this;
         }
 
@@ -317,6 +346,31 @@ public final class CreateLabTestRequest {
         @JsonSetter("description")
         public _FinalStage description(@NotNull String description) {
             this.description = Objects.requireNonNull(description, "description must not be null");
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage sourceSandboxLabTestId(Nullable<String> sourceSandboxLabTestId) {
+            if (sourceSandboxLabTestId.isNull()) {
+                this.sourceSandboxLabTestId = null;
+            } else if (sourceSandboxLabTestId.isEmpty()) {
+                this.sourceSandboxLabTestId = Optional.empty();
+            } else {
+                this.sourceSandboxLabTestId = Optional.of(sourceSandboxLabTestId.get());
+            }
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage sourceSandboxLabTestId(String sourceSandboxLabTestId) {
+            this.sourceSandboxLabTestId = Optional.ofNullable(sourceSandboxLabTestId);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "source_sandbox_lab_test_id", nulls = Nulls.SKIP)
+        public _FinalStage sourceSandboxLabTestId(Optional<String> sourceSandboxLabTestId) {
+            this.sourceSandboxLabTestId = sourceSandboxLabTestId;
             return this;
         }
 
@@ -467,6 +521,7 @@ public final class CreateLabTestRequest {
                     fasting,
                     labAccountId,
                     labSlug,
+                    sourceSandboxLabTestId,
                     additionalProperties);
         }
 

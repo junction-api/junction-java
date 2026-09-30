@@ -45,6 +45,7 @@ import com.junction.api.resources.labtests.requests.GetOrdersLabTestsRequest;
 import com.junction.api.resources.labtests.requests.GetPaginatedLabTestsRequest;
 import com.junction.api.resources.labtests.requests.GetPhlebotomyAppointmentAvailabilityLabTestsRequest;
 import com.junction.api.resources.labtests.requests.GetPhlebotomyAppointmentLabTestsRequest;
+import com.junction.api.resources.labtests.requests.GetPromotionSourceLabTestsRequest;
 import com.junction.api.resources.labtests.requests.GetPscAppointmentAvailabilityLabTestsRequest;
 import com.junction.api.resources.labtests.requests.GetPscAppointmentLabTestsRequest;
 import com.junction.api.resources.labtests.requests.GetPscInfoLabTestsRequest;
@@ -54,6 +55,7 @@ import com.junction.api.resources.labtests.requests.GetResultRawLabTestsRequest;
 import com.junction.api.resources.labtests.requests.GetUnmatchedResultLabTestsRequest;
 import com.junction.api.resources.labtests.requests.GetUnmatchedResultTestLabTestsRequest;
 import com.junction.api.resources.labtests.requests.ImportOrderBody;
+import com.junction.api.resources.labtests.requests.ListPromotionsLabTestsRequest;
 import com.junction.api.resources.labtests.requests.ListUnmatchedResultsLabTestsRequest;
 import com.junction.api.resources.labtests.requests.RequestAppointmentRequest;
 import com.junction.api.resources.labtests.requests.ReschedulePhlebotomyAppointmentLabTestsRequest;
@@ -83,6 +85,8 @@ import com.junction.api.types.GetUnmatchedResultTestResponse;
 import com.junction.api.types.HttpValidationError;
 import com.junction.api.types.LabResultsMetadata;
 import com.junction.api.types.LabResultsRaw;
+import com.junction.api.types.LabTestPromotion;
+import com.junction.api.types.LabTestPromotionSource;
 import com.junction.api.types.LabTestResourcesResponse;
 import com.junction.api.types.ListUnmatchedResultResponse;
 import com.junction.api.types.ListUnmatchedResultTestCasesResponse;
@@ -1056,6 +1060,99 @@ public class AsyncRawLabTestsClient {
         return future;
     }
 
+    public CompletableFuture<JunctionHttpResponse<List<LabTestPromotion>>> listPromotions() {
+        return listPromotions(ListPromotionsLabTestsRequest.builder().build());
+    }
+
+    public CompletableFuture<JunctionHttpResponse<List<LabTestPromotion>>> listPromotions(
+            RequestOptions requestOptions) {
+        return listPromotions(ListPromotionsLabTestsRequest.builder().build(), requestOptions);
+    }
+
+    public CompletableFuture<JunctionHttpResponse<List<LabTestPromotion>>> listPromotions(
+            ListPromotionsLabTestsRequest request) {
+        return listPromotions(request, null);
+    }
+
+    public CompletableFuture<JunctionHttpResponse<List<LabTestPromotion>>> listPromotions(
+            ListPromotionsLabTestsRequest request, RequestOptions requestOptions) {
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+                .newBuilder()
+                .addPathSegments("v3/lab_test_promotion");
+        if (request.getSourceSandboxLabTestIds().isPresent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl,
+                    "source_sandbox_lab_test_ids",
+                    request.getSourceSandboxLabTestIds().get(),
+                    true);
+        }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
+        Request.Builder _requestBuilder = new Request.Builder()
+                .url(httpUrl.build())
+                .method("GET", null)
+                .headers(Headers.of(clientOptions.headers(requestOptions)))
+                .addHeader("Accept", "application/json");
+        Request okhttpRequest = _requestBuilder.build();
+        OkHttpClient client = clientOptions.httpClient();
+        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
+            client = clientOptions.httpClientWithTimeout(requestOptions);
+        }
+        if (requestOptions != null && requestOptions.getMaxRetries().isPresent()) {
+            okhttpRequest = okhttpRequest
+                    .newBuilder()
+                    .tag(
+                            RetryInterceptor.MaxRetriesOverride.class,
+                            new RetryInterceptor.MaxRetriesOverride(
+                                    requestOptions.getMaxRetries().get()))
+                    .build();
+        }
+        CompletableFuture<JunctionHttpResponse<List<LabTestPromotion>>> future = new CompletableFuture<>();
+        client.newCall(okhttpRequest).enqueue(new Callback() {
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                try (ResponseBody responseBody = response.body()) {
+                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
+                    if (response.isSuccessful()) {
+                        future.complete(new JunctionHttpResponse<>(
+                                ObjectMappers.JSON_MAPPER.readValue(
+                                        responseBodyString, new TypeReference<List<LabTestPromotion>>() {}),
+                                response));
+                        return;
+                    }
+                    try {
+                        if (response.code() == 422) {
+                            future.completeExceptionally(new UnprocessableEntityError(
+                                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, HttpValidationError.class),
+                                    response));
+                            return;
+                        }
+                    } catch (JsonProcessingException ignored) {
+                        // unable to map error response, throwing generic error
+                    }
+                    Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
+                    future.completeExceptionally(new ApiError(
+                            "Error with status code " + response.code(), response.code(), errorBody, response));
+                    return;
+                } catch (JsonProcessingException e) {
+                    future.completeExceptionally(
+                            new JunctionException("Failed to deserialize response: " + e.getMessage(), e));
+                } catch (IOException e) {
+                    future.completeExceptionally(new JunctionException("Network error executing HTTP request", e));
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                future.completeExceptionally(new JunctionException("Network error executing HTTP request", e));
+            }
+        });
+        return future;
+    }
+
     public CompletableFuture<JunctionHttpResponse<EstimateOrderSetPricingResponse>> estimateOrderSetPricing(
             EstimateOrderSetPricingBody request) {
         return estimateOrderSetPricing(request, null);
@@ -1353,6 +1450,95 @@ public class AsyncRawLabTestsClient {
                         return;
                     }
                     String responseBodyString = responseBody != null ? responseBody.string() : "{}";
+                    try {
+                        if (response.code() == 422) {
+                            future.completeExceptionally(new UnprocessableEntityError(
+                                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, HttpValidationError.class),
+                                    response));
+                            return;
+                        }
+                    } catch (JsonProcessingException ignored) {
+                        // unable to map error response, throwing generic error
+                    }
+                    Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
+                    future.completeExceptionally(new ApiError(
+                            "Error with status code " + response.code(), response.code(), errorBody, response));
+                    return;
+                } catch (JsonProcessingException e) {
+                    future.completeExceptionally(
+                            new JunctionException("Failed to deserialize response: " + e.getMessage(), e));
+                } catch (IOException e) {
+                    future.completeExceptionally(new JunctionException("Network error executing HTTP request", e));
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                future.completeExceptionally(new JunctionException("Network error executing HTTP request", e));
+            }
+        });
+        return future;
+    }
+
+    public CompletableFuture<JunctionHttpResponse<LabTestPromotionSource>> getPromotionSource(String labTestId) {
+        return getPromotionSource(
+                labTestId, GetPromotionSourceLabTestsRequest.builder().build());
+    }
+
+    public CompletableFuture<JunctionHttpResponse<LabTestPromotionSource>> getPromotionSource(
+            String labTestId, RequestOptions requestOptions) {
+        return getPromotionSource(
+                labTestId, GetPromotionSourceLabTestsRequest.builder().build(), requestOptions);
+    }
+
+    public CompletableFuture<JunctionHttpResponse<LabTestPromotionSource>> getPromotionSource(
+            String labTestId, GetPromotionSourceLabTestsRequest request) {
+        return getPromotionSource(labTestId, request, null);
+    }
+
+    public CompletableFuture<JunctionHttpResponse<LabTestPromotionSource>> getPromotionSource(
+            String labTestId, GetPromotionSourceLabTestsRequest request, RequestOptions requestOptions) {
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+                .newBuilder()
+                .addPathSegments("v3/lab_test")
+                .addPathSegment(labTestId)
+                .addPathSegments("promotion_source");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
+        Request.Builder _requestBuilder = new Request.Builder()
+                .url(httpUrl.build())
+                .method("GET", null)
+                .headers(Headers.of(clientOptions.headers(requestOptions)))
+                .addHeader("Accept", "application/json");
+        Request okhttpRequest = _requestBuilder.build();
+        OkHttpClient client = clientOptions.httpClient();
+        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
+            client = clientOptions.httpClientWithTimeout(requestOptions);
+        }
+        if (requestOptions != null && requestOptions.getMaxRetries().isPresent()) {
+            okhttpRequest = okhttpRequest
+                    .newBuilder()
+                    .tag(
+                            RetryInterceptor.MaxRetriesOverride.class,
+                            new RetryInterceptor.MaxRetriesOverride(
+                                    requestOptions.getMaxRetries().get()))
+                    .build();
+        }
+        CompletableFuture<JunctionHttpResponse<LabTestPromotionSource>> future = new CompletableFuture<>();
+        client.newCall(okhttpRequest).enqueue(new Callback() {
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                try (ResponseBody responseBody = response.body()) {
+                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
+                    if (response.isSuccessful()) {
+                        future.complete(new JunctionHttpResponse<>(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, LabTestPromotionSource.class),
+                                response));
+                        return;
+                    }
                     try {
                         if (response.code() == 422) {
                             future.completeExceptionally(new UnprocessableEntityError(

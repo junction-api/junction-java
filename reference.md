@@ -8821,6 +8821,14 @@ client.labTests().create(
     
 </dd>
 </dl>
+
+<dl>
+<dd>
+
+**sourceSandboxLabTestId:** `Optional<String>` 
+    
+</dd>
+</dl>
 </dd>
 </dl>
 
@@ -9351,6 +9359,53 @@ client.labTests().getLabs();
 </dl>
 </details>
 
+<details><summary><code>client.labTests.listPromotions() -> List&amp;lt;LabTestPromotion&amp;gt;</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.labTests().listPromotions(
+    ListPromotionsLabTestsRequest
+        .builder()
+        .sourceSandboxLabTestIds(
+            Arrays.asList("source_sandbox_lab_test_ids")
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sourceSandboxLabTestIds:** `Optional<String>` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.labTests.estimateOrderSetPricing(request) -> EstimateOrderSetPricingResponse</code></summary>
 <dl>
 <dd>
@@ -9615,6 +9670,51 @@ client.labTests().getPaginated(
 client.labTests().getLabTestCollectionInstructionPdf(
     "lab_test_id",
     GetLabTestCollectionInstructionPdfLabTestsRequest
+        .builder()
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**labTestId:** `String` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.labTests.getPromotionSource(labTestId) -> LabTestPromotionSource</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.labTests().getPromotionSource(
+    "lab_test_id",
+    GetPromotionSourceLabTestsRequest
         .builder()
         .build()
 );
@@ -13888,6 +13988,14 @@ client.checkout().createCheckoutSession(
 <dd>
 
 **patientAddress:** `PatientAddressWithValidation` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**appointment:** `Optional<CheckoutSessionAppointment>` 
     
 </dd>
 </dl>

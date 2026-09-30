@@ -33,6 +33,7 @@ import com.junction.api.resources.labtests.requests.GetOrdersLabTestsRequest;
 import com.junction.api.resources.labtests.requests.GetPaginatedLabTestsRequest;
 import com.junction.api.resources.labtests.requests.GetPhlebotomyAppointmentAvailabilityLabTestsRequest;
 import com.junction.api.resources.labtests.requests.GetPhlebotomyAppointmentLabTestsRequest;
+import com.junction.api.resources.labtests.requests.GetPromotionSourceLabTestsRequest;
 import com.junction.api.resources.labtests.requests.GetPscAppointmentAvailabilityLabTestsRequest;
 import com.junction.api.resources.labtests.requests.GetPscAppointmentLabTestsRequest;
 import com.junction.api.resources.labtests.requests.GetPscInfoLabTestsRequest;
@@ -42,6 +43,7 @@ import com.junction.api.resources.labtests.requests.GetResultRawLabTestsRequest;
 import com.junction.api.resources.labtests.requests.GetUnmatchedResultLabTestsRequest;
 import com.junction.api.resources.labtests.requests.GetUnmatchedResultTestLabTestsRequest;
 import com.junction.api.resources.labtests.requests.ImportOrderBody;
+import com.junction.api.resources.labtests.requests.ListPromotionsLabTestsRequest;
 import com.junction.api.resources.labtests.requests.ListUnmatchedResultsLabTestsRequest;
 import com.junction.api.resources.labtests.requests.RequestAppointmentRequest;
 import com.junction.api.resources.labtests.requests.ReschedulePhlebotomyAppointmentLabTestsRequest;
@@ -70,6 +72,8 @@ import com.junction.api.types.GetUnmatchedResultResponse;
 import com.junction.api.types.GetUnmatchedResultTestResponse;
 import com.junction.api.types.LabResultsMetadata;
 import com.junction.api.types.LabResultsRaw;
+import com.junction.api.types.LabTestPromotion;
+import com.junction.api.types.LabTestPromotionSource;
 import com.junction.api.types.LabTestResourcesResponse;
 import com.junction.api.types.ListUnmatchedResultResponse;
 import com.junction.api.types.ListUnmatchedResultTestCasesResponse;
@@ -312,6 +316,22 @@ public class LabTestsClient {
         return this.rawClient.getLabs(requestOptions).body();
     }
 
+    public List<LabTestPromotion> listPromotions() {
+        return this.rawClient.listPromotions().body();
+    }
+
+    public List<LabTestPromotion> listPromotions(RequestOptions requestOptions) {
+        return this.rawClient.listPromotions(requestOptions).body();
+    }
+
+    public List<LabTestPromotion> listPromotions(ListPromotionsLabTestsRequest request) {
+        return this.rawClient.listPromotions(request).body();
+    }
+
+    public List<LabTestPromotion> listPromotions(ListPromotionsLabTestsRequest request, RequestOptions requestOptions) {
+        return this.rawClient.listPromotions(request, requestOptions).body();
+    }
+
     public EstimateOrderSetPricingResponse estimateOrderSetPricing(EstimateOrderSetPricingBody request) {
         return this.rawClient.estimateOrderSetPricing(request).body();
     }
@@ -372,6 +392,25 @@ public class LabTestsClient {
             RequestOptions requestOptions) {
         return this.rawClient
                 .getLabTestCollectionInstructionPdf(labTestId, request, requestOptions)
+                .body();
+    }
+
+    public LabTestPromotionSource getPromotionSource(String labTestId) {
+        return this.rawClient.getPromotionSource(labTestId).body();
+    }
+
+    public LabTestPromotionSource getPromotionSource(String labTestId, RequestOptions requestOptions) {
+        return this.rawClient.getPromotionSource(labTestId, requestOptions).body();
+    }
+
+    public LabTestPromotionSource getPromotionSource(String labTestId, GetPromotionSourceLabTestsRequest request) {
+        return this.rawClient.getPromotionSource(labTestId, request).body();
+    }
+
+    public LabTestPromotionSource getPromotionSource(
+            String labTestId, GetPromotionSourceLabTestsRequest request, RequestOptions requestOptions) {
+        return this.rawClient
+                .getPromotionSource(labTestId, request, requestOptions)
                 .body();
     }
 
