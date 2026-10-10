@@ -90,7 +90,7 @@ public final class ClientFacingHrvTimeseries {
     }
 
     /**
-     * @return Measured in rmssd.
+     * @return HRV method: sdnn for Apple HealthKit, rmssd for other providers. Values are measured in milliseconds.
      */
     @JsonProperty("unit")
     public String getUnit() {
@@ -106,7 +106,7 @@ public final class ClientFacingHrvTimeseries {
     }
 
     /**
-     * @return HRV calculated using rmssd during sleep
+     * @return Heart rate variability in milliseconds.
      */
     @JsonProperty("value")
     public double getValue() {
@@ -167,7 +167,7 @@ public final class ClientFacingHrvTimeseries {
 
     public interface UnitStage {
         /**
-         * <p>Measured in rmssd.</p>
+         * <p>HRV method: sdnn for Apple HealthKit, rmssd for other providers. Values are measured in milliseconds.</p>
          */
         TimestampStage unit(@NotNull String unit);
 
@@ -183,7 +183,7 @@ public final class ClientFacingHrvTimeseries {
 
     public interface ValueStage {
         /**
-         * <p>HRV calculated using rmssd during sleep</p>
+         * <p>Heart rate variability in milliseconds.</p>
          */
         _FinalStage value(double value);
     }
@@ -254,7 +254,7 @@ public final class ClientFacingHrvTimeseries {
         }
 
         /**
-         * <p>Measured in rmssd.</p>
+         * <p>HRV method: sdnn for Apple HealthKit, rmssd for other providers. Values are measured in milliseconds.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -276,7 +276,7 @@ public final class ClientFacingHrvTimeseries {
         }
 
         /**
-         * <p>HRV calculated using rmssd during sleep</p>
+         * <p>Heart rate variability in milliseconds.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

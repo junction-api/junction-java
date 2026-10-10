@@ -53,6 +53,16 @@ public final class ClientFacingSleep {
 
     private final int deep;
 
+    private final Optional<Integer> stageAsleepSecond;
+
+    private final Optional<Integer> stageAwakeSecond;
+
+    private final Optional<Integer> stageLightSecond;
+
+    private final Optional<Integer> stageRemSecond;
+
+    private final Optional<Integer> stageDeepSecond;
+
     private final Optional<Integer> score;
 
     private final Optional<Integer> recoveryReadinessScore;
@@ -104,6 +114,11 @@ public final class ClientFacingSleep {
             int light,
             int rem,
             int deep,
+            Optional<Integer> stageAsleepSecond,
+            Optional<Integer> stageAwakeSecond,
+            Optional<Integer> stageLightSecond,
+            Optional<Integer> stageRemSecond,
+            Optional<Integer> stageDeepSecond,
             Optional<Integer> score,
             Optional<Integer> recoveryReadinessScore,
             Optional<Integer> hrLowest,
@@ -136,6 +151,11 @@ public final class ClientFacingSleep {
         this.light = light;
         this.rem = rem;
         this.deep = deep;
+        this.stageAsleepSecond = stageAsleepSecond;
+        this.stageAwakeSecond = stageAwakeSecond;
+        this.stageLightSecond = stageLightSecond;
+        this.stageRemSecond = stageRemSecond;
+        this.stageDeepSecond = stageDeepSecond;
         this.score = score;
         this.recoveryReadinessScore = recoveryReadinessScore;
         this.hrLowest = hrLowest;
@@ -270,6 +290,46 @@ public final class ClientFacingSleep {
     @JsonProperty("deep")
     public int getDeep() {
         return deep;
+    }
+
+    @JsonIgnore
+    public Optional<Integer> getStageAsleepSecond() {
+        if (stageAsleepSecond == null) {
+            return Optional.empty();
+        }
+        return stageAsleepSecond;
+    }
+
+    @JsonIgnore
+    public Optional<Integer> getStageAwakeSecond() {
+        if (stageAwakeSecond == null) {
+            return Optional.empty();
+        }
+        return stageAwakeSecond;
+    }
+
+    @JsonIgnore
+    public Optional<Integer> getStageLightSecond() {
+        if (stageLightSecond == null) {
+            return Optional.empty();
+        }
+        return stageLightSecond;
+    }
+
+    @JsonIgnore
+    public Optional<Integer> getStageRemSecond() {
+        if (stageRemSecond == null) {
+            return Optional.empty();
+        }
+        return stageRemSecond;
+    }
+
+    @JsonIgnore
+    public Optional<Integer> getStageDeepSecond() {
+        if (stageDeepSecond == null) {
+            return Optional.empty();
+        }
+        return stageDeepSecond;
     }
 
     /**
@@ -448,6 +508,36 @@ public final class ClientFacingSleep {
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("stage_asleep_second")
+    private Optional<Integer> _getStageAsleepSecond() {
+        return stageAsleepSecond;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("stage_awake_second")
+    private Optional<Integer> _getStageAwakeSecond() {
+        return stageAwakeSecond;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("stage_light_second")
+    private Optional<Integer> _getStageLightSecond() {
+        return stageLightSecond;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("stage_rem_second")
+    private Optional<Integer> _getStageRemSecond() {
+        return stageRemSecond;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("stage_deep_second")
+    private Optional<Integer> _getStageDeepSecond() {
+        return stageDeepSecond;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("score")
     private Optional<Integer> _getScore() {
         return score;
@@ -557,6 +647,11 @@ public final class ClientFacingSleep {
                 && light == other.light
                 && rem == other.rem
                 && deep == other.deep
+                && stageAsleepSecond.equals(other.stageAsleepSecond)
+                && stageAwakeSecond.equals(other.stageAwakeSecond)
+                && stageLightSecond.equals(other.stageLightSecond)
+                && stageRemSecond.equals(other.stageRemSecond)
+                && stageDeepSecond.equals(other.stageDeepSecond)
                 && score.equals(other.score)
                 && recoveryReadinessScore.equals(other.recoveryReadinessScore)
                 && hrLowest.equals(other.hrLowest)
@@ -593,6 +688,11 @@ public final class ClientFacingSleep {
                 this.light,
                 this.rem,
                 this.deep,
+                this.stageAsleepSecond,
+                this.stageAwakeSecond,
+                this.stageLightSecond,
+                this.stageRemSecond,
+                this.stageDeepSecond,
                 this.score,
                 this.recoveryReadinessScore,
                 this.hrLowest,
@@ -745,6 +845,36 @@ public final class ClientFacingSleep {
         _FinalStage timezoneOffset(Integer timezoneOffset);
 
         _FinalStage timezoneOffset(Nullable<Integer> timezoneOffset);
+
+        _FinalStage stageAsleepSecond(Optional<Integer> stageAsleepSecond);
+
+        _FinalStage stageAsleepSecond(Integer stageAsleepSecond);
+
+        _FinalStage stageAsleepSecond(Nullable<Integer> stageAsleepSecond);
+
+        _FinalStage stageAwakeSecond(Optional<Integer> stageAwakeSecond);
+
+        _FinalStage stageAwakeSecond(Integer stageAwakeSecond);
+
+        _FinalStage stageAwakeSecond(Nullable<Integer> stageAwakeSecond);
+
+        _FinalStage stageLightSecond(Optional<Integer> stageLightSecond);
+
+        _FinalStage stageLightSecond(Integer stageLightSecond);
+
+        _FinalStage stageLightSecond(Nullable<Integer> stageLightSecond);
+
+        _FinalStage stageRemSecond(Optional<Integer> stageRemSecond);
+
+        _FinalStage stageRemSecond(Integer stageRemSecond);
+
+        _FinalStage stageRemSecond(Nullable<Integer> stageRemSecond);
+
+        _FinalStage stageDeepSecond(Optional<Integer> stageDeepSecond);
+
+        _FinalStage stageDeepSecond(Integer stageDeepSecond);
+
+        _FinalStage stageDeepSecond(Nullable<Integer> stageDeepSecond);
 
         /**
          * <p>A value between 1 and 100 representing how well the user slept. Currently only available for Withings, Oura, Whoop and Garmin::scalar</p>
@@ -949,6 +1079,16 @@ public final class ClientFacingSleep {
 
         private Optional<Integer> score = Optional.empty();
 
+        private Optional<Integer> stageDeepSecond = Optional.empty();
+
+        private Optional<Integer> stageRemSecond = Optional.empty();
+
+        private Optional<Integer> stageLightSecond = Optional.empty();
+
+        private Optional<Integer> stageAwakeSecond = Optional.empty();
+
+        private Optional<Integer> stageAsleepSecond = Optional.empty();
+
         private Optional<Integer> timezoneOffset = Optional.empty();
 
         @JsonAnySetter
@@ -972,6 +1112,11 @@ public final class ClientFacingSleep {
             light(other.getLight());
             rem(other.getRem());
             deep(other.getDeep());
+            stageAsleepSecond(other.getStageAsleepSecond());
+            stageAwakeSecond(other.getStageAwakeSecond());
+            stageLightSecond(other.getStageLightSecond());
+            stageRemSecond(other.getStageRemSecond());
+            stageDeepSecond(other.getStageDeepSecond());
             score(other.getScore());
             recoveryReadinessScore(other.getRecoveryReadinessScore());
             hrLowest(other.getHrLowest());
@@ -1653,6 +1798,131 @@ public final class ClientFacingSleep {
             return this;
         }
 
+        @java.lang.Override
+        public _FinalStage stageDeepSecond(Nullable<Integer> stageDeepSecond) {
+            if (stageDeepSecond.isNull()) {
+                this.stageDeepSecond = null;
+            } else if (stageDeepSecond.isEmpty()) {
+                this.stageDeepSecond = Optional.empty();
+            } else {
+                this.stageDeepSecond = Optional.of(stageDeepSecond.get());
+            }
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage stageDeepSecond(Integer stageDeepSecond) {
+            this.stageDeepSecond = Optional.ofNullable(stageDeepSecond);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "stage_deep_second", nulls = Nulls.SKIP)
+        public _FinalStage stageDeepSecond(Optional<Integer> stageDeepSecond) {
+            this.stageDeepSecond = stageDeepSecond;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage stageRemSecond(Nullable<Integer> stageRemSecond) {
+            if (stageRemSecond.isNull()) {
+                this.stageRemSecond = null;
+            } else if (stageRemSecond.isEmpty()) {
+                this.stageRemSecond = Optional.empty();
+            } else {
+                this.stageRemSecond = Optional.of(stageRemSecond.get());
+            }
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage stageRemSecond(Integer stageRemSecond) {
+            this.stageRemSecond = Optional.ofNullable(stageRemSecond);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "stage_rem_second", nulls = Nulls.SKIP)
+        public _FinalStage stageRemSecond(Optional<Integer> stageRemSecond) {
+            this.stageRemSecond = stageRemSecond;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage stageLightSecond(Nullable<Integer> stageLightSecond) {
+            if (stageLightSecond.isNull()) {
+                this.stageLightSecond = null;
+            } else if (stageLightSecond.isEmpty()) {
+                this.stageLightSecond = Optional.empty();
+            } else {
+                this.stageLightSecond = Optional.of(stageLightSecond.get());
+            }
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage stageLightSecond(Integer stageLightSecond) {
+            this.stageLightSecond = Optional.ofNullable(stageLightSecond);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "stage_light_second", nulls = Nulls.SKIP)
+        public _FinalStage stageLightSecond(Optional<Integer> stageLightSecond) {
+            this.stageLightSecond = stageLightSecond;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage stageAwakeSecond(Nullable<Integer> stageAwakeSecond) {
+            if (stageAwakeSecond.isNull()) {
+                this.stageAwakeSecond = null;
+            } else if (stageAwakeSecond.isEmpty()) {
+                this.stageAwakeSecond = Optional.empty();
+            } else {
+                this.stageAwakeSecond = Optional.of(stageAwakeSecond.get());
+            }
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage stageAwakeSecond(Integer stageAwakeSecond) {
+            this.stageAwakeSecond = Optional.ofNullable(stageAwakeSecond);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "stage_awake_second", nulls = Nulls.SKIP)
+        public _FinalStage stageAwakeSecond(Optional<Integer> stageAwakeSecond) {
+            this.stageAwakeSecond = stageAwakeSecond;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage stageAsleepSecond(Nullable<Integer> stageAsleepSecond) {
+            if (stageAsleepSecond.isNull()) {
+                this.stageAsleepSecond = null;
+            } else if (stageAsleepSecond.isEmpty()) {
+                this.stageAsleepSecond = Optional.empty();
+            } else {
+                this.stageAsleepSecond = Optional.of(stageAsleepSecond.get());
+            }
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage stageAsleepSecond(Integer stageAsleepSecond) {
+            this.stageAsleepSecond = Optional.ofNullable(stageAsleepSecond);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "stage_asleep_second", nulls = Nulls.SKIP)
+        public _FinalStage stageAsleepSecond(Optional<Integer> stageAsleepSecond) {
+            this.stageAsleepSecond = stageAsleepSecond;
+            return this;
+        }
+
         /**
          * <p>Timezone offset from UTC as seconds. For example, EEST (Eastern European Summer Time, +3h) is 10800. PST (Pacific Standard Time, -8h) is -28800::seconds</p>
          * @return Reference to {@code this} so that method calls can be chained together.
@@ -1706,6 +1976,11 @@ public final class ClientFacingSleep {
                     light,
                     rem,
                     deep,
+                    stageAsleepSecond,
+                    stageAwakeSecond,
+                    stageLightSecond,
+                    stageRemSecond,
+                    stageDeepSecond,
                     score,
                     recoveryReadinessScore,
                     hrLowest,

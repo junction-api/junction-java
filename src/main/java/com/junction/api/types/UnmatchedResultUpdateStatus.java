@@ -6,23 +6,19 @@ package com.junction.api.types;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-public final class MatchReviewStatusFilter {
-    public static final MatchReviewStatusFilter PENDING_CUSTOMER_REVIEW =
-            new MatchReviewStatusFilter(Value.PENDING_CUSTOMER_REVIEW, "pending_customer_review");
+public final class UnmatchedResultUpdateStatus {
+    public static final UnmatchedResultUpdateStatus PENDING_CUSTOMER_REVIEW =
+            new UnmatchedResultUpdateStatus(Value.PENDING_CUSTOMER_REVIEW, "pending_customer_review");
 
-    public static final MatchReviewStatusFilter PENDING_CUSTOMER_REVIEW_IN_PROGRESS = new MatchReviewStatusFilter(
-            Value.PENDING_CUSTOMER_REVIEW_IN_PROGRESS, "pending_customer_review:in_progress");
-
-    public static final MatchReviewStatusFilter PENDING_OPS_REVIEW =
-            new MatchReviewStatusFilter(Value.PENDING_OPS_REVIEW, "pending_ops_review");
-
-    public static final MatchReviewStatusFilter RESOLVED = new MatchReviewStatusFilter(Value.RESOLVED, "resolved");
+    public static final UnmatchedResultUpdateStatus PENDING_CUSTOMER_REVIEW_IN_PROGRESS =
+            new UnmatchedResultUpdateStatus(
+                    Value.PENDING_CUSTOMER_REVIEW_IN_PROGRESS, "pending_customer_review:in_progress");
 
     private final Value value;
 
     private final String string;
 
-    MatchReviewStatusFilter(Value value, String string) {
+    UnmatchedResultUpdateStatus(Value value, String string) {
         this.value = value;
         this.string = string;
     }
@@ -40,8 +36,8 @@ public final class MatchReviewStatusFilter {
     @java.lang.Override
     public boolean equals(Object other) {
         return (this == other)
-                || (other instanceof MatchReviewStatusFilter
-                        && this.string.equals(((MatchReviewStatusFilter) other).string));
+                || (other instanceof UnmatchedResultUpdateStatus
+                        && this.string.equals(((UnmatchedResultUpdateStatus) other).string));
     }
 
     @java.lang.Override
@@ -55,10 +51,6 @@ public final class MatchReviewStatusFilter {
                 return visitor.visitPendingCustomerReview();
             case PENDING_CUSTOMER_REVIEW_IN_PROGRESS:
                 return visitor.visitPendingCustomerReviewInProgress();
-            case PENDING_OPS_REVIEW:
-                return visitor.visitPendingOpsReview();
-            case RESOLVED:
-                return visitor.visitResolved();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -66,18 +58,14 @@ public final class MatchReviewStatusFilter {
     }
 
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
-    public static MatchReviewStatusFilter valueOf(String value) {
+    public static UnmatchedResultUpdateStatus valueOf(String value) {
         switch (value) {
             case "pending_customer_review":
                 return PENDING_CUSTOMER_REVIEW;
             case "pending_customer_review:in_progress":
                 return PENDING_CUSTOMER_REVIEW_IN_PROGRESS;
-            case "pending_ops_review":
-                return PENDING_OPS_REVIEW;
-            case "resolved":
-                return RESOLVED;
             default:
-                return new MatchReviewStatusFilter(Value.UNKNOWN, value);
+                return new UnmatchedResultUpdateStatus(Value.UNKNOWN, value);
         }
     }
 
@@ -86,10 +74,6 @@ public final class MatchReviewStatusFilter {
 
         PENDING_CUSTOMER_REVIEW_IN_PROGRESS,
 
-        PENDING_OPS_REVIEW,
-
-        RESOLVED,
-
         UNKNOWN
     }
 
@@ -97,10 +81,6 @@ public final class MatchReviewStatusFilter {
         T visitPendingCustomerReview();
 
         T visitPendingCustomerReviewInProgress();
-
-        T visitPendingOpsReview();
-
-        T visitResolved();
 
         T visitUnknown(String unknownType);
     }

@@ -33,6 +33,8 @@ public final class ClientFacingOrder {
 
     private final String teamId;
 
+    private final Optional<String> labAccountId;
+
     private final Optional<ClientFacingPatientDetailsCompatible> patientDetails;
 
     private final Optional<PatientAddressCompatible> patientAddress;
@@ -95,6 +97,7 @@ public final class ClientFacingOrder {
             String userId,
             String id,
             String teamId,
+            Optional<String> labAccountId,
             Optional<ClientFacingPatientDetailsCompatible> patientDetails,
             Optional<PatientAddressCompatible> patientAddress,
             ClientFacingLabTest labTest,
@@ -127,6 +130,7 @@ public final class ClientFacingOrder {
         this.userId = userId;
         this.id = id;
         this.teamId = teamId;
+        this.labAccountId = labAccountId;
         this.patientDetails = patientDetails;
         this.patientAddress = patientAddress;
         this.labTest = labTest;
@@ -180,6 +184,14 @@ public final class ClientFacingOrder {
     @JsonProperty("team_id")
     public String getTeamId() {
         return teamId;
+    }
+
+    @JsonIgnore
+    public Optional<String> getLabAccountId() {
+        if (labAccountId == null) {
+            return Optional.empty();
+        }
+        return labAccountId;
     }
 
     /**
@@ -443,6 +455,12 @@ public final class ClientFacingOrder {
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("lab_account_id")
+    private Optional<String> _getLabAccountId() {
+        return labAccountId;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("patient_details")
     private Optional<ClientFacingPatientDetailsCompatible> _getPatientDetails() {
         return patientDetails;
@@ -571,6 +589,7 @@ public final class ClientFacingOrder {
         return userId.equals(other.userId)
                 && id.equals(other.id)
                 && teamId.equals(other.teamId)
+                && labAccountId.equals(other.labAccountId)
                 && patientDetails.equals(other.patientDetails)
                 && patientAddress.equals(other.patientAddress)
                 && labTest.equals(other.labTest)
@@ -607,6 +626,7 @@ public final class ClientFacingOrder {
                 this.userId,
                 this.id,
                 this.teamId,
+                this.labAccountId,
                 this.patientDetails,
                 this.patientAddress,
                 this.labTest,
@@ -714,6 +734,12 @@ public final class ClientFacingOrder {
         _FinalStage additionalProperty(String key, Object value);
 
         _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
+        _FinalStage labAccountId(Optional<String> labAccountId);
+
+        _FinalStage labAccountId(String labAccountId);
+
+        _FinalStage labAccountId(Nullable<String> labAccountId);
 
         /**
          * <p>Patient Details</p>
@@ -966,6 +992,8 @@ public final class ClientFacingOrder {
 
         private Optional<ClientFacingPatientDetailsCompatible> patientDetails = Optional.empty();
 
+        private Optional<String> labAccountId = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -976,6 +1004,7 @@ public final class ClientFacingOrder {
             userId(other.getUserId());
             id(other.getId());
             teamId(other.getTeamId());
+            labAccountId(other.getLabAccountId());
             patientDetails(other.getPatientDetails());
             patientAddress(other.getPatientAddress());
             labTest(other.getLabTest());
@@ -1796,11 +1825,37 @@ public final class ClientFacingOrder {
         }
 
         @java.lang.Override
+        public _FinalStage labAccountId(Nullable<String> labAccountId) {
+            if (labAccountId.isNull()) {
+                this.labAccountId = null;
+            } else if (labAccountId.isEmpty()) {
+                this.labAccountId = Optional.empty();
+            } else {
+                this.labAccountId = Optional.of(labAccountId.get());
+            }
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage labAccountId(String labAccountId) {
+            this.labAccountId = Optional.ofNullable(labAccountId);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "lab_account_id", nulls = Nulls.SKIP)
+        public _FinalStage labAccountId(Optional<String> labAccountId) {
+            this.labAccountId = labAccountId;
+            return this;
+        }
+
+        @java.lang.Override
         public ClientFacingOrder build() {
             return new ClientFacingOrder(
                     userId,
                     id,
                     teamId,
+                    labAccountId,
                     patientDetails,
                     patientAddress,
                     labTest,
