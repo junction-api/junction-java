@@ -9351,6 +9351,53 @@ client.labTests().getLabs();
 </dl>
 </details>
 
+<details><summary><code>client.labTests.listPromotions() -> List&amp;lt;LabTestPromotion&amp;gt;</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.labTests().listPromotions(
+    ListPromotionsLabTestsRequest
+        .builder()
+        .sourceSandboxLabTestIds(
+            Arrays.asList("source_sandbox_lab_test_ids")
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sourceSandboxLabTestIds:** `Optional<String>` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.labTests.estimateOrderSetPricing(request) -> EstimateOrderSetPricingResponse</code></summary>
 <dl>
 <dd>
@@ -9599,6 +9646,69 @@ client.labTests().getPaginated(
 </dl>
 </details>
 
+<details><summary><code>client.labTests.getLabTestCollectionInstructions(labTestId) -> GetLabTestCollectionInstructionsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get the tube count for an at-home phlebotomy lab test.
+
+Requires enable_approxdraw_labcorp for Labcorp and enable_approxdraw for
+other labs. Labcorp reuses a saved count or refreshes it with an eligible
+account. Other labs may also generate and store a collection-instructions PDF.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.labTests().getLabTestCollectionInstructions(
+    "lab_test_id",
+    GetLabTestCollectionInstructionsLabTestsRequest
+        .builder()
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**labTestId:** `String` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.labTests.getLabTestCollectionInstructionPdf(labTestId) -> InputStream</code></summary>
 <dl>
 <dd>
@@ -9615,6 +9725,51 @@ client.labTests().getPaginated(
 client.labTests().getLabTestCollectionInstructionPdf(
     "lab_test_id",
     GetLabTestCollectionInstructionPdfLabTestsRequest
+        .builder()
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**labTestId:** `String` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.labTests.getPromotionSource(labTestId) -> LabTestPromotionSource</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.labTests().getPromotionSource(
+    "lab_test_id",
+    GetPromotionSourceLabTestsRequest
         .builder()
         .build()
 );
@@ -12421,7 +12576,7 @@ client.labTests().listUnmatchedResults(
 <dl>
 <dd>
 
-**status:** `Optional<MatchReviewStatusFilter>` — Filter by review status. `pending_customer_review` returns items awaiting your action; `pending_ops_review` returns items you have escalated for review.
+**status:** `Optional<MatchReviewStatusFilter>` — Filter by review status. `pending_customer_review` returns items awaiting your action; `pending_customer_review:in_progress` returns items your team is working on; `pending_ops_review` returns items you have escalated for review.
     
 </dd>
 </dl>
@@ -12457,7 +12612,7 @@ client.labTests().listUnmatchedResults(
 </dl>
 </details>
 
-<details><summary><code>client.labTests.getUnmatchedResult(rawResultId) -> GetUnmatchedResultResponse</code></summary>
+<details><summary><code>client.labTests.getUnmatchedResult(rawResultId) -> UnmatchedResult</code></summary>
 <dl>
 <dd>
 
@@ -12622,6 +12777,130 @@ client.labTests().resolveUnmatchedResult(
 <dd>
 
 **note:** `Optional<String>` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.labTests.listUnmatchedResultUpdates(rawResultId) -> ListUnmatchedResultUpdatesResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.labTests().listUnmatchedResultUpdates(
+    "raw_result_id",
+    ListUnmatchedResultUpdatesLabTestsRequest
+        .builder()
+        .limit(1)
+        .nextCursor("next_cursor")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**rawResultId:** `String` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `Optional<Integer>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**nextCursor:** `Optional<String>` — The cursor for fetching the next page, or `null` to fetch the first page.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.labTests.createUnmatchedResultUpdate(rawResultId, request) -> UnmatchedResult</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.labTests().createUnmatchedResultUpdate(
+    "raw_result_id",
+    CreateUnmatchedResultUpdateBody
+        .builder()
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**rawResultId:** `String` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**note:** `Optional<String>` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**status:** `Optional<UnmatchedResultUpdateStatus>` — ℹ️ This enum is non-exhaustive.
     
 </dd>
 </dl>
@@ -13888,6 +14167,14 @@ client.checkout().createCheckoutSession(
 <dd>
 
 **patientAddress:** `PatientAddressWithValidation` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**appointment:** `Optional<CheckoutSessionAppointment>` 
     
 </dd>
 </dl>

@@ -48,8 +48,6 @@ public final class UnmatchedResult {
 
     private final Optional<String> note;
 
-    private final Optional<Boolean> isStale;
-
     private final Optional<MatchReviewResolutionAction> resolutionAction;
 
     private final Optional<String> resolvedUserId;
@@ -66,6 +64,12 @@ public final class UnmatchedResult {
 
     private final Optional<OffsetDateTime> reviewedAt;
 
+    private final Optional<String> latestActivityActorId;
+
+    private final Optional<UnmatchedResultLatestActivityActorType> latestActivityActorType;
+
+    private final Optional<OffsetDateTime> latestActivityAt;
+
     private final Map<String, Object> additionalProperties;
 
     private UnmatchedResult(
@@ -80,7 +84,6 @@ public final class UnmatchedResult {
             Optional<Interpretation> interpretation,
             Optional<ResultStatus> resultStatus,
             Optional<String> note,
-            Optional<Boolean> isStale,
             Optional<MatchReviewResolutionAction> resolutionAction,
             Optional<String> resolvedUserId,
             Optional<String> resolvedOrderId,
@@ -89,6 +92,9 @@ public final class UnmatchedResult {
             OffsetDateTime createdAt,
             OffsetDateTime updatedAt,
             Optional<OffsetDateTime> reviewedAt,
+            Optional<String> latestActivityActorId,
+            Optional<UnmatchedResultLatestActivityActorType> latestActivityActorType,
+            Optional<OffsetDateTime> latestActivityAt,
             Map<String, Object> additionalProperties) {
         this.id = id;
         this.status = status;
@@ -101,7 +107,6 @@ public final class UnmatchedResult {
         this.interpretation = interpretation;
         this.resultStatus = resultStatus;
         this.note = note;
-        this.isStale = isStale;
         this.resolutionAction = resolutionAction;
         this.resolvedUserId = resolvedUserId;
         this.resolvedOrderId = resolvedOrderId;
@@ -110,6 +115,9 @@ public final class UnmatchedResult {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.reviewedAt = reviewedAt;
+        this.latestActivityActorId = latestActivityActorId;
+        this.latestActivityActorType = latestActivityActorType;
+        this.latestActivityAt = latestActivityAt;
         this.additionalProperties = additionalProperties;
     }
 
@@ -192,11 +200,6 @@ public final class UnmatchedResult {
         return note;
     }
 
-    @JsonProperty("is_stale")
-    public Optional<Boolean> getIsStale() {
-        return isStale;
-    }
-
     /**
      * @return ℹ️ This enum is non-exhaustive.
      */
@@ -252,6 +255,33 @@ public final class UnmatchedResult {
         return reviewedAt;
     }
 
+    @JsonIgnore
+    public Optional<String> getLatestActivityActorId() {
+        if (latestActivityActorId == null) {
+            return Optional.empty();
+        }
+        return latestActivityActorId;
+    }
+
+    /**
+     * @return ℹ️ This enum is non-exhaustive.
+     */
+    @JsonIgnore
+    public Optional<UnmatchedResultLatestActivityActorType> getLatestActivityActorType() {
+        if (latestActivityActorType == null) {
+            return Optional.empty();
+        }
+        return latestActivityActorType;
+    }
+
+    @JsonIgnore
+    public Optional<OffsetDateTime> getLatestActivityAt() {
+        if (latestActivityAt == null) {
+            return Optional.empty();
+        }
+        return latestActivityAt;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("patient")
     private Optional<MatchReviewPatient> _getPatient() {
@@ -300,6 +330,24 @@ public final class UnmatchedResult {
         return reviewedAt;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("latest_activity_actor_id")
+    private Optional<String> _getLatestActivityActorId() {
+        return latestActivityActorId;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("latest_activity_actor_type")
+    private Optional<UnmatchedResultLatestActivityActorType> _getLatestActivityActorType() {
+        return latestActivityActorType;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("latest_activity_at")
+    private Optional<OffsetDateTime> _getLatestActivityAt() {
+        return latestActivityAt;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -323,7 +371,6 @@ public final class UnmatchedResult {
                 && interpretation.equals(other.interpretation)
                 && resultStatus.equals(other.resultStatus)
                 && note.equals(other.note)
-                && isStale.equals(other.isStale)
                 && resolutionAction.equals(other.resolutionAction)
                 && resolvedUserId.equals(other.resolvedUserId)
                 && resolvedOrderId.equals(other.resolvedOrderId)
@@ -331,7 +378,10 @@ public final class UnmatchedResult {
                 && candidateGroups.equals(other.candidateGroups)
                 && createdAt.equals(other.createdAt)
                 && updatedAt.equals(other.updatedAt)
-                && reviewedAt.equals(other.reviewedAt);
+                && reviewedAt.equals(other.reviewedAt)
+                && latestActivityActorId.equals(other.latestActivityActorId)
+                && latestActivityActorType.equals(other.latestActivityActorType)
+                && latestActivityAt.equals(other.latestActivityAt);
     }
 
     @java.lang.Override
@@ -348,7 +398,6 @@ public final class UnmatchedResult {
                 this.interpretation,
                 this.resultStatus,
                 this.note,
-                this.isStale,
                 this.resolutionAction,
                 this.resolvedUserId,
                 this.resolvedOrderId,
@@ -356,7 +405,10 @@ public final class UnmatchedResult {
                 this.candidateGroups,
                 this.createdAt,
                 this.updatedAt,
-                this.reviewedAt);
+                this.reviewedAt,
+                this.latestActivityActorId,
+                this.latestActivityActorType,
+                this.latestActivityAt);
     }
 
     @java.lang.Override
@@ -449,10 +501,6 @@ public final class UnmatchedResult {
 
         _FinalStage note(Nullable<String> note);
 
-        _FinalStage isStale(Optional<Boolean> isStale);
-
-        _FinalStage isStale(Boolean isStale);
-
         /**
          * <p>ℹ️ This enum is non-exhaustive.</p>
          */
@@ -487,6 +535,27 @@ public final class UnmatchedResult {
         _FinalStage reviewedAt(OffsetDateTime reviewedAt);
 
         _FinalStage reviewedAt(Nullable<OffsetDateTime> reviewedAt);
+
+        _FinalStage latestActivityActorId(Optional<String> latestActivityActorId);
+
+        _FinalStage latestActivityActorId(String latestActivityActorId);
+
+        _FinalStage latestActivityActorId(Nullable<String> latestActivityActorId);
+
+        /**
+         * <p>ℹ️ This enum is non-exhaustive.</p>
+         */
+        _FinalStage latestActivityActorType(Optional<UnmatchedResultLatestActivityActorType> latestActivityActorType);
+
+        _FinalStage latestActivityActorType(UnmatchedResultLatestActivityActorType latestActivityActorType);
+
+        _FinalStage latestActivityActorType(Nullable<UnmatchedResultLatestActivityActorType> latestActivityActorType);
+
+        _FinalStage latestActivityAt(Optional<OffsetDateTime> latestActivityAt);
+
+        _FinalStage latestActivityAt(OffsetDateTime latestActivityAt);
+
+        _FinalStage latestActivityAt(Nullable<OffsetDateTime> latestActivityAt);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -513,6 +582,12 @@ public final class UnmatchedResult {
 
         private OffsetDateTime updatedAt;
 
+        private Optional<OffsetDateTime> latestActivityAt = Optional.empty();
+
+        private Optional<UnmatchedResultLatestActivityActorType> latestActivityActorType = Optional.empty();
+
+        private Optional<String> latestActivityActorId = Optional.empty();
+
         private Optional<OffsetDateTime> reviewedAt = Optional.empty();
 
         private Optional<List<MatchReviewCandidateGroup>> candidateGroups = Optional.empty();
@@ -524,8 +599,6 @@ public final class UnmatchedResult {
         private Optional<String> resolvedUserId = Optional.empty();
 
         private Optional<MatchReviewResolutionAction> resolutionAction = Optional.empty();
-
-        private Optional<Boolean> isStale = Optional.empty();
 
         private Optional<String> note = Optional.empty();
 
@@ -557,7 +630,6 @@ public final class UnmatchedResult {
             interpretation(other.getInterpretation());
             resultStatus(other.getResultStatus());
             note(other.getNote());
-            isStale(other.getIsStale());
             resolutionAction(other.getResolutionAction());
             resolvedUserId(other.getResolvedUserId());
             resolvedOrderId(other.getResolvedOrderId());
@@ -566,6 +638,9 @@ public final class UnmatchedResult {
             createdAt(other.getCreatedAt());
             updatedAt(other.getUpdatedAt());
             reviewedAt(other.getReviewedAt());
+            latestActivityActorId(other.getLatestActivityActorId());
+            latestActivityActorType(other.getLatestActivityActorType());
+            latestActivityAt(other.getLatestActivityAt());
             return this;
         }
 
@@ -623,6 +698,94 @@ public final class UnmatchedResult {
         @JsonSetter("updated_at")
         public _FinalStage updatedAt(@NotNull OffsetDateTime updatedAt) {
             this.updatedAt = Objects.requireNonNull(updatedAt, "updatedAt must not be null");
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage latestActivityAt(Nullable<OffsetDateTime> latestActivityAt) {
+            if (latestActivityAt.isNull()) {
+                this.latestActivityAt = null;
+            } else if (latestActivityAt.isEmpty()) {
+                this.latestActivityAt = Optional.empty();
+            } else {
+                this.latestActivityAt = Optional.of(latestActivityAt.get());
+            }
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage latestActivityAt(OffsetDateTime latestActivityAt) {
+            this.latestActivityAt = Optional.ofNullable(latestActivityAt);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "latest_activity_at", nulls = Nulls.SKIP)
+        public _FinalStage latestActivityAt(Optional<OffsetDateTime> latestActivityAt) {
+            this.latestActivityAt = latestActivityAt;
+            return this;
+        }
+
+        /**
+         * <p>ℹ️ This enum is non-exhaustive.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage latestActivityActorType(
+                Nullable<UnmatchedResultLatestActivityActorType> latestActivityActorType) {
+            if (latestActivityActorType.isNull()) {
+                this.latestActivityActorType = null;
+            } else if (latestActivityActorType.isEmpty()) {
+                this.latestActivityActorType = Optional.empty();
+            } else {
+                this.latestActivityActorType = Optional.of(latestActivityActorType.get());
+            }
+            return this;
+        }
+
+        /**
+         * <p>ℹ️ This enum is non-exhaustive.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage latestActivityActorType(UnmatchedResultLatestActivityActorType latestActivityActorType) {
+            this.latestActivityActorType = Optional.ofNullable(latestActivityActorType);
+            return this;
+        }
+
+        /**
+         * <p>ℹ️ This enum is non-exhaustive.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "latest_activity_actor_type", nulls = Nulls.SKIP)
+        public _FinalStage latestActivityActorType(
+                Optional<UnmatchedResultLatestActivityActorType> latestActivityActorType) {
+            this.latestActivityActorType = latestActivityActorType;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage latestActivityActorId(Nullable<String> latestActivityActorId) {
+            if (latestActivityActorId.isNull()) {
+                this.latestActivityActorId = null;
+            } else if (latestActivityActorId.isEmpty()) {
+                this.latestActivityActorId = Optional.empty();
+            } else {
+                this.latestActivityActorId = Optional.of(latestActivityActorId.get());
+            }
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage latestActivityActorId(String latestActivityActorId) {
+            this.latestActivityActorId = Optional.ofNullable(latestActivityActorId);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "latest_activity_actor_id", nulls = Nulls.SKIP)
+        public _FinalStage latestActivityActorId(Optional<String> latestActivityActorId) {
+            this.latestActivityActorId = latestActivityActorId;
             return this;
         }
 
@@ -760,19 +923,6 @@ public final class UnmatchedResult {
         @JsonSetter(value = "resolution_action", nulls = Nulls.SKIP)
         public _FinalStage resolutionAction(Optional<MatchReviewResolutionAction> resolutionAction) {
             this.resolutionAction = resolutionAction;
-            return this;
-        }
-
-        @java.lang.Override
-        public _FinalStage isStale(Boolean isStale) {
-            this.isStale = Optional.ofNullable(isStale);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "is_stale", nulls = Nulls.SKIP)
-        public _FinalStage isStale(Optional<Boolean> isStale) {
-            this.isStale = isStale;
             return this;
         }
 
@@ -938,7 +1088,6 @@ public final class UnmatchedResult {
                     interpretation,
                     resultStatus,
                     note,
-                    isStale,
                     resolutionAction,
                     resolvedUserId,
                     resolvedOrderId,
@@ -947,6 +1096,9 @@ public final class UnmatchedResult {
                     createdAt,
                     updatedAt,
                     reviewedAt,
+                    latestActivityActorId,
+                    latestActivityActorType,
+                    latestActivityAt,
                     additionalProperties);
         }
 
