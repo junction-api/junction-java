@@ -10,6 +10,9 @@ public final class MatchReviewStatusFilter {
     public static final MatchReviewStatusFilter PENDING_CUSTOMER_REVIEW =
             new MatchReviewStatusFilter(Value.PENDING_CUSTOMER_REVIEW, "pending_customer_review");
 
+    public static final MatchReviewStatusFilter PENDING_CUSTOMER_REVIEW_IN_PROGRESS = new MatchReviewStatusFilter(
+            Value.PENDING_CUSTOMER_REVIEW_IN_PROGRESS, "pending_customer_review:in_progress");
+
     public static final MatchReviewStatusFilter PENDING_OPS_REVIEW =
             new MatchReviewStatusFilter(Value.PENDING_OPS_REVIEW, "pending_ops_review");
 
@@ -50,6 +53,8 @@ public final class MatchReviewStatusFilter {
         switch (value) {
             case PENDING_CUSTOMER_REVIEW:
                 return visitor.visitPendingCustomerReview();
+            case PENDING_CUSTOMER_REVIEW_IN_PROGRESS:
+                return visitor.visitPendingCustomerReviewInProgress();
             case PENDING_OPS_REVIEW:
                 return visitor.visitPendingOpsReview();
             case RESOLVED:
@@ -65,6 +70,8 @@ public final class MatchReviewStatusFilter {
         switch (value) {
             case "pending_customer_review":
                 return PENDING_CUSTOMER_REVIEW;
+            case "pending_customer_review:in_progress":
+                return PENDING_CUSTOMER_REVIEW_IN_PROGRESS;
             case "pending_ops_review":
                 return PENDING_OPS_REVIEW;
             case "resolved":
@@ -77,6 +84,8 @@ public final class MatchReviewStatusFilter {
     public enum Value {
         PENDING_CUSTOMER_REVIEW,
 
+        PENDING_CUSTOMER_REVIEW_IN_PROGRESS,
+
         PENDING_OPS_REVIEW,
 
         RESOLVED,
@@ -86,6 +95,8 @@ public final class MatchReviewStatusFilter {
 
     public interface Visitor<T> {
         T visitPendingCustomerReview();
+
+        T visitPendingCustomerReviewInProgress();
 
         T visitPendingOpsReview();
 

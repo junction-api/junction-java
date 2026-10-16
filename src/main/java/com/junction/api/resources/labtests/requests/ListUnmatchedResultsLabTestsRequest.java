@@ -106,7 +106,7 @@ public final class ListUnmatchedResultsLabTestsRequest {
     }
 
     /**
-     * @return Filter by review status. <code>pending_customer_review</code> returns items awaiting your action; <code>pending_ops_review</code> returns items you have escalated for review.
+     * @return Filter by review status. <code>pending_customer_review</code> returns items awaiting your action; <code>pending_customer_review:in_progress</code> returns items your team is working on; <code>pending_ops_review</code> returns items you have escalated for review.
      */
     @JsonIgnore
     public Optional<MatchReviewStatusFilter> getStatus() {
@@ -375,7 +375,7 @@ public final class ListUnmatchedResultsLabTestsRequest {
         }
 
         /**
-         * <p>Filter by review status. <code>pending_customer_review</code> returns items awaiting your action; <code>pending_ops_review</code> returns items you have escalated for review.</p>
+         * <p>Filter by review status. <code>pending_customer_review</code> returns items awaiting your action; <code>pending_customer_review:in_progress</code> returns items your team is working on; <code>pending_ops_review</code> returns items you have escalated for review.</p>
          */
         @JsonSetter(value = "status", nulls = Nulls.SKIP)
         public Builder status(Optional<MatchReviewStatusFilter> status) {

@@ -56,6 +56,8 @@ public final class ClientFacingMarkerComplete {
 
     private final List<ClientFacingResult> expectedResults;
 
+    private final Optional<List<ClientFacingMarkerComplete>> components;
+
     private final Map<String, Object> additionalProperties;
 
     private ClientFacingMarkerComplete(
@@ -74,6 +76,7 @@ public final class ClientFacingMarkerComplete {
             Optional<Integer> worstCaseTatDays,
             Optional<Boolean> isOrderable,
             List<ClientFacingResult> expectedResults,
+            Optional<List<ClientFacingMarkerComplete>> components,
             Map<String, Object> additionalProperties) {
         this.id = id;
         this.name = name;
@@ -90,6 +93,7 @@ public final class ClientFacingMarkerComplete {
         this.worstCaseTatDays = worstCaseTatDays;
         this.isOrderable = isOrderable;
         this.expectedResults = expectedResults;
+        this.components = components;
         this.additionalProperties = additionalProperties;
     }
 
@@ -201,6 +205,14 @@ public final class ClientFacingMarkerComplete {
         return expectedResults;
     }
 
+    @JsonIgnore
+    public Optional<List<ClientFacingMarkerComplete>> getComponents() {
+        if (components == null) {
+            return Optional.empty();
+        }
+        return components;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("description")
     private Optional<String> _getDescription() {
@@ -261,6 +273,12 @@ public final class ClientFacingMarkerComplete {
         return isOrderable;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("components")
+    private Optional<List<ClientFacingMarkerComplete>> _getComponents() {
+        return components;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -287,7 +305,8 @@ public final class ClientFacingMarkerComplete {
                 && commonTatDays.equals(other.commonTatDays)
                 && worstCaseTatDays.equals(other.worstCaseTatDays)
                 && isOrderable.equals(other.isOrderable)
-                && expectedResults.equals(other.expectedResults);
+                && expectedResults.equals(other.expectedResults)
+                && components.equals(other.components);
     }
 
     @java.lang.Override
@@ -307,7 +326,8 @@ public final class ClientFacingMarkerComplete {
                 this.commonTatDays,
                 this.worstCaseTatDays,
                 this.isOrderable,
-                this.expectedResults);
+                this.expectedResults,
+                this.components);
     }
 
     @java.lang.Override
@@ -412,6 +432,12 @@ public final class ClientFacingMarkerComplete {
         _FinalStage addExpectedResults(ClientFacingResult expectedResults);
 
         _FinalStage addAllExpectedResults(List<ClientFacingResult> expectedResults);
+
+        _FinalStage components(Optional<List<ClientFacingMarkerComplete>> components);
+
+        _FinalStage components(List<ClientFacingMarkerComplete> components);
+
+        _FinalStage components(Nullable<List<ClientFacingMarkerComplete>> components);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -421,6 +447,8 @@ public final class ClientFacingMarkerComplete {
         private String name;
 
         private String slug;
+
+        private Optional<List<ClientFacingMarkerComplete>> components = Optional.empty();
 
         private List<ClientFacingResult> expectedResults = new ArrayList<>();
 
@@ -468,6 +496,7 @@ public final class ClientFacingMarkerComplete {
             worstCaseTatDays(other.getWorstCaseTatDays());
             isOrderable(other.getIsOrderable());
             expectedResults(other.getExpectedResults());
+            components(other.getComponents());
             return this;
         }
 
@@ -489,6 +518,31 @@ public final class ClientFacingMarkerComplete {
         @JsonSetter("slug")
         public _FinalStage slug(@NotNull String slug) {
             this.slug = Objects.requireNonNull(slug, "slug must not be null");
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage components(Nullable<List<ClientFacingMarkerComplete>> components) {
+            if (components.isNull()) {
+                this.components = null;
+            } else if (components.isEmpty()) {
+                this.components = Optional.empty();
+            } else {
+                this.components = Optional.of(components.get());
+            }
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage components(List<ClientFacingMarkerComplete> components) {
+            this.components = Optional.ofNullable(components);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "components", nulls = Nulls.SKIP)
+        public _FinalStage components(Optional<List<ClientFacingMarkerComplete>> components) {
+            this.components = components;
             return this;
         }
 
@@ -808,6 +862,7 @@ public final class ClientFacingMarkerComplete {
                     worstCaseTatDays,
                     isOrderable,
                     expectedResults,
+                    components,
                     additionalProperties);
         }
 

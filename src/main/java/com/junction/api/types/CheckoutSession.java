@@ -90,6 +90,9 @@ public final class CheckoutSession {
         return payBefore;
     }
 
+    /**
+     * @return ID of the Stripe Checkout Session (<code>cs_...</code>) or PaymentIntent (<code>pi_...</code>) collecting payment. <code>null</code> until the payment resource is created.
+     */
     @JsonIgnore
     public Optional<String> getPaymentResourceId() {
         if (paymentResourceId == null) {
@@ -133,6 +136,9 @@ public final class CheckoutSession {
         return appointmentId;
     }
 
+    /**
+     * @return Stripe-hosted payment page URL, for the <code>checkout_session</code> payment method. Returned only by the create, get and confirm endpoints while <code>status</code> is <code>unpaid</code>; always <code>null</code> in webhooks.
+     */
     @JsonIgnore
     public Optional<String> getPaymentResourceUrl() {
         if (paymentResourceUrl == null) {
@@ -141,6 +147,9 @@ public final class CheckoutSession {
         return paymentResourceUrl;
     }
 
+    /**
+     * @return Client secret for confirming the Stripe PaymentIntent with Stripe.js, for the <code>payment_intent</code> payment method. Returned only by the create, get and confirm endpoints while <code>status</code> is <code>unpaid</code>; always <code>null</code> in webhooks.
+     */
     @JsonIgnore
     public Optional<String> getPaymentResourceClientSecret() {
         if (paymentResourceClientSecret == null) {
@@ -263,6 +272,9 @@ public final class CheckoutSession {
 
         _FinalStage additionalProperties(Map<String, Object> additionalProperties);
 
+        /**
+         * <p>ID of the Stripe Checkout Session (<code>cs_...</code>) or PaymentIntent (<code>pi_...</code>) collecting payment. <code>null</code> until the payment resource is created.</p>
+         */
         _FinalStage paymentResourceId(Optional<String> paymentResourceId);
 
         _FinalStage paymentResourceId(String paymentResourceId);
@@ -296,12 +308,18 @@ public final class CheckoutSession {
 
         _FinalStage appointmentId(Nullable<String> appointmentId);
 
+        /**
+         * <p>Stripe-hosted payment page URL, for the <code>checkout_session</code> payment method. Returned only by the create, get and confirm endpoints while <code>status</code> is <code>unpaid</code>; always <code>null</code> in webhooks.</p>
+         */
         _FinalStage paymentResourceUrl(Optional<String> paymentResourceUrl);
 
         _FinalStage paymentResourceUrl(String paymentResourceUrl);
 
         _FinalStage paymentResourceUrl(Nullable<String> paymentResourceUrl);
 
+        /**
+         * <p>Client secret for confirming the Stripe PaymentIntent with Stripe.js, for the <code>payment_intent</code> payment method. Returned only by the create, get and confirm endpoints while <code>status</code> is <code>unpaid</code>; always <code>null</code> in webhooks.</p>
+         */
         _FinalStage paymentResourceClientSecret(Optional<String> paymentResourceClientSecret);
 
         _FinalStage paymentResourceClientSecret(String paymentResourceClientSecret);
@@ -376,6 +394,10 @@ public final class CheckoutSession {
             return this;
         }
 
+        /**
+         * <p>Client secret for confirming the Stripe PaymentIntent with Stripe.js, for the <code>payment_intent</code> payment method. Returned only by the create, get and confirm endpoints while <code>status</code> is <code>unpaid</code>; always <code>null</code> in webhooks.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
         @java.lang.Override
         public _FinalStage paymentResourceClientSecret(Nullable<String> paymentResourceClientSecret) {
             if (paymentResourceClientSecret.isNull()) {
@@ -388,12 +410,19 @@ public final class CheckoutSession {
             return this;
         }
 
+        /**
+         * <p>Client secret for confirming the Stripe PaymentIntent with Stripe.js, for the <code>payment_intent</code> payment method. Returned only by the create, get and confirm endpoints while <code>status</code> is <code>unpaid</code>; always <code>null</code> in webhooks.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
         @java.lang.Override
         public _FinalStage paymentResourceClientSecret(String paymentResourceClientSecret) {
             this.paymentResourceClientSecret = Optional.ofNullable(paymentResourceClientSecret);
             return this;
         }
 
+        /**
+         * <p>Client secret for confirming the Stripe PaymentIntent with Stripe.js, for the <code>payment_intent</code> payment method. Returned only by the create, get and confirm endpoints while <code>status</code> is <code>unpaid</code>; always <code>null</code> in webhooks.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "payment_resource_client_secret", nulls = Nulls.SKIP)
         public _FinalStage paymentResourceClientSecret(Optional<String> paymentResourceClientSecret) {
@@ -401,6 +430,10 @@ public final class CheckoutSession {
             return this;
         }
 
+        /**
+         * <p>Stripe-hosted payment page URL, for the <code>checkout_session</code> payment method. Returned only by the create, get and confirm endpoints while <code>status</code> is <code>unpaid</code>; always <code>null</code> in webhooks.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
         @java.lang.Override
         public _FinalStage paymentResourceUrl(Nullable<String> paymentResourceUrl) {
             if (paymentResourceUrl.isNull()) {
@@ -413,12 +446,19 @@ public final class CheckoutSession {
             return this;
         }
 
+        /**
+         * <p>Stripe-hosted payment page URL, for the <code>checkout_session</code> payment method. Returned only by the create, get and confirm endpoints while <code>status</code> is <code>unpaid</code>; always <code>null</code> in webhooks.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
         @java.lang.Override
         public _FinalStage paymentResourceUrl(String paymentResourceUrl) {
             this.paymentResourceUrl = Optional.ofNullable(paymentResourceUrl);
             return this;
         }
 
+        /**
+         * <p>Stripe-hosted payment page URL, for the <code>checkout_session</code> payment method. Returned only by the create, get and confirm endpoints while <code>status</code> is <code>unpaid</code>; always <code>null</code> in webhooks.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "payment_resource_url", nulls = Nulls.SKIP)
         public _FinalStage paymentResourceUrl(Optional<String> paymentResourceUrl) {
@@ -537,6 +577,10 @@ public final class CheckoutSession {
             return this;
         }
 
+        /**
+         * <p>ID of the Stripe Checkout Session (<code>cs_...</code>) or PaymentIntent (<code>pi_...</code>) collecting payment. <code>null</code> until the payment resource is created.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
         @java.lang.Override
         public _FinalStage paymentResourceId(Nullable<String> paymentResourceId) {
             if (paymentResourceId.isNull()) {
@@ -549,12 +593,19 @@ public final class CheckoutSession {
             return this;
         }
 
+        /**
+         * <p>ID of the Stripe Checkout Session (<code>cs_...</code>) or PaymentIntent (<code>pi_...</code>) collecting payment. <code>null</code> until the payment resource is created.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
         @java.lang.Override
         public _FinalStage paymentResourceId(String paymentResourceId) {
             this.paymentResourceId = Optional.ofNullable(paymentResourceId);
             return this;
         }
 
+        /**
+         * <p>ID of the Stripe Checkout Session (<code>cs_...</code>) or PaymentIntent (<code>pi_...</code>) collecting payment. <code>null</code> until the payment resource is created.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "payment_resource_id", nulls = Nulls.SKIP)
         public _FinalStage paymentResourceId(Optional<String> paymentResourceId) {

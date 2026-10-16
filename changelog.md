@@ -1,3 +1,61 @@
+## [3.0.0] - 2026-10-16
+### Breaking Changes
+
+- **`GetUnmatchedResultResponse`** — public class removed; any code that references this type, its builder, or its staged builder interfaces (`IdStage`, `StatusStage`, `DecisionCodeStage`, etc.) will fail to compile. Remove usages or migrate to the replacement response type returned by the unmatched-result API.
+- **`AsyncLabTestsClient.getUnmatchedResult()`** — all overloads now return `CompletableFuture<UnmatchedResult>` instead of `CompletableFuture<GetUnmatchedResultResponse>`; update call sites to use `UnmatchedResult` and remove any references to `GetUnmatchedResultResponse`.
+- **`getUnmatchedResult`** — return type changed from `GetUnmatchedResultResponse` to `UnmatchedResult`; update all call sites to use `UnmatchedResult` instead of `GetUnmatchedResultResponse`.
+- **`getUnmatchedResult()`** — return type changed from `GetUnmatchedResultResponse` to `UnmatchedResult` across all overloads; update variable declarations and assignments to use `UnmatchedResult`.
+- **`getUnmatchedResult()`** — all overloads now return `JunctionHttpResponse<UnmatchedResult>` instead of `JunctionHttpResponse<GetUnmatchedResultResponse>`; update call sites to use `UnmatchedResult` and remove any references to `GetUnmatchedResultResponse`.
+- **`UnmatchedResult`** — `getIsStale()` and the `isStale()` builder methods have been removed. Remove any calls to these methods; there is no direct replacement.
+
+### Added
+
+- **`AsyncLabTestsClient.getVersionHistory()`** — new async methods to list immutable marker-set versions for a lab test.
+- **`AsyncLabTestsClient.listPromotions()` and `getPromotionSource()`** — new async methods for retrieving lab-test promotions and their sources.
+- **`AsyncLabTestsClient.getLabTestCollectionInstructions()`** — new async methods to retrieve tube count and collection-instructions PDF for at-home phlebotomy lab tests.
+- **`AsyncLabTestsClient.listUnmatchedResultUpdates()` and `createUnmatchedResultUpdate()`** — new async methods for managing unmatched result updates, plus an optional `appointment` field on `CreateCheckoutSessionBody`.
+- **`getVersionHistory()`** — retrieves the list of immutable marker-set versions for a given lab test.
+- **`listPromotions()` and `getPromotionSource()`** — new methods for querying lab-test promotions and their source information.
+- **`getLabTestCollectionInstructions()`** — retrieves tube count and collection-instructions data for at-home phlebotomy lab tests.
+- **`listUnmatchedResultUpdates()` and `createUnmatchedResultUpdate()`** — new methods for listing and creating updates on unmatched lab results.
+- **`getVersionHistory()`** — new overloads on `LabTestsClient` to list immutable marker-set versions for a given lab test.
+- **`listPromotions()` and `getPromotionSource()`** — new overloads to retrieve lab-test promotions and their promotion sources.
+- **`getLabTestCollectionInstructions()`** — new overloads to fetch tube counts and collection-instruction PDFs for at-home phlebotomy lab tests.
+- **`listUnmatchedResultUpdates()` and `createUnmatchedResultUpdate()`** — new overloads for listing and creating updates on unmatched lab results.
+- **`getVersionHistory()`** — new `RawLabTestsClient` methods to list immutable marker-set versions for a given lab test, with optional pagination via `GetVersionHistoryLabTestsRequest`.
+- **`listPromotions()` and `getPromotionSource()`** — new methods for retrieving lab-test promotions and their promotion source, returning `LabTestPromotion` and `LabTestPromotionSource` respectively.
+- **`getLabTestCollectionInstructions()`** — new methods to fetch tube count and collection instructions for at-home phlebotomy lab tests, returning `GetLabTestCollectionInstructionsResponse`.
+- **`listUnmatchedResultUpdates()` and `createUnmatchedResultUpdate()`** — new methods for managing updates on unmatched results, with `ListUnmatchedResultUpdatesResponse` and `UnmatchedResult` return types.
+- **`GetByIdLabTestsRequest.version`** — new optional `Integer` field to pin a specific immutable marker-set version when fetching a lab test by ID.
+- **`UnmatchedResult`** — new optional fields `latestActivityActorId`, `latestActivityActorType`, `latestActivityAt`, `accessionNumbers`, and `rawResultCollectionDates` for richer activity and lab-result metadata.
+- **`UpdateLabTestRequest`** — new optional builder fields `labAccountId`, `markerIds`, and `providerIds` to control lab account association and panel membership when updating a lab test.
+- **`ClientFacingMarkerComplete`** — new optional `components` field (`List<ClientFacingMarkerComplete>`) exposing recursive panel component markers.
+- **`OrderSetRequest`** — new optional `parameters` field (`OrderSetParameters`) for supplying order-set parameters at request time.
+- **`CreateUnmatchedResultUpdateBody`** — new request class for creating unmatched lab-result updates, with optional `note` and `status` fields.
+- **`ListUnmatchedResultUpdatesLabTestsRequest`** — new paginated request class for listing unmatched result updates, supporting `limit` and `nextCursor`.
+- **`GetPromotionSourceLabTestsRequest`**, **`ListPromotionsLabTestsRequest`**, **`GetVersionHistoryLabTestsRequest`** — new request classes for lab-test promotion-source lookup, promotion listing (with optional `sourceSandboxLabTestIds` filter), and cursor-paginated version history.
+- **`GetLabTestCollectionInstructionsLabTestsRequest`** — new request class for the lab-test collection-instructions endpoint.
+- **`CheckoutSessionAppointment`** — new model representing a PSC appointment attached to a checkout session, with `bookingKey`, `appointmentNotes`, and optional `asyncConfirmationTimeoutMillisecond` fields.
+- **`GetLabTestCollectionInstructionsResponse`** — new response model exposing `totalTubes` and `lab` for lab-test collection instructions.
+- **`GetLabTestVersionHistoryResponse`** — new paginated response model for lab-test version history, containing a list of `LabTestVersionSummary` and an optional `nextCursor`.
+- **`ClientFacingOrder.labAccountId`** — new optional `labAccountId` field on orders, accessible via `getLabAccountId()` and settable through the builder with `Optional<String>`, `String`, or `Nullable<String>` overloads.
+- **`ClientFacingSleep` sleep-stage seconds** — five new optional fields (`stageAsleepSecond`, `stageAwakeSecond`, `stageLightSecond`, `stageRemSecond`, `stageDeepSecond`) providing per-stage duration in seconds.
+- **`LabTestPromotion`** — new model representing a lab test promotion from sandbox to production, with source sandbox and production lab test ID fields.
+- **`LabTestPromotionSource`** — new model capturing lab test metadata (name, description, collection method, fasting, lab slug, provider IDs) used as the source for a promotion.
+- **`LabTestVersionSummary`** and **`LabTestVersionMarkerSummary`** — new models for tracking lab test version history and associated markers.
+- **`ListUnmatchedResultUpdatesResponse`** — new paginated response model for listing unmatched result updates, with optional `data` and `nextCursor` fields.
+- **`MatchReviewStatusFilter.PENDING_CUSTOMER_REVIEW_IN_PROGRESS`** — new filter constant, enum value, and `visitPendingCustomerReviewInProgress()` visitor method added to `MatchReviewStatusFilter`.
+- **`MatchReviewTransitionStatus`** — new enum representing the full set of match-review lifecycle states (`PENDING_CUSTOMER_REVIEW`, `PENDING_CUSTOMER_REVIEW_IN_PROGRESS`, `RESOLVED_REJECTED`, `RESOLVED_ACCEPTED`, `PENDING_OPS_REVIEW`, `MATCHED`).
+- **`UnmatchedResultUpdate`** — new model capturing a status-transition event on an unmatched lab result, including `fromStatus`, `toStatus`, actor details, an optional note, and a `createdAt` timestamp.
+- **`UnmatchedResultUpdateActorType`** and **`UnmatchedResultUpdateStatus`** — new enums for classifying the actor (`CUSTOMER`, `API`) and pending-review status of an unmatched-result update.
+- **`UnmatchedResultLatestActivityActorType`** — new enum (`CUSTOMER`, `API`) for identifying the actor on the latest activity of an unmatched result.
+- **`OrderSetFastingRequirement`** and **`OrderSetParameters`** — new enum and model for specifying fasting requirements (`FASTING_REQUIRED`, `FASTING_NOT_REQUIRED`) on an order set.
+
+### Changed
+
+- **`CheckoutSession`** — `getPaymentResourceId()`, `getPaymentResourceUrl()`, and `getPaymentResourceClientSecret()` now carry detailed Javadoc describing their Stripe semantics and nullability rules.
+- **`ClientFacingHrvTimeseries`** — `getUnit()` and `getValue()` Javadoc updated to reflect that the HRV method is `sdnn` for Apple HealthKit and `rmssd` for other providers, with values in milliseconds.
+
 ## 2.0.0 - 2026-09-24
 
 ### Added

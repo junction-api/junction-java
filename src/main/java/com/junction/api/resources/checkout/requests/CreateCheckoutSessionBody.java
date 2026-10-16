@@ -10,9 +10,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.junction.api.core.Nullable;
+import com.junction.api.core.NullableNonemptyFilter;
 import com.junction.api.core.ObjectMappers;
+import com.junction.api.types.CheckoutSessionAppointment;
 import com.junction.api.types.CheckoutSessionPayment;
 import com.junction.api.types.PatientAddressWithValidation;
 import com.junction.api.types.PatientDetailsWithValidation;
@@ -37,6 +40,8 @@ public final class CreateCheckoutSessionBody {
 
     private final PatientAddressWithValidation patientAddress;
 
+    private final Optional<CheckoutSessionAppointment> appointment;
+
     private final Map<String, Object> additionalProperties;
 
     private CreateCheckoutSessionBody(
@@ -46,6 +51,7 @@ public final class CreateCheckoutSessionBody {
             CheckoutSessionPayment payment,
             PatientDetailsWithValidation patientDetails,
             PatientAddressWithValidation patientAddress,
+            Optional<CheckoutSessionAppointment> appointment,
             Map<String, Object> additionalProperties) {
         this.idempotencyKey = idempotencyKey;
         this.quoteId = quoteId;
@@ -53,6 +59,7 @@ public final class CreateCheckoutSessionBody {
         this.payment = payment;
         this.patientDetails = patientDetails;
         this.patientAddress = patientAddress;
+        this.appointment = appointment;
         this.additionalProperties = additionalProperties;
     }
 
@@ -89,6 +96,20 @@ public final class CreateCheckoutSessionBody {
         return patientAddress;
     }
 
+    @JsonIgnore
+    public Optional<CheckoutSessionAppointment> getAppointment() {
+        if (appointment == null) {
+            return Optional.empty();
+        }
+        return appointment;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("appointment")
+    private Optional<CheckoutSessionAppointment> _getAppointment() {
+        return appointment;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -106,13 +127,20 @@ public final class CreateCheckoutSessionBody {
                 && userId.equals(other.userId)
                 && payment.equals(other.payment)
                 && patientDetails.equals(other.patientDetails)
-                && patientAddress.equals(other.patientAddress);
+                && patientAddress.equals(other.patientAddress)
+                && appointment.equals(other.appointment);
     }
 
     @java.lang.Override
     public int hashCode() {
         return Objects.hash(
-                this.idempotencyKey, this.quoteId, this.userId, this.payment, this.patientDetails, this.patientAddress);
+                this.idempotencyKey,
+                this.quoteId,
+                this.userId,
+                this.payment,
+                this.patientDetails,
+                this.patientAddress,
+                this.appointment);
     }
 
     @java.lang.Override
@@ -158,6 +186,12 @@ public final class CreateCheckoutSessionBody {
         _FinalStage idempotencyKey(String idempotencyKey);
 
         _FinalStage idempotencyKey(Nullable<String> idempotencyKey);
+
+        _FinalStage appointment(Optional<CheckoutSessionAppointment> appointment);
+
+        _FinalStage appointment(CheckoutSessionAppointment appointment);
+
+        _FinalStage appointment(Nullable<CheckoutSessionAppointment> appointment);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -172,6 +206,8 @@ public final class CreateCheckoutSessionBody {
         private PatientDetailsWithValidation patientDetails;
 
         private PatientAddressWithValidation patientAddress;
+
+        private Optional<CheckoutSessionAppointment> appointment = Optional.empty();
 
         private Optional<String> idempotencyKey = Optional.empty();
 
@@ -188,6 +224,7 @@ public final class CreateCheckoutSessionBody {
             payment(other.getPayment());
             patientDetails(other.getPatientDetails());
             patientAddress(other.getPatientAddress());
+            appointment(other.getAppointment());
             return this;
         }
 
@@ -227,6 +264,31 @@ public final class CreateCheckoutSessionBody {
         }
 
         @java.lang.Override
+        public _FinalStage appointment(Nullable<CheckoutSessionAppointment> appointment) {
+            if (appointment.isNull()) {
+                this.appointment = null;
+            } else if (appointment.isEmpty()) {
+                this.appointment = Optional.empty();
+            } else {
+                this.appointment = Optional.of(appointment.get());
+            }
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage appointment(CheckoutSessionAppointment appointment) {
+            this.appointment = Optional.ofNullable(appointment);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "appointment", nulls = Nulls.SKIP)
+        public _FinalStage appointment(Optional<CheckoutSessionAppointment> appointment) {
+            this.appointment = appointment;
+            return this;
+        }
+
+        @java.lang.Override
         public _FinalStage idempotencyKey(Nullable<String> idempotencyKey) {
             if (idempotencyKey.isNull()) {
                 this.idempotencyKey = null;
@@ -253,7 +315,14 @@ public final class CreateCheckoutSessionBody {
         @java.lang.Override
         public CreateCheckoutSessionBody build() {
             return new CreateCheckoutSessionBody(
-                    idempotencyKey, quoteId, userId, payment, patientDetails, patientAddress, additionalProperties);
+                    idempotencyKey,
+                    quoteId,
+                    userId,
+                    payment,
+                    patientDetails,
+                    patientAddress,
+                    appointment,
+                    additionalProperties);
         }
 
         @java.lang.Override

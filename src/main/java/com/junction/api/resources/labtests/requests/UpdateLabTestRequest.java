@@ -16,6 +16,7 @@ import com.junction.api.core.Nullable;
 import com.junction.api.core.NullableNonemptyFilter;
 import com.junction.api.core.ObjectMappers;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -27,12 +28,26 @@ public final class UpdateLabTestRequest {
 
     private final Optional<Boolean> active;
 
+    private final Optional<String> labAccountId;
+
+    private final Optional<List<Integer>> markerIds;
+
+    private final Optional<List<String>> providerIds;
+
     private final Map<String, Object> additionalProperties;
 
     private UpdateLabTestRequest(
-            Optional<String> name, Optional<Boolean> active, Map<String, Object> additionalProperties) {
+            Optional<String> name,
+            Optional<Boolean> active,
+            Optional<String> labAccountId,
+            Optional<List<Integer>> markerIds,
+            Optional<List<String>> providerIds,
+            Map<String, Object> additionalProperties) {
         this.name = name;
         this.active = active;
+        this.labAccountId = labAccountId;
+        this.markerIds = markerIds;
+        this.providerIds = providerIds;
         this.additionalProperties = additionalProperties;
     }
 
@@ -52,6 +67,36 @@ public final class UpdateLabTestRequest {
         return active;
     }
 
+    @JsonIgnore
+    public Optional<String> getLabAccountId() {
+        if (labAccountId == null) {
+            return Optional.empty();
+        }
+        return labAccountId;
+    }
+
+    /**
+     * @return Complete marker membership for the panel. A changed set creates the new default version used by all subsequent orders.
+     */
+    @JsonIgnore
+    public Optional<List<Integer>> getMarkerIds() {
+        if (markerIds == null) {
+            return Optional.empty();
+        }
+        return markerIds;
+    }
+
+    /**
+     * @return Complete provider-code membership for the panel. A changed set creates the new default version used by all subsequent orders.
+     */
+    @JsonIgnore
+    public Optional<List<String>> getProviderIds() {
+        if (providerIds == null) {
+            return Optional.empty();
+        }
+        return providerIds;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("name")
     private Optional<String> _getName() {
@@ -62,6 +107,24 @@ public final class UpdateLabTestRequest {
     @JsonProperty("active")
     private Optional<Boolean> _getActive() {
         return active;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("lab_account_id")
+    private Optional<String> _getLabAccountId() {
+        return labAccountId;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("marker_ids")
+    private Optional<List<Integer>> _getMarkerIds() {
+        return markerIds;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("provider_ids")
+    private Optional<List<String>> _getProviderIds() {
+        return providerIds;
     }
 
     @java.lang.Override
@@ -76,12 +139,16 @@ public final class UpdateLabTestRequest {
     }
 
     private boolean equalTo(UpdateLabTestRequest other) {
-        return name.equals(other.name) && active.equals(other.active);
+        return name.equals(other.name)
+                && active.equals(other.active)
+                && labAccountId.equals(other.labAccountId)
+                && markerIds.equals(other.markerIds)
+                && providerIds.equals(other.providerIds);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.name, this.active);
+        return Objects.hash(this.name, this.active, this.labAccountId, this.markerIds, this.providerIds);
     }
 
     @java.lang.Override
@@ -99,6 +166,12 @@ public final class UpdateLabTestRequest {
 
         private Optional<Boolean> active = Optional.empty();
 
+        private Optional<String> labAccountId = Optional.empty();
+
+        private Optional<List<Integer>> markerIds = Optional.empty();
+
+        private Optional<List<String>> providerIds = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -107,6 +180,9 @@ public final class UpdateLabTestRequest {
         public Builder from(UpdateLabTestRequest other) {
             name(other.getName());
             active(other.getActive());
+            labAccountId(other.getLabAccountId());
+            markerIds(other.getMarkerIds());
+            providerIds(other.getProviderIds());
             return this;
         }
 
@@ -154,8 +230,80 @@ public final class UpdateLabTestRequest {
             return this;
         }
 
+        @JsonSetter(value = "lab_account_id", nulls = Nulls.SKIP)
+        public Builder labAccountId(Optional<String> labAccountId) {
+            this.labAccountId = labAccountId;
+            return this;
+        }
+
+        public Builder labAccountId(String labAccountId) {
+            this.labAccountId = Optional.ofNullable(labAccountId);
+            return this;
+        }
+
+        public Builder labAccountId(Nullable<String> labAccountId) {
+            if (labAccountId.isNull()) {
+                this.labAccountId = null;
+            } else if (labAccountId.isEmpty()) {
+                this.labAccountId = Optional.empty();
+            } else {
+                this.labAccountId = Optional.of(labAccountId.get());
+            }
+            return this;
+        }
+
+        /**
+         * <p>Complete marker membership for the panel. A changed set creates the new default version used by all subsequent orders.</p>
+         */
+        @JsonSetter(value = "marker_ids", nulls = Nulls.SKIP)
+        public Builder markerIds(Optional<List<Integer>> markerIds) {
+            this.markerIds = markerIds;
+            return this;
+        }
+
+        public Builder markerIds(List<Integer> markerIds) {
+            this.markerIds = Optional.ofNullable(markerIds);
+            return this;
+        }
+
+        public Builder markerIds(Nullable<List<Integer>> markerIds) {
+            if (markerIds.isNull()) {
+                this.markerIds = null;
+            } else if (markerIds.isEmpty()) {
+                this.markerIds = Optional.empty();
+            } else {
+                this.markerIds = Optional.of(markerIds.get());
+            }
+            return this;
+        }
+
+        /**
+         * <p>Complete provider-code membership for the panel. A changed set creates the new default version used by all subsequent orders.</p>
+         */
+        @JsonSetter(value = "provider_ids", nulls = Nulls.SKIP)
+        public Builder providerIds(Optional<List<String>> providerIds) {
+            this.providerIds = providerIds;
+            return this;
+        }
+
+        public Builder providerIds(List<String> providerIds) {
+            this.providerIds = Optional.ofNullable(providerIds);
+            return this;
+        }
+
+        public Builder providerIds(Nullable<List<String>> providerIds) {
+            if (providerIds.isNull()) {
+                this.providerIds = null;
+            } else if (providerIds.isEmpty()) {
+                this.providerIds = Optional.empty();
+            } else {
+                this.providerIds = Optional.of(providerIds.get());
+            }
+            return this;
+        }
+
         public UpdateLabTestRequest build() {
-            return new UpdateLabTestRequest(name, active, additionalProperties);
+            return new UpdateLabTestRequest(name, active, labAccountId, markerIds, providerIds, additionalProperties);
         }
 
         public Builder additionalProperty(String key, Object value) {
