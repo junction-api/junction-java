@@ -23,13 +23,28 @@ import java.util.Optional;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = GetByIdLabTestsRequest.Builder.class)
 public final class GetByIdLabTestsRequest {
+    private final Optional<Integer> version;
+
     private final Optional<String> labAccountId;
 
     private final Map<String, Object> additionalProperties;
 
-    private GetByIdLabTestsRequest(Optional<String> labAccountId, Map<String, Object> additionalProperties) {
+    private GetByIdLabTestsRequest(
+            Optional<Integer> version, Optional<String> labAccountId, Map<String, Object> additionalProperties) {
+        this.version = version;
         this.labAccountId = labAccountId;
         this.additionalProperties = additionalProperties;
+    }
+
+    /**
+     * @return Immutable marker-set version. Omit to read the latest version.
+     */
+    @JsonIgnore
+    public Optional<Integer> getVersion() {
+        if (version == null) {
+            return Optional.empty();
+        }
+        return version;
     }
 
     /**
@@ -41,6 +56,12 @@ public final class GetByIdLabTestsRequest {
             return Optional.empty();
         }
         return labAccountId;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("version")
+    private Optional<Integer> _getVersion() {
+        return version;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
@@ -61,12 +82,12 @@ public final class GetByIdLabTestsRequest {
     }
 
     private boolean equalTo(GetByIdLabTestsRequest other) {
-        return labAccountId.equals(other.labAccountId);
+        return version.equals(other.version) && labAccountId.equals(other.labAccountId);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.labAccountId);
+        return Objects.hash(this.version, this.labAccountId);
     }
 
     @java.lang.Override
@@ -80,6 +101,8 @@ public final class GetByIdLabTestsRequest {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
+        private Optional<Integer> version = Optional.empty();
+
         private Optional<String> labAccountId = Optional.empty();
 
         @JsonAnySetter
@@ -88,7 +111,33 @@ public final class GetByIdLabTestsRequest {
         private Builder() {}
 
         public Builder from(GetByIdLabTestsRequest other) {
+            version(other.getVersion());
             labAccountId(other.getLabAccountId());
+            return this;
+        }
+
+        /**
+         * <p>Immutable marker-set version. Omit to read the latest version.</p>
+         */
+        @JsonSetter(value = "version", nulls = Nulls.SKIP)
+        public Builder version(Optional<Integer> version) {
+            this.version = version;
+            return this;
+        }
+
+        public Builder version(Integer version) {
+            this.version = Optional.ofNullable(version);
+            return this;
+        }
+
+        public Builder version(Nullable<Integer> version) {
+            if (version.isNull()) {
+                this.version = null;
+            } else if (version.isEmpty()) {
+                this.version = Optional.empty();
+            } else {
+                this.version = Optional.of(version.get());
+            }
             return this;
         }
 
@@ -118,7 +167,7 @@ public final class GetByIdLabTestsRequest {
         }
 
         public GetByIdLabTestsRequest build() {
-            return new GetByIdLabTestsRequest(labAccountId, additionalProperties);
+            return new GetByIdLabTestsRequest(version, labAccountId, additionalProperties);
         }
 
         public Builder additionalProperty(String key, Object value) {

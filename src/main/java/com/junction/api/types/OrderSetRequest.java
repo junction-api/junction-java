@@ -30,16 +30,20 @@ public final class OrderSetRequest {
 
     private final Optional<String> labAccountId;
 
+    private final Optional<OrderSetParameters> parameters;
+
     private final Map<String, Object> additionalProperties;
 
     private OrderSetRequest(
             Optional<List<String>> labTestIds,
             Optional<AddOnOrder> addOn,
             Optional<String> labAccountId,
+            Optional<OrderSetParameters> parameters,
             Map<String, Object> additionalProperties) {
         this.labTestIds = labTestIds;
         this.addOn = addOn;
         this.labAccountId = labAccountId;
+        this.parameters = parameters;
         this.additionalProperties = additionalProperties;
     }
 
@@ -67,6 +71,14 @@ public final class OrderSetRequest {
         return labAccountId;
     }
 
+    @JsonIgnore
+    public Optional<OrderSetParameters> getParameters() {
+        if (parameters == null) {
+            return Optional.empty();
+        }
+        return parameters;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("lab_test_ids")
     private Optional<List<String>> _getLabTestIds() {
@@ -85,6 +97,12 @@ public final class OrderSetRequest {
         return labAccountId;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("parameters")
+    private Optional<OrderSetParameters> _getParameters() {
+        return parameters;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -99,12 +117,13 @@ public final class OrderSetRequest {
     private boolean equalTo(OrderSetRequest other) {
         return labTestIds.equals(other.labTestIds)
                 && addOn.equals(other.addOn)
-                && labAccountId.equals(other.labAccountId);
+                && labAccountId.equals(other.labAccountId)
+                && parameters.equals(other.parameters);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.labTestIds, this.addOn, this.labAccountId);
+        return Objects.hash(this.labTestIds, this.addOn, this.labAccountId, this.parameters);
     }
 
     @java.lang.Override
@@ -124,6 +143,8 @@ public final class OrderSetRequest {
 
         private Optional<String> labAccountId = Optional.empty();
 
+        private Optional<OrderSetParameters> parameters = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -133,6 +154,7 @@ public final class OrderSetRequest {
             labTestIds(other.getLabTestIds());
             addOn(other.getAddOn());
             labAccountId(other.getLabAccountId());
+            parameters(other.getParameters());
             return this;
         }
 
@@ -202,8 +224,30 @@ public final class OrderSetRequest {
             return this;
         }
 
+        @JsonSetter(value = "parameters", nulls = Nulls.SKIP)
+        public Builder parameters(Optional<OrderSetParameters> parameters) {
+            this.parameters = parameters;
+            return this;
+        }
+
+        public Builder parameters(OrderSetParameters parameters) {
+            this.parameters = Optional.ofNullable(parameters);
+            return this;
+        }
+
+        public Builder parameters(Nullable<OrderSetParameters> parameters) {
+            if (parameters.isNull()) {
+                this.parameters = null;
+            } else if (parameters.isEmpty()) {
+                this.parameters = Optional.empty();
+            } else {
+                this.parameters = Optional.of(parameters.get());
+            }
+            return this;
+        }
+
         public OrderSetRequest build() {
-            return new OrderSetRequest(labTestIds, addOn, labAccountId, additionalProperties);
+            return new OrderSetRequest(labTestIds, addOn, labAccountId, parameters, additionalProperties);
         }
 
         public Builder additionalProperty(String key, Object value) {
